@@ -17,36 +17,73 @@
 
   </head>
 
-  <body>
-    <main>
-      <nav>
-        <ul>
-            <button> 🞬 </button>
-          <li>
-            <!-- link one -->
-            <a href="#home"> Home </a>
-          </li>
+  <body onload ="startTime()">
 
-          <li>
-            <!-- link two -->
-             <a href="#browse">  Browse </a>
-          </li>
 
-          <li>
-            <!-- link three -->
-            <a href="#DT">  Now : </a>
-          </li>
+     <div class="topnav">
 
-          <li>
-            <!-- link four -->
-            <a href="#language">  Language </a>
-          </li>
+            <a> Home </a>
+            <div class="dropdown2">
+              <button class="dropbtn2"> Browse
+              </button>
+                <div class="dropdown-content2">
+                  <a href="#">Career Portfolio</a>
+                  <a href="Academic_Page/Academic_Page.html">Academics</a>
+                  <a href="#">Skills</a>
+                  <a href="#">Other interests</a>
+                </div>
+            </div>
 
+            <a href="#DT">Time: <a id="time"></a> </a>
+            <div class="dropdown">
+              <button class="dropbtn"> Language
+              </button>
+                <div class="dropdown-content">
+                  <a href="#">English</a>
+                  <a href="#">French</a>
+                  <a href="#">Vietnamese</a>
+                </div>
+            </div>
+      </div>
+
+  <main>
+      <div class = "WelcomeTab">
+        <span class = "NameField" >Jordan Nguyen</span>
+        <span class = "WelcomeField" >Welcome to my webpage</span>
+      </div>
+      <div class = "AboutWelcome">
+        <span>Navigate around this website to get to know me</span>
+        <span>You will learn all there is to know about my career interests,
+           past experiences, Academic achievements (and a few failures)
+           and a few personal things as well. Enjoy your stay!</span>
+      </div>
+
+      <div class = "Career_Portfolio">
+        <span class = "CareerPort">Career Portfolio</span>
+
+          <ul>
+          <li data-text = "Jobs"> <a href = "#">Jobs</a> </li>
+          <li data-text = "Internships"> <a href = "#">Internships</a> </li>
         </ul>
-      </nav>
 
+      </div>
 
+      <div class = "Academics">
+          <div class = "AcaTxt" > Academics </div>
+          <a href="Academic_Page/Academic_Page.html" class="AcaBtn">
+            Go to Academics Page
+          </a>
+      </div>
 
+      <div class = "Skills">
+          <h1>Skills</h1>
+
+      </div>
+
+      <div class = "Other">
+          <h1>Other Section</h1>
+
+      </div>
 
     </main>
 
