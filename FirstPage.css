@@ -130,7 +130,7 @@ body{
   margin-bottom: 3vw;
   background: Black;
   position: relative;
-  animation: WelFieldTxt 5s 1;
+  animation: WelFieldTxt 1s 1;
 
 }
 
@@ -193,6 +193,27 @@ body{
   list-style: none;
 }
 
+.Career_Portfolio ul li:before{
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff;
+  font-size: 6em;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0;
+  letter-spacing: 1vw;
+  transition: 0.5s;
+  white-space: nowrap;;
+}
+
+.Career_Portfolio ul li:hover:before{
+  opacity: 1;
+  letter-spacing: 0vw;
+}
+
 .Career_Portfolio ul li a{
   position: relative;
   display: inline-block;
@@ -207,7 +228,7 @@ body{
   z-index: 1;
 }
 .Career_Portfolio ul:hover li a{
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .Career_Portfolio ul li a:hover{
@@ -215,6 +236,25 @@ body{
   z-index: 1000;
   background: #ff3f81;
   opacity: 1;
+}
+.Career_Portfolio ul li a:before{
+  content: '';
+  position: absolute;
+  top:0;
+  left: -1vw;
+  width: 2vw;
+  height: 2vw;
+  background: linear-gradient(90deg,
+    transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: skewX(35deg);
+    transition: 0s;
+}
+
+.Career_Portfolio ul li a:hover:before{
+   left: calc(100% + 3vw);
+   transition: 0.5s;
+   transition-delay: 0.2s;
+
 }
 
 .Academics{
@@ -252,6 +292,7 @@ body{
   left: 60vw;
   bottom: -30vw;
 }
+
 .AcaTxt:hover, .AcaBtn:hover{
 animation: bounceAca 1s linear;
 }
@@ -280,6 +321,35 @@ animation: bounceAca 1s linear;
 }
 
 .Other{
-  padding: 1vw 15px;
-  background-color: rgb(201, 76, 76);
+  padding: 1vw 1vh;
+  background-color: rgb(85, 76, 76);
+  width : 100vw;
+  height: 30vh;
+}
+
+.ContactFoot{
+  padding: 1vh 1vw;
+  width : 100vw;
+  height: 10vh;
+  background-color: green;
+  position: relative;
+  text-align: center;
+}
+
+.CtcBtn{
+  background-color: #1c87c9;
+  border: none;
+  color: white;
+  padding: 0.75vw 0.75vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 3vw;
+  margin: 0.2vw 0.2vw;
+  cursor: pointer;
+  position: absolute;
+  left: 80vw;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

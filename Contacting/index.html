@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" dir ="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content =
+    "width=device-width, initial-scale=1">
+
+    <meta name="description" content =
+    "who is Jordan?">
+
+    <title> Jordan 1st Page </title>
+
+    <link rel = "stylesheet" href = "Contacting.css">
+    <script src="../jquery-3.5.0.js" defer></script>
+    <script src="Contacting.js" defer></script>
+
+  </head>
+
+  <body onload ="startTime()">
+
+
+     <div class="topnav">
+
+            <a href="../FirstPage.html"> Home </a>
+            <div class="dropdown2">
+              <button class="dropbtn2"> Browse
+              </button>
+                <div class="dropdown-content2">
+                  <a href="#">Career Portfolio</a>
+                  <a>Academics</a>
+                  <a href="#">Skills</a>
+                  <a href="#">Other interests</a>
+                </div>
+            </div>
+
+            <a href="#DT">Time: <a id="time"></a> </a>
+            <div class="dropdown">
+              <button class="dropbtn"> Language
+              </button>
+                <div class="dropdown-content">
+                  <a href="#">English</a>
+                  <a href="#">French</a>
+                  <a href="#">Vietnamese</a>
+                </div>
+            </div>
+      </div>
+
+
+  <div class="row col-md-6 col-md-offset-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center">
+        <h1>Contact Form</h1>
+      </div>
+      <div class="panel-body">
+        <form action="http://localhost/My_New_Project/Contacting/connect.php" method="post">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              name="firstName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              name="lastName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Purpose">Purpose of Contact</label>
+            <div>
+              <label for="Academics" class="radio-inline"
+                ><input
+                  type="radio"
+                  name="Purpose"
+                  value="A"
+                  id="Academics"
+                />Academics</label
+              >
+              <label for="Professional" class="radio-inline"
+                ><input
+                  type="radio"
+                  name="Purpose"
+                  value="P"
+                  id="Professional"
+                />Professional</label
+              >
+              <label for="others" class="radio-inline"
+                ><input
+                  type="radio"
+                  name="Purpose"
+                  value="O"
+                  id="others"
+                />Other Reason</label
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input
+
+              class="form-control"
+              id="email"
+              name="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="number">Your Phone Number</label>
+            <input
+              type="number"
+              class="form-control"
+              id="number"
+              name="number"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="Message">Send a short Message</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Message"
+              name="Message"
+            />
+          </div>
+
+          <input type="submit" class="btn btn-primary" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  <main>
+
+    </main>
+
+  </body>
+
+</html>
