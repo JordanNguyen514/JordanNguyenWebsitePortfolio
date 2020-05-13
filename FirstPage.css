@@ -163,9 +163,9 @@ body{
 .Career_Portfolio{
   margin:0;
   padding: 0;
+  height: 55vh;
   font-family: 'Poppins', sans-serif;
   display: flex;
-  min-height: 40vh;
   background-image: url('FirstPageImages/Workplace.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -191,16 +191,17 @@ body{
 
 .Career_Portfolio ul li{
   list-style: none;
+
 }
 
 .Career_Portfolio ul li:before{
   content: attr(data-text);
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 70%;
   transform: translate(-50%,-50%);
-  color: #fff;
-  font-size: 6em;
+  color: #4285F4;
+  font-size: 10vw;
   font-weight: 700;
   pointer-events: none;
   opacity: 0;
@@ -217,15 +218,19 @@ body{
 .Career_Portfolio ul li a{
   position: relative;
   display: inline-block;
-  padding: 1.5vw 0.5vh;
+  padding: 1.5vw;
   text-decoration: none;
   background: #2196f3;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 1vw;
+  letter-spacing: 0.5vw;
+  margin-bottom: 4vh;
   overflow: hidden;
   transition: 1s;
   z-index: 1;
+  top: 70%;
+  left: -45vw;
+  font-size: 2vw;
 }
 .Career_Portfolio ul:hover li a{
   opacity: 0.5;
@@ -235,7 +240,7 @@ body{
   transform: scale(1.4);
   z-index: 1000;
   background: #ff3f81;
-  opacity: 1;
+  opacity: 0.5;
 }
 .Career_Portfolio ul li a:before{
   content: '';
@@ -244,10 +249,9 @@ body{
   left: -1vw;
   width: 2vw;
   height: 2vw;
-  background: linear-gradient(90deg,
-    transparent, rgba(255, 255, 255, 0.8), transparent);
-    transform: skewX(35deg);
-    transition: 0s;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(35deg);
+  transition: 0s;
 }
 
 .Career_Portfolio ul li a:hover:before{
@@ -259,8 +263,7 @@ body{
 
 .Academics{
   padding: 0vh 1vw;
-  width : 99vw;
-  height: 45vw;
+  height: 30vw;
   background-image: url('FirstPageImages/Academic1.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -269,9 +272,9 @@ body{
 }
 
 .AcaTxt{
-  position: relative;
-  left: 1vw;
-  top: 1vw;
+  position: absolute;
+  left: 4vw;
+  top: 4vh;
   font-size: 6vw;
   color: green;
   font-family: Fantasy;
@@ -281,16 +284,16 @@ body{
   background-color: #1c87c9;
   border: none;
   color: white;
-  padding: 0.75vw 0.75vw;
+  padding: 0.75vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 3vw;
   margin: 0.2vw 0.2vw;
   cursor: pointer;
-  position: relative;
-  left: 60vw;
-  bottom: -30vw;
+  position: absolute;
+  left: 68vw;
+  bottom: 3vh;
 }
 
 .AcaTxt:hover, .AcaBtn:hover{
@@ -322,14 +325,62 @@ animation: bounceAca 1s linear;
 
 .Other{
   padding: 1vw 1vh;
-  background-color: rgb(85, 76, 76);
-  width : 100vw;
-  height: 30vh;
+  height: 80vh;
+  background-image: url('FirstPageImages/OtherSection/Other1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: cover;
+  position: relative;
+  transition: 5s;
+
+  animation-name: animate;
+  animation-direction: alternate-reverse;
+  animation-duration: 20s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes animate {
+  0%{background-image: url('FirstPageImages/OtherSection/Other1.jpg');}
+  20%{background-image: url('FirstPageImages/OtherSection/Other2.jpg');}
+  40%{background-image: url('FirstPageImages/OtherSection/Other3.jpg');}
+  60%{background-image: url('FirstPageImages/OtherSection/Other4.jpeg');}
+  80%{background-image: url('FirstPageImages/OtherSection/Other5.jpg');}
+  100%{background-image: url('FirstPageImages/OtherSection/Other6.jpeg');}
+}
+
+.OtherHead{
+  position: relative;
+  text-align: left;
+  top: 4vh;
+  font-size: 6vw;
+  color: #737373;
+  font-family: Oxygen;
+}
+.OtherBtn{
+  background-color: #1c87c9;
+  border: none;
+  color: white;
+  padding: 0.75vw 0.75vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2vw;
+  margin: 0.2vw 0.2vw;
+  cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 90%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .ContactFoot{
   padding: 1vh 1vw;
-  width : 100vw;
   height: 10vh;
   background-color: green;
   position: relative;
