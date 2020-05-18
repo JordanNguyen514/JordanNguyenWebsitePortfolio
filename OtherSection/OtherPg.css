@@ -137,8 +137,8 @@ font-family: Oxygen;
 
 .container .card{
   position: relative;
-  width: 300px;
-  height: 400px;
+  width: 360px;
+  height: 240px;
   margin: 0 auto;
   background: #fff;
   box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
@@ -159,6 +159,28 @@ font-family: Oxygen;
   margin: 0;
   padding: 0;
   }
+
+  .container .card:nth-child(1) .face.face1 {
+          background: url('Images/SportsCover.jpg');
+          background-repeat: no-repeat;
+          background-size: 360px 240px;
+      }
+
+      .container .card:nth-child(1) .face.face1 .Headliner2:after {
+    content: '\A';
+    white-space: pre;
+}
+      .container .card:nth-child(2) .face.face1{
+        background: url('Images/Travelling.jpg');
+        background-repeat: no-repeat;
+        background-size: 360px 240px;
+          }
+
+          .container .card:nth-child(3) .face.face1{
+            background: url('Images/Socialling.jpg');
+            background-repeat: no-repeat;
+            background-size: 360px 240px;
+              }
 
 .container .card .face.face1 h2{
     box-sizing: border-box;
