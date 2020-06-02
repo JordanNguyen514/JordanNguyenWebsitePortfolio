@@ -526,3 +526,28 @@ animation: bounceAca 1s linear;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+.SocialMedia {
+  background: #162c3b;
+  padding: 20px;
+  text-align: center;
+}
+
+.SocialMedia .SocImgBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.SocialMedia .SocImgBox img{
+  max-width: 200px;
+  margin: 20px;
+  opacity: 0.25;
+  cursor: pointer;
+}
+
+.SocialMedia .SocImgBox img:hover{
+  opacity: 1;
+}
