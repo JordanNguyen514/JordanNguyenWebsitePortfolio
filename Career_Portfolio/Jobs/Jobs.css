@@ -18,7 +18,8 @@
 .topnav{
   width: 100%;
   overflow: hidden;
-background-color: #333;
+  background-color: #333;
+  height: 7vh;
 
 }
 
@@ -119,8 +120,9 @@ body{
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 100vh;
+  min-height: 93vh;
   background: #010615;
+  vertical-align: center;
 }
 
 .CardsUI .box{
@@ -151,9 +153,11 @@ body{
 }
 
 .CardsUI .box .imgbox img{
+  position: relative;
   max-width: 100%;
   opacity: 0.1;
   transition: 0.5s;
+
 }
 
 .CardsUI .box:hover .imgbox img{
@@ -183,9 +187,6 @@ body{
 
 }
 
-
-
-
 .CardsUI .box .boxcontent{
   position: absolute;
   top: 11.936339522546419vh;
@@ -206,16 +207,10 @@ body{
 }
 
 .CardsUI .box .boxcontent h2{
-  font-size: 30px;
+  font-size: 2vw;
   color:#fff;
   font-weight: 500;
+  margin-top: 20vh;
   line-height: 2.6525198938992043vh;
   letter-spacing:0.06510416666666667vw;
-}
-
-.CardsUI .box .boxcontent h2 span{
-  font-size: 20px;
-  color:#fff;
-  font-weight: 200;
-  letter-spacing:0.13vw;
 }
