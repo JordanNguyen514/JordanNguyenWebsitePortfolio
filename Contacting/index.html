@@ -7,9 +7,9 @@
     "width=device-width, initial-scale=1">
 
     <meta name="description" content =
-    "who is Jordan?">
+    "Contact Page">
 
-    <title> Jordan 1st Page </title>
+    <title>Contact Page</title>
 
     <link rel = "stylesheet" href = "Contacting.css">
     <script src="../jquery-3.5.0.js" defer></script>
@@ -34,7 +34,6 @@
                 </div>
             </div>
 
-            <a href="#DT">Time: <a id="time"></a> </a>
             <div class="dropdown">
               <button class="dropbtn"> Language
               </button>
@@ -44,12 +43,14 @@
                   <a href="#">Vietnamese</a>
                 </div>
             </div>
+
+            <a id="time"></a>
       </div>
 
 
-  <div class="row col-md-6 col-md-offset-3">
+  <div class="ContactForm">
     <div class="panel panel-primary">
-      <div class="panel-heading text-center">
+      <div class="ContactForm1">
         <h1>Contact Form</h1>
       </div>
       <div class="panel-body">
@@ -75,30 +76,28 @@
           <div class="form-group">
             <label for="Purpose">Purpose of Contact</label>
             <div>
-              <label for="Academics" class="radio-inline"
-                ><input
+              <label for="Academics" class="radio-inline">
+                <input
                   type="radio"
                   name="Purpose"
                   value="A"
                   id="Academics"
-                />Academics</label
-              >
-              <label for="Professional" class="radio-inline"
-                ><input
+                />Academics</label>
+              <label for="Professional" class="radio-inline">
+                <input
                   type="radio"
                   name="Purpose"
                   value="P"
                   id="Professional"
-                />Professional</label
-              >
+                />Professional</label>
+
               <label for="others" class="radio-inline"
                 ><input
                   type="radio"
                   name="Purpose"
                   value="O"
                   id="others"
-                />Other Reason</label
-              >
+                />Other Reason</label>
             </div>
           </div>
           <div class="form-group">
@@ -131,7 +130,7 @@
             />
           </div>
 
-          <input type="submit" class="btn btn-primary" />
+          <input type="submit" class="SubBtn" />
         </form>
       </div>
     </div>

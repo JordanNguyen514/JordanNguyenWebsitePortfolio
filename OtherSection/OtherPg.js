@@ -11,7 +11,7 @@ function startTime() {
   m = checkTime(m);
   s = checkTime(s);
   document.getElementById('time').innerHTML =
-  h + ":" + m + ":" + s;
+  "Time: " +  h + ":" + m + ":" + s;
   var t = setTimeout(startTime, 500);
 }
 

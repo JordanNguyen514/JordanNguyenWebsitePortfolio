@@ -529,25 +529,36 @@ animation: bounceAca 1s linear;
 
 .SocialMedia {
   background: #162c3b;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
+  color: white;
 }
+
+.SocialMedia h1{
+  font-size: 3vw;
+  font-family: cursive;
+}
+
+
 
 .SocialMedia .SocImgBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 40px;
+  margin-top: 20px;
+
 }
 
-.SocialMedia .SocImgBox img{
+.SocialMedia .SocImgBox img {
   max-width: 200px;
   margin: 20px;
-  opacity: 0.25;
   cursor: pointer;
+  opacity: 0.25;
+  filter: grayscale(1);
 }
 
 .SocialMedia .SocImgBox img:hover{
   opacity: 1;
+  filter: grayscale(0);
 }
