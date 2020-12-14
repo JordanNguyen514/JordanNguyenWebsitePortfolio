@@ -409,22 +409,21 @@ animation: bounceAca 1s linear;
 }
 .Other{
   padding: 1vw 1vh;
-  height: 80vh;
-  background-image: url('FirstPageImages/OtherSection/Other1.jpg');
-  background-repeat: no-repeat;
+  height: 100vh;
+
   background-attachment: fixed;
   background-size: cover;
   background-position: cover;
   position: relative;
   transition: 5s;
 
+  animation-duration: 40s;
   animation-name: animate;
   animation-direction: alternate-reverse;
-  animation-duration: 20s;
-  animation-fill-mode: forwards;
+
   animation-iteration-count: infinite;
   animation-play-state: running;
-  animation-timing-function: ease-in-out;
+
 
 }
 
@@ -441,8 +440,9 @@ animation: bounceAca 1s linear;
   position: relative;
   text-align: left;
   top: 4vh;
-  font-size: 6vw;
-  color: #737373;
+  font-size: 4vw;
+  margin-left: 2vw;
+  color: #737d73;
   font-family: Oxygen;
 }
 .OtherBtn{
@@ -459,70 +459,6 @@ animation: bounceAca 1s linear;
   position: absolute;
   left: 90%;
   top: 90%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.ContactFoot{
-  padding: 1vh 1vw;
-  height: 10vh;
-  background-color: green;
-  position: relative;
-  text-align: center;
-}
-
-.CtcBtn{
-  background-color: #1c87c9;
-  border: none;
-  color: white;
-  padding: 0.75vw 0.75vh;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 3vw;
-  margin: 0.2vw 0.2vw;
-  cursor: pointer;
-  position: absolute;
-  left: 80vw;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-
-.CtcBtn{
-  background-color: #1c87c9;
-  border: none;
-  color: white;
-  padding: 0.75vw 0.75vh;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 3vw;
-  margin: 0.2vw 0.2vw;
-  cursor: pointer;
-  position: absolute;
-  left: 80vw;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-
-.CVBtn{
-  background-color: #1c87c9;
-  border: none;
-  color: white;
-  padding: 0.75vw 0.75vh;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 3vw;
-  margin: 0.2vw 0.2vw;
-  cursor: pointer;
-  position: absolute;
-  left: 10vw;
-  top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
@@ -559,6 +495,28 @@ animation: bounceAca 1s linear;
 }
 
 .SocialMedia .SocImgBox img:hover{
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+ .ContactBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+
+}
+
+ .ContactBox img {
+  max-width: 15vw;
+  margin: 20px;
+  cursor: pointer;
+  opacity: 0.25;
+  filter: grayscale(1);
+}
+
+.SocialMedia .ContactBox img:hover{
   opacity: 1;
   filter: grayscale(0);
 }
