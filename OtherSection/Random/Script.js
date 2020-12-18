@@ -12,9 +12,17 @@ $(function(){
     });
 });
 
+
+
 // City weather API
-var city = "Philadelphia"
-var JSONfileWeather = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
+
+var cityButton = document.querySelector('.CitySubmit');
+var cityVal = document.querySelector('.CityinputValue');
+var weatherIn = document.querySelector('.weather');
+var Temperature = document.querySelector('.temp');
+
+cityButton.addEventListener("click", function(){
+var JSONfileWeather = "http://api.openweathermap.org/data/2.5/weather?q=" + cityVal.value +
 "&units=metric&APPID=fe75661e792e64f57f82a5bfc2eb3990"
 $.getJSON(JSONfileWeather,
     function(data){
@@ -24,18 +32,22 @@ $.getJSON(JSONfileWeather,
       "http://api.openweathermap.org/img/w/" + data.weather[0].icon + ".png";
     var temp = Math.floor(data.main.temp);
     var weather = data.weather[0].main;
-    $('.city').append(city);
-    $('.icon').attr('src', icon);
-    $('.temp').append(weather," ");
-    $('.temp').append(temp,"°C");
 
+    $('.icon').attr('src', icon);
+    weatherIn.innerHTML = weather;
+    Temperature.innerHTML = "Temperature: " + temp + "°C";
 });
+})
 
 // Covid-19 API
-var countryCov = "usa"
-var DateCov = "2020-12-17"
+var countryCov = document.querySelector('.countryCovid');
+var DateCov = document.querySelector('.DateCovid');
+var CovButt = document.querySelector('.CovidSubmit');
+var TotCovid = document.querySelector('.TotalCovid');
+var CasesCovid = document.querySelector('.CaseCovid');
 
-fetch("https://covid-193.p.rapidapi.com/history?country=" + countryCov + "&day=" + DateCov, {
+CovButt.addEventListener("click", function(){
+fetch("https://covid-193.p.rapidapi.com/history?country=" + countryCov.value + "&day=" + DateCov.value, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-key": "d6867d1c6cmsh6ebfa6d2801af0cp1e6261jsn11a1bd39c437",
@@ -46,23 +58,31 @@ fetch("https://covid-193.p.rapidapi.com/history?country=" + countryCov + "&day="
 .then(response => {
 	console.log(response);
   console.log(response.response[0]);
+
   var NumbCases = response.response[0].cases.new;
-  var dayofcase = response.response[0].day;
-  var countrycovid = response.response[0].country;
   var totcovid = response.response[0].cases.total;
-  $('.DateCovid').append(dayofcase);
-  $('.countryCovid').append(countrycovid);
-  $('.CaseCovid').append(NumbCases," Cases");
-  $('.TotalCovid').append(totcovid," total cases");
+
+  CasesCovid.innerHTML = "# for " + DateCov.value + ": " + NumbCases + " New Cases";
+  TotCovid.innerHTML = "# as of " + DateCov.value + ": " + totcovid + " Total Cases";
 })
 .catch(err => {
 	console.error(err);
 });
+})
 
-var regionStock = "CA"
-var symbolStock = "AC.TO"
-fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol="+symbolStock
-+"&region="+regionStock, {
+var TickerStock = document.querySelector('.TickerStock');
+var RegionStock = document.querySelector('.RegionStock');
+
+var StockSubmit = document.querySelector('.StockSubmit');
+
+var NameStock = document.querySelector('.NameStock');
+var MarkCAP = document.querySelector('.MarkCAP');
+var PriceToday = document.querySelector('.PriceToday');
+var Change = document.querySelector('.Change');
+
+StockSubmit.addEventListener("click", function(){
+fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol="+ TickerStock.value
++"&region="+RegionStock.value, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-key": "d6867d1c6cmsh6ebfa6d2801af0cp1e6261jsn11a1bd39c437",
@@ -74,18 +94,19 @@ fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symb
 	console.log(response);
 
   var LongNameStock = response.price.longName;
-  var TickerStock = response.price.symbol;
   var MktPrice = response.price.regularMarketPrice.fmt;
   var MktCap = response.price.marketCap.fmt;
-  var Curr = response.price.currency;
   var PercChang = response.price.regularMarketChangePercent.fmt;
+  var Curr = response.price.currency;
 
-  $('.NameStock').append(LongNameStock);
-  $('.tickerStock').append(TickerStock);
-  $('.MarkCAP').append(MktCap," ", Curr);
-  $('.PriceToday').append(MktPrice," ", Curr);
-  $('.Change').append(PercChang);
+  NameStock.innerHTML = "Company name: " + LongNameStock
+  MarkCAP.innerHTML = "Market Cap: " + MktCap + " " + Curr
+  PriceToday.innerHTML = "Today's market price: " +MktPrice + " " + Curr
+  Change.innerHTML = "Change: " + PercChang
+
 })
 .catch(err => {
 	console.error(err);
 });
+
+})

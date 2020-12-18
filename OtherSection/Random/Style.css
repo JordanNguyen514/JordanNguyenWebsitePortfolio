@@ -7,7 +7,8 @@ body{
   background: #aaa;
   width: 80vw;
   height: 80vh;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .your-class{
@@ -45,41 +46,73 @@ body{
   transform: scale(1.5);
 }
 
-.weather-container{
+.window-container{
   background: #ccc;
   text-align: center;
-  align-items: center;
-  width: 15vw;
-  margin-right: 5vw;
+  width: 40vw;
+  margin-right: 10vw;
+  margin-left: 10vw;
   display: inline-block;
+  align-items: center;
+  text-align: center;
+}
+
+.window-container h1{
+  font-size: 3vw;
+  margin-top: 2vh;
+  justify-content: center;
+  float: left;
+}
+
+.window-container p{
+  font-size: 2vw;
+  margin-top: 2vh;
+  justify-content: center;
+  float: left;
 }
 .icon{
   width: 10vw;
-}
-.city{
-  font-size: 45px;
-  margin: 0;
-}
-
-.weather{
-  font-size: 22px;
-  margin: 0;
-}
-
-.temp{
-  font-size: 60px;
-  margin: 0;
-  font-weight: bold;
-}
-
-.covid-container{
-  background: #ccc;
-  text-align: center;
-  align-items: center;
-  width: 15vw;
-  margin-right: 5vw;
+  float: left;
   display: inline-block;
 }
+input[type="input"]{
+  height: 8vh;
+  width: 20vw;
+  background: #e7e7e7;
+  font-family: "Nunito",sans-serif;
+  font-weight: bold;
+  font-size: 1.25vw;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 2vh;
+  float: left;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  position: relative;
+  border-radius: 25px 25px;
+  height: 4vh;
+  width: 5vw;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #ffc107;
+  color: #fff;
+  font-size: 1vw;
+  float: left;
+  margin-top: 2vh;
+  clear: left;
+  text-align: center;
+  display: inline-block;
+}
+input[type="submit"]:hover {
+  background: #ff5722;
+}
+
+
+
 
 .TotalCovid{
   font-size: 22px;

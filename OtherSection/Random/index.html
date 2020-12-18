@@ -27,31 +27,43 @@
       Return home
     </div>
 </a>
-<div class = "weather-container">
-  <img class = "icon">
-  <p class = "city"></p>
-  <p class = "weather"></p>
-  <p class = "temp"></p>
 
-</div>
-
-<div class = "covid-container">
-  <p class = "countryCovid"></p>
-  <p class = "TotalCovid"></p>
-  <p class = "DateCovid"></p>
-  <p class = "CaseCovid"></p>
-</div>
-
-<div class = "stock-container">
-  <p class = "NameStock"></p>
-  <p class = "tickerStock"></p>
-  <p class = "MarkCAP"></p>
-  <p class = "PriceToday"></p>
-  <p class = "Change"></p>
-</div>
 
 <section class="FirstSection">
+  <div class = "window-container">
+    <h1> Weather API </h1>
+    <input type = "input" class = "CityinputValue" placeholder="Enter City Name">
+    <input type = "submit" value = "Submit" class = "CitySubmit">
+    <img class = "icon">
+    <p class = "weather"></p>
+    <p class = "temp"></p>
 
+  </div>
+
+  <div class = "window-container">
+    <h1> Covid API </h1>
+    <input type = "input" class = "countryCovid" placeholder="Enter Country Name">
+    <input type = "input" class = "DateCovid" placeholder="Enter Date: YYYY-MM-DD">
+    <input type = "submit" value = "Submit" class = "CovidSubmit">
+
+    <p class = "CaseCovid"></p>
+    <p class = "TotalCovid"></p>
+
+  </div>
+
+  <div class = "window-container">
+    <h1> Yahoo Finance API </h1>
+    <input type = "input" class = "TickerStock" placeholder="Enter Ticker">
+    <input type = "input" class = "RegionStock" placeholder="Enter Region">
+    <input type = "submit" value = "Submit" class = "StockSubmit">
+
+    <p class = "NameStock"></p>
+    <p class = "MarkCAP"></p>
+    <p class = "PriceToday"></p>
+    <p class = "Change"></p>
+
+  </div>
+</div>
 </section>
 <div class="your-class">
   <div class="items">
