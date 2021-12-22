@@ -430,10 +430,10 @@ animation: bounceAca 1s linear;
 @keyframes animate {
   0%{background-image: url('FirstPageImages/OtherSection/Other1.jpg');}
   20%{background-image: url('FirstPageImages/OtherSection/Other2.jpg');}
-  40%{background-image: url('FirstPageImages/OtherSection/Other3.jpg');}
+  40%{background-image: url('FirstPageImages/OtherSection/Other3.jpeg');}
   60%{background-image: url('FirstPageImages/OtherSection/Other4.jpeg');}
   80%{background-image: url('FirstPageImages/OtherSection/Other5.jpg');}
-  100%{background-image: url('FirstPageImages/OtherSection/Other6.jpeg');}
+  100%{background-image: url('FirstPageImages/OtherSection/Other6.jpg');}
 }
 
 .OtherHead{
