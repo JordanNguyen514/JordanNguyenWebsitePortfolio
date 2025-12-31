@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      # Install Node.js dependencies
+      - npm install
+      # Install Cypress CLI
+      - npm install cypress --save-dev
+  build:
+    commands:
+      # Run your Cypress tests against your live CloudFront URL
+      - npx cypress run --config baseUrl=d2kmkdebgfkxyh.cloudfront.net
+artifacts:
+  files:
+    - 'cypress/screenshots/**/*'
+    - 'cypress/videos/**/*'
+    - 'buildspec.yml'
