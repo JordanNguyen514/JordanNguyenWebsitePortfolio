@@ -1,0 +1,24 @@
+{
+  "name": "jordannguyenwebsiteportfolio",
+  "version": "1.0.0",
+  "description": "Jordan's 1st project",
+  "main": "FirstPage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/issues"
+  },
+  "homepage": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio#readme",
+  "devDependencies": {
+    "cypress": "^15.8.1"
+  }
+}
