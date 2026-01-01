@@ -19,11 +19,11 @@ artifacts:
   files:
     - 'cypress/screenshots/**/*'
     - 'cypress/videos/**/*'
-    - 'buildspec.yml'
   
   # Secondary artifacts are the actual website files inside the 'dist' folder
+  # This section uses the correct MAP type syntax (no leading dash here)
   secondary-artifacts:
-    - ArtifactIdentifier: WebsiteFiles
+    WebsiteFiles:
       # All files within the dist directory should be packaged
       files:
         - '**/*'
