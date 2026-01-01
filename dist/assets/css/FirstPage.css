@@ -522,48 +522,45 @@ animation: bounceAca 1s linear;
   filter: grayscale(0);
 }
 
-/* --- Code Quality Improvement: Final Mobile Responsiveness Fixes --- */
+/* --- Code Quality Improvement: Social Media Layout Fix --- */
 @media screen and (max-width: 600px) {
-  /* General Font and Layout Adjustments */
+  /* ... existing general rules ... */
   .NameField, .WelcomeField, .OtherHead {
     font-size: 5vw !important;
   }
-
-  /* Target the list items within the Career Portfolio section */
   .Career_Portfolio ul {
-      display: block !important; /* Allow list items to stack normally */
+      display: block !important;
       padding: 0 !important;
       margin: 20px 0 !important;
   }
-  .Career_Portfolio ul li {
-      display: block !important; /* Force list item to take full width */
-      margin: 10px auto !important;
-      text-align: center !important;
-  }
+  /* ... existing a, li rules ... */
   .Career_Portfolio ul li a {
-    position: static !important; /* Remove absolute positioning */
-    margin: 10px auto !important; /* Center the button */
+    position: static !important;
+    margin: 10px auto !important;
     font-size: 3vw !important;
     left: auto !important;
     transform: none !important;
   }
-  
-  /* Adjustments for the Academics Section */
   .Academics{
      background-size: contain !important;
      height: 50vw !important;
   }
   .AcaBtn {
-    position: static !important; /* Remove absolute positioning */
+    position: static !important;
     display: block !important;
     margin: 10px auto !important;
     left: auto !important;
     bottom: auto !important;
   }
+
+  /* FIX: Social Media and Contact Box Containers Stacking Vertically */
+  .SocImgBox, .ContactBox {
+    flex-direction: column !important; /* Stack items vertically */
+    align-items: center !important; /* Center the icons horizontally */
+  }
   
-  /* Social Media Images stacking */
   .SocialMedia .SocImgBox img, .SocialMedia .ContactBox img {
-    max-width: 100% !important;
-    margin: 10px 0 !important;
+    max-width: 80% !important; /* Control image width */
+    margin: 10px 0 !important; /* Add vertical spacing */
   }
 }
