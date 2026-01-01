@@ -1,0 +1,147 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.FirstSection{
+  background: #aaa;
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.your-class{
+  display: flex;
+}
+
+.your-class .items{
+
+  width: 30vw;
+  height: 250px;
+  margin: 50px;
+  position: relative;
+}
+
+.your-class .items .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 250px;
+  background: rgba(0, 0, 0, 0.64);
+}
+
+.your-class .slick-center .overlay{
+  opacity: 0;
+}
+
+.your-class .items img{
+  width: 350px;
+  height: 250px;
+  transition: all linear .4s;
+}
+
+.your-class .slick-center img{
+  transform: scale(1.5);
+}
+
+.window-container{
+  background: #ccc;
+  text-align: center;
+  width: 40vw;
+  margin-right: 10vw;
+  margin-left: 10vw;
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+}
+
+.window-container h1{
+  font-size: 3vw;
+  margin-top: 2vh;
+  justify-content: center;
+  float: left;
+}
+
+.window-container p{
+  font-size: 2vw;
+  margin-top: 2vh;
+  justify-content: center;
+  float: left;
+}
+.icon{
+  width: 10vw;
+  float: left;
+  display: inline-block;
+}
+input[type="input"]{
+  height: 8vh;
+  width: 20vw;
+  background: #e7e7e7;
+  font-family: "Nunito",sans-serif;
+  font-weight: bold;
+  font-size: 1.25vw;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 2vh;
+  float: left;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  position: relative;
+  border-radius: 25px 25px;
+  height: 4vh;
+  width: 5vw;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #ffc107;
+  color: #fff;
+  font-size: 1vw;
+  float: left;
+  margin-top: 2vh;
+  clear: left;
+  text-align: center;
+  display: inline-block;
+}
+input[type="submit"]:hover {
+  background: #ff5722;
+}
+
+
+
+
+.TotalCovid{
+  font-size: 22px;
+  margin: 0;
+}
+
+.countryCovid{
+  font-size: 45px;
+  margin: 0;
+}
+
+.DateCovid{
+  font-size: 22px;
+  margin: 0;
+}
+
+.CaseCovid{
+  font-size: 60px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.stock-container{
+  background: #ccc;
+  text-align: center;
+  align-items: center;
+  width: 15vw;
+  margin-right: 5vw;
+  display: inline-block;
+  font-size: 22px;
+  margin: 0;
+}
