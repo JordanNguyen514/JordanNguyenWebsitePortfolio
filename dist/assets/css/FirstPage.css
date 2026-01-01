@@ -521,3 +521,25 @@ animation: bounceAca 1s linear;
   opacity: 1;
   filter: grayscale(0);
 }
+
+/* --- Code Quality Improvement: Mobile Responsiveness --- */
+@media screen and (max-width: 600px) {
+  .NameField, .WelcomeField, .OtherHead {
+    font-size: 6vw !important; /* Make fonts smaller on mobile */
+  }
+
+  .Career_Portfolio ul li a {
+    left: 0vw !important; /* Center the links on mobile */
+    font-size: 3vw !important;
+  }
+
+  .AcaBtn {
+    left: 50vw !important; /* Adjust button position on mobile */
+    transform: translateX(-50%);
+  }
+  
+  .SocialMedia .SocImgBox img, .SocialMedia .ContactBox img {
+    max-width: 100% !important; /* Make images stack nicely */
+    margin: 10px 0 !important;
+  }
+}
