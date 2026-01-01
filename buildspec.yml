@@ -4,18 +4,12 @@ phases:
     commands:
       # Install Node.js dependencies
       - npm install
-      # Install Cypress CLI
-      - npm install cypress --save-dev
       # Install required Linux dependencies for the headless browser
       - apt-get update && apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-      # Grant execute permissions to the cypress binary
-      - chmod +x node_modules/cypress/bin/cypress
   build:
     commands:
-      # FIX 1: Force binary installation in the build phase
-      - npx cypress install
-      # FIX 2: Run cypress by calling node directly on the CLI script, with HTTPS base URL
-      - node node_modules/cypress/bin/cypress run --config baseUrl=https://d2kmkdebgfkxyh.cloudfront.net
+      # FIX: Run tests using the npm run script which handles permissions
+      - npm run test
 artifacts:
   # Primary artifacts are the test results we set up in CodeBuild
   files:
