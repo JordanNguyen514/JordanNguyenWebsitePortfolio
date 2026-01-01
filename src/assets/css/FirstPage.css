@@ -522,24 +522,48 @@ animation: bounceAca 1s linear;
   filter: grayscale(0);
 }
 
-/* --- Code Quality Improvement: Mobile Responsiveness --- */
+/* --- Code Quality Improvement: Final Mobile Responsiveness Fixes --- */
 @media screen and (max-width: 600px) {
+  /* General Font and Layout Adjustments */
   .NameField, .WelcomeField, .OtherHead {
-    font-size: 6vw !important; /* Make fonts smaller on mobile */
+    font-size: 5vw !important;
   }
 
+  /* Target the list items within the Career Portfolio section */
+  .Career_Portfolio ul {
+      display: block !important; /* Allow list items to stack normally */
+      padding: 0 !important;
+      margin: 20px 0 !important;
+  }
+  .Career_Portfolio ul li {
+      display: block !important; /* Force list item to take full width */
+      margin: 10px auto !important;
+      text-align: center !important;
+  }
   .Career_Portfolio ul li a {
-    left: 0vw !important; /* Center the links on mobile */
+    position: static !important; /* Remove absolute positioning */
+    margin: 10px auto !important; /* Center the button */
     font-size: 3vw !important;
-  }
-
-  .AcaBtn {
-    left: 50vw !important; /* Adjust button position on mobile */
-    transform: translateX(-50%);
+    left: auto !important;
+    transform: none !important;
   }
   
+  /* Adjustments for the Academics Section */
+  .Academics{
+     background-size: contain !important;
+     height: 50vw !important;
+  }
+  .AcaBtn {
+    position: static !important; /* Remove absolute positioning */
+    display: block !important;
+    margin: 10px auto !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+  
+  /* Social Media Images stacking */
   .SocialMedia .SocImgBox img, .SocialMedia .ContactBox img {
-    max-width: 100% !important; /* Make images stack nicely */
+    max-width: 100% !important;
     margin: 10px 0 !important;
   }
 }
