@@ -2,29 +2,28 @@ version: 0.2
 phases:
   install:
     commands:
-      # Install Node.js dependencies
+      # Install Node.js dependencies (for Cypress/JS projects)
       - npm install
-      # Install required Linux dependencies for the headless browser
+      # Install required Linux dependencies for the headless browser (for Cypress/Selenium)
       - apt-get update && apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      # Install Jekyll and Ruby dependencies using Bundler
+      - gem install jekyll bundler
+      - bundle install
   build:
     commands:
-      # Ensure the 'dist' directory is clean or created safely
-      - rm -rf dist
-      - mkdir -p dist
-      # Use rsync to safely move all source files *except* the dist directory into the dist directory
-      # This ensures all website files are packaged correctly for deployment
-      - rsync -av --exclude 'dist' . dist/
-      # FIX: Run tests using the npm run script which handles permissions
-      - npm run test
+      # Run the Jekyll build command to generate static files into the _site folder
+      - bundle exec jekyll build
+      # FIX: Run tests using the npm run script (if applicable)
+      # - npm run test
 artifacts:
-  # Primary artifacts are the test results we set up in CodeBuild
+  # Primary artifacts are test results (Cypress screenshots/videos)
   files:
     - 'cypress/screenshots/**/*'
     - 'cypress/videos/**/*'
-  # Secondary artifacts are the actual website files inside the 'dist' folder
+  # Secondary artifacts are the actual website files inside the '_site' folder
   secondary-artifacts:
     WebsiteFiles:
-      # All files within the dist directory should be packaged
+      # All files within the _site directory should be packaged
       files:
         - '**/*'
-      base-directory: 'dist'
+      base-directory: '_site'
