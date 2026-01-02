@@ -11,8 +11,9 @@ phases:
       # Ensure the 'dist' directory is clean or created safely
       - rm -rf dist
       - mkdir -p dist
-      # Move all website source files into the 'dist' directory so they are packaged
-      - cp -r * dist/
+      # Use rsync to safely move all source files *except* the dist directory into the dist directory
+      # This ensures all website files are packaged correctly for deployment
+      - rsync -av --exclude 'dist' . dist/
       # FIX: Run tests using the npm run script which handles permissions
       - npm run test
 artifacts:
