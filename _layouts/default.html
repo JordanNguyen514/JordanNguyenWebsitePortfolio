@@ -11,9 +11,10 @@
 
     <title> Jordan 1st Page </title>
 
-    <link rel = "stylesheet" href = "/assets/css/FirstPage.css">
-    <script src="assets/js/jquery-3.5.0.js" defer></script>
-    <script src="assets/js/FirstPage.js" defer></script>
+    <!-- Paths updated with site.baseurl -->
+    <link rel = "stylesheet" href = "{{ site.baseurl }}/assets/css/FirstPage.css">
+    <script src="{{ site.baseurl }}/assets/js/jquery-3.5.0.js" defer></script>
+    <script src="{{ site.baseurl }}/assets/js/FirstPage.js" defer></script>
 
   </head>
 
@@ -25,8 +26,9 @@
               <button class="dropbtn2"> Browse
               </button>
                 <div class="dropdown-content2">
+                  <!-- These links also need updating to work correctly -->
                   <a href="#">Career Portfolio</a>
-                  <a href="./Academic_Page/Academic_Page.html">Academics</a>
+                  <a href="{{ site.baseurl }}/Academic_Page/Academic_Page.html">Academics</a>
                   <a href="#">Skills</a>
                   <a href="#">Other interests</a>
                 </div>
