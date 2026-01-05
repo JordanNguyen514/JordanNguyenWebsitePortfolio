@@ -1,3 +1,6 @@
+---
+layout: default
+---
 <!DOCTYPE html>
 <html lang="en" dir ="ltr">
 
@@ -11,43 +14,14 @@
 
     <title>Contact Page</title>
 
-    <!-- Updated Paths for reorganized project structure -->
-    <link rel = "stylesheet" href = "../assets/css/Contacting.css">
-    <script src="../assets/js/jquery-3.5.0.js" defer></script>
-    <script src="../assets/js/Contacting.js" defer></script>
+    <!-- Paths updated with Jekyll's relative_url filter -->
+    <link rel = "stylesheet" href = "{{ '/assets/css/Contacting.css' | relative_url }}">
+    <!-- Removed redundant Contacting.js link, using main.js via default.html layout -->
+    <!-- <script src="../assets/js/Contacting.js" defer></script> -->
 
   </head>
 
   <body onload ="startTime()">
-
-
-     <div class="topnav">
-
-            <a href="../index.html"> Home </a>
-            <div class="dropdown2">
-              <button class="dropbtn2"> Browse
-              </button>
-                <div class="dropdown-content2">
-                  <a href="../Career_Portfolio/index.html">Career Portfolio</a>
-                  <a href="../Academic_Page/Academic_Page.html">Academics</a>
-                  <a href="#">Skills</a>
-                  <a href="../OtherSection/index.html">Other interests</a>
-                </div>
-            </div>
-
-            <div class="dropdown">
-              <button class="dropbtn"> Language
-              </button>
-                <div class="dropdown-content">
-                  <a href="#">English</a>
-                  <a href="#">French</a>
-                  <a href="#">Vietnamese</a>
-                </div>
-            </div>
-
-            <a id="time"></a>
-      </div>
-
 
   <div class="ContactForm">
     <div class="panel panel-primary">
@@ -57,7 +31,7 @@
       <div class="panel-body">
         <!-- NOTE: S3 only supports static sites. The PHP form action below will not work on AWS S3 -->
         <!-- You would need to use AWS Lambda/API Gateway/SES to enable form submission -->
-        <form action="#" method="post"> 
+        <form action="#" method="post">
           <div class="form-group">
             <label for="firstName">First Name</label>
             <input

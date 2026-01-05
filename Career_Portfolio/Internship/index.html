@@ -17,7 +17,8 @@ layout: default
     <!-- Paths updated with Jekyll's relative_url filter -->
     <link rel = "stylesheet" href = "{{ '/assets/css/InternShipPage.css' | relative_url }}">
     <script src="{{ '/assets/js/jquery-3.5.0.js' | relative_url }}" defer></script>
-    <script src="{{ '/assets/js/InternShipPage.js' | relative_url }}" defer></script>
+    <!-- Removed redundant InternShipPage.js link, using main.js via default.html layout -->
+    <!-- <script src="{{ '/assets/js/InternShipPage.js' | relative_url }}" defer></script> -->
 
   </head>
 
@@ -34,7 +35,8 @@ layout: default
 
               <div class="content2 contentEnglish">
               <h3> English </h3>
-              <button onclick="ReadMoreFct()" id="RMBtn"> Read More  </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots', 'more', 'RMBtn', 'en')" id="RMBtn"> Read More  </button>
               <p> System Design Intern in CAS R&D<br>
                  <span id="dots">...</span><span id="more">
                    - Design and fill quality documentation related to the development of PSI (Patient Specific Instrumentation) products and provide update to the design
@@ -45,7 +47,8 @@ history file and device master record. <br>
 
               <div class="content2 contentFrench">
               <h3> Français </h3>
-              <button onclick="LirePlusFct()" id="LPBtn"> Lire Plus </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots1', 'more1', 'LPBtn', 'fr')" id="LPBtn"> Lire Plus </button>
               <p> Stagiaire R&D en System Design <br> <span id="dots1">...</span> <span id="more1">
                 -	Faire le design et remplir la documentation de qualité en lien avec le développement des produits PSI (Patient Specific Instrumentation).<br>
 -	Procéder à la vérification et la validation des produits incluant la définition des protocoles et leurs exécutions. <br>
@@ -69,7 +72,8 @@ history file and device master record. <br>
 
               <div class="content2 contentEnglish">
               <h3> English </h3>
-              <button onclick="ReadMoreFct1()" id="RMBtn1"> Read More  </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots2', 'more2', 'RMBtn1', 'en')" id="RMBtn1"> Read More  </button>
               <p> Client Technical Support intern <br> <span id="dots2">...</span><span id="more2">
                 - Analyze and sort technical issues reported by clients and maintain effective communication until issue is solved. <br>
 - Support usage of Dassault products such as Catia, Enovia and Delmia by external customers. <br>
@@ -78,7 +82,8 @@ history file and device master record. <br>
 
               <div class="content2 contentFrench">
               <h3> Français </h3>
-              <button onclick="LirePlusFct1()" id="LPBtn1"> Lire Plus </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots3', 'more3', 'LPBtn1', 'fr')" id="LPBtn1"> Lire Plus </button>
               <p> Stagiaire, Support technique aux Clients <br> <span id="dots3">...</span> <span id="more3">
                 -	Trier et analyser les problèmes techniques rencontrés par le client. <br>
 -	Apporter du support sur les produits Dassault Systèmes utilisés dans un processus défini et maintenir la satisfaction du client suivant la procédure de résolutions de problèmes. <br>
@@ -102,7 +107,8 @@ history file and device master record. <br>
 
               <div class="content2 contentEnglish">
               <h3> English </h3>
-              <button onclick="ReadMoreFct2()" id="RMBtn2"> Read More  </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots4', 'more4', 'RMBtn2', 'en')" id="RMBtn2"> Read More  </button>
               <p> Production coordinator <br> <span id="dots4">...</span><span id="more4">
                 - Assist dental professionals in the selection of the appropriate patient treatment plan (prosthetic implant positioning). <br>
   - Develop automation system in order to accelerate planification documentation and 3D model generation of jigs. <br>
@@ -111,7 +117,8 @@ history file and device master record. <br>
 
               <div class="content2 contentFrench">
               <h3> Français </h3>
-              <button onclick="LirePlusFct2()" id="LPBtn2"> Lire Plus </button>
+              <!-- Updated onclick function call -->
+              <button onclick="toggleReadMore('dots5', 'more5', 'LPBtn2', 'fr')" id="LPBtn2"> Lire Plus </button>
               <p> Coordonnateur de production - solutions de chirurgie guidée <br><span id="dots5">...</span> <span id="more5">
 -	Se familiariser avec la technologie et la terminologie propres au domaine dentaire et aux solutions de chirurgie guidée de V2R. Assister la clientèle composée de professionnels dentaires (dentistes, techniciens de laboratoire) dans la sélection de l'approche de traitement appropriée pour leurs patients. <br>
 -	Coordonner les échanges entre la clientèle et les professionnels de V2R dans le cadre des services de planification.<br>
