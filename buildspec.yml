@@ -1,13 +1,16 @@
 version: 0.2
 phases:
   install:
+    runtime-versions:
+      ruby: latest # Ensures Ruby is available
+      nodejs: latest # Ensures Node.js is available
     commands:
       # Install Node.js dependencies (for Cypress/JS projects)
       - npm install
       # Install required Linux dependencies for the headless browser (for Cypress/Selenium)
       - apt-get update && apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       # Install Jekyll and Ruby dependencies using Bundler
-      - gem install jekyll bundler
+      - gem install bundler
       - bundle install
   build:
     commands:
@@ -15,6 +18,13 @@ phases:
       - bundle exec jekyll build
       # FIX: Run tests using the npm run script (if applicable)
       # - npm run test
+  post_build:
+    commands:
+      # Sync the generated site files (_site folder) to your S3 bucket
+      - aws s3 sync --delete _site/ s3://my-private-automation-target-2025 --acl public-read --cache-control max-age=604800
+      # Invalidate the CloudFront cache to see changes immediately
+      - aws cloudfront create-invalidation --distribution-id E3NULQTX31PSEZ --paths "/*"
+
 artifacts:
   # Primary artifacts are test results (Cypress screenshots/videos)
   files:

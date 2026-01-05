@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+      <!-- ALL UNIQUE CONTENT STARTS HERE -->
       <div class = "WelcomeTab">
         <span class = "NameField" >Jordan Nguyen</span>
         <span class = "WelcomeField" >Welcome to my webpage</span>
@@ -16,15 +17,17 @@ layout: default
         <span class = "CareerPort">Career Portfolio</span>
 
           <ul>
-          <li data-text = "Jobs"> <a href = "{{ site.baseurl }}/Career_Portfolio/Jobs/index.html">Jobs</a> </li>
-          <li data-text = "Internships"> <a href = "{{ site.baseurl }}/Career_Portfolio/Internship/index.html">Internships</a> </li>
+          <!-- Paths updated -->
+          <li data-text = "Jobs"> <a href = "{{ '/Career_Portfolio/Jobs/index.html' | relative_url }}">Jobs</a> </li>
+          <li data-text = "Internships"> <a href = "{{ '/Career_Portfolio/Internship/index.html' | relative_url }}">Internships</a> </li>
         </ul>
 
       </div>
 
       <div class = "Academics">
           <div class = "AcaTxt" > Academics </div>
-          <a href="{{ site.baseurl }}/Academic_Page/Academic_Page.html" class="AcaBtn">
+          <!-- Path updated -->
+          <a href="{{ '/Academic_Page/Academic_Page.html' | relative_url }}" class="AcaBtn">
             Go to Academics Page </a>
       </div>
 
@@ -50,7 +53,7 @@ layout: default
           <div class = "Skills">
             <span class="SkillName">JS</span>
             <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 55%;"></div>
+              <div = "ProgressSkill" style="width: 55%;"></div>
               </div>
             <span class="SkillValue">55%</span>
           </div>
@@ -58,15 +61,15 @@ layout: default
           <div class = "Skills">
             <span class="SkillName">ISO13485</span>
             <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 80%;"></div>
+              <div = "ProgressSkill" style="width: 80%;"></div>
               </div>
             <span class="SkillValue">80%</span>
           </div>
 
           <div class = "Skills">
             <span class="SkillName">Agile</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 70%;"></div>
+            <div = "PercentageSkill">
+              <div = "ProgressSkill" style="width: 70%;"></div>
               </div>
             <span class="SkillValue">70%</span>
           </div>
@@ -76,7 +79,8 @@ layout: default
 
       <section class = "Other">
           <div class = "OtherHead"> Other Interests and Passions </div>
-          <a href="{{ site.baseurl }}/OtherSection/index.html" class="OtherBtn">
+          <!-- Path updated -->
+          <a href="{{ '/OtherSection/index.html' | relative_url }}" class="OtherBtn">
             Come Find Out!</a>
       </section>
 
@@ -84,15 +88,18 @@ layout: default
         <h1> My Social Media Presence </h1>
                 <p class="SocialMediaText">I maintain an active online presence where I share my professional updates, connect with industry peers, and contribute to open-source projects. Feel free to connect via LinkedIn, check out my GitHub profile for code samples, or send me an email regarding potential opportunities.</p>
           <div class="SocImgBox">
-            <img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png">
-            <a href="https://www.facebook.com/jordan.nguyen.370515/"><img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png"></a>
-            <a href="https://www.linkedin.com/in/jordan-nguyen-eng-910365a7"><img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png"></a>
-            <img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png">
-            <a href="https://github.com/JordanNguyen514"><img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/github-logo.png"></a>
+            <!-- Paths updated -->
+            <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png' | relative_url }}">
+            <a href="www.facebook.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png' | relative_url }}"></a>
+            <a href="www.linkedin.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png' | relative_url }}"></a>
+            <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png' | relative_url }}">
+            <a href="github.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/github-logo.png' | relative_url }}"></a>
           </div>
         <h1> Lets Talk </h1>
           <div class="ContactBox">
-            <a href="{{ site.baseurl }}/Contacting/index.html"><img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/Contacting.png"></a>
-            <a href="{{ site.baseurl }}/CV_English_JordanNguyen.PDF" download><img src = "{{ site.baseurl }}/assets/img/FirstPageImages/SocialMediaPics/CV.jpg"></a>
+            <!-- Paths updated -->
+            <a href="{{ '/Contacting/index.html' | relative_url }}"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Contacting.png' | relative_url }}"></a>
+            <!-- Path updated for the downloadable PDF -->
+            <a href="{{ '/CV_English_JordanNguyen.PDF' | relative_url }}" download><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/CV.jpg' | relative_url }}"></a>
           </div>
       </section>

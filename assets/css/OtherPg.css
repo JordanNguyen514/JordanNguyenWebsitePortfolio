@@ -1,3 +1,5 @@
+---
+---
 .topnav a{
   float: left;
   display: block;
@@ -160,8 +162,9 @@ font-family: Oxygen;
   padding: 0;
   }
 
+/* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(1) .face.face1 {
-    background: url('Images/SportsCover.jpg');
+    background: url('/assets/img/OtherImages/SportsCover.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
   }
@@ -170,20 +173,23 @@ font-family: Oxygen;
     content: '\A';
     white-space: pre;
 }
+/* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(2) .face.face1{
-    background: url('Images/Travelling.jpg');
+    background: url('/assets/img/OtherImages/Travelling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }
 
+/* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(3) .face.face1{
-    background: url('Images/Socialling.jpg');
+    background: url('/assets/img/OtherImages/Socialling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }
 
+/* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(4) .face.face1{
-    background: url('Images/Socialling.jpg');
+    background: url('/assets/img/OtherImages/Socialling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }
@@ -226,10 +232,10 @@ font-family: Oxygen;
       padding: 0;
       font-size: 4em;
       color: #fff;
-      transition: 0.5s
+      transition: 0.5s;
       text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .container .card:hover .face.face2 h2{
         font-size: 2em;
-        }
+      }

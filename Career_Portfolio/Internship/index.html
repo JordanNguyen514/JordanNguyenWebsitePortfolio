@@ -1,3 +1,6 @@
+---
+layout: default
+---
 <!DOCTYPE html>
 <html lang="en" dir ="ltr">
 
@@ -11,40 +14,14 @@
 
     <title> Jordan 1st Page </title>
 
-    <link rel = "stylesheet" href = "InternShipPage.css">
-    <script src="../../jquery-3.5.0.js" defer></script>
-    <script src="InternShipPage.js" defer></script>
+    <!-- Paths updated with Jekyll's relative_url filter -->
+    <link rel = "stylesheet" href = "{{ '/assets/css/InternShipPage.css' | relative_url }}">
+    <script src="{{ '/assets/js/jquery-3.5.0.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/InternShipPage.js' | relative_url }}" defer></script>
 
   </head>
 
   <body onload ="startTime()">
-
-
-     <div class="topnav">
-
-            <a href="../../index.html"> Home </a>
-            <div class="dropdown2">
-              <button class="dropbtn2"> Browse
-              </button>
-                <div class="dropdown-content2">
-                  <a href="#">Career Portfolio</a>
-                  <a>Academics</a>
-                  <a href="#">Skills</a>
-                  <a href="#">Other interests</a>
-                </div>
-            </div>
-
-            <a href="#DT">Time: <a id="time"></a> </a>
-            <div class="dropdown">
-              <button class="dropbtn"> Language
-              </button>
-                <div class="dropdown-content">
-                  <a href="#">English</a>
-                  <a href="#">French</a>
-                  <a href="#">Vietnamese</a>
-                </div>
-            </div>
-      </div>
 
 <div class="afterNav">
     <section>

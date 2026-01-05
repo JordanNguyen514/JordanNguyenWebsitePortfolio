@@ -11,24 +11,27 @@
 
     <title> Jordan 1st Page </title>
 
-    <!-- Paths updated with site.baseurl -->
-    <link rel = "stylesheet" href = "{{ site.baseurl }}/assets/css/FirstPage.css">
-    <script src="{{ site.baseurl }}/assets/js/jquery-3.5.0.js" defer></script>
-    <script src="{{ site.baseurl }}/assets/js/FirstPage.js" defer></script>
+    <!-- Paths updated with relative_url filter for Jekyll compatibility -->
+    <link rel = "stylesheet" href = "{{ '/assets/css/FirstPage.css' | relative_url }}">
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}">
+    <script src="{{ '/assets/js/jquery-3.5.0.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/FirstPage.js' | relative_url }}" defer></script>
 
   </head>
 
   <body onload ="startTime()">
      <div class="topnav">
 
-            <a> Home </a>
+            <!-- Link updated to site root using relative_url -->
+            <a href="{{ '/' | relative_url }}"> Home </a>
             <div class="dropdown2">
               <button class="dropbtn2"> Browse
               </button>
                 <div class="dropdown-content2">
-                  <!-- These links also need updating to work correctly -->
+                  <!-- Link updated for Academics page -->
                   <a href="#">Career Portfolio</a>
-                  <a href="{{ site.baseurl }}/Academic_Page/Academic_Page.html">Academics</a>
+                  <a href="{{ '/Academic_Page/Academic_Page.html' | relative_url }}">Academics</a>
                   <a href="#">Skills</a>
                   <a href="#">Other interests</a>
                 </div>
