@@ -23,8 +23,8 @@ phases:
       # Sync the generated site files (_site folder) to your S3 bucket
       # Removed the offending --acl public-read flag
       - aws s3 sync --delete _site/ s3://my-private-automation-target-2025 --cache-control max-age=604800
-      # Invalidate the CloudFront cache to see changes immediately
-      - aws cloudfront create-invalidation --distribution-id E3NULQTX31PSEZ --paths "/*"
+      # The CloudFront invalidation command was removed from here. 
+      # It will be handled by a separate Lambda stage in CodePipeline.
 
 artifacts:
   # Primary artifacts are test results (Cypress screenshots/videos)
