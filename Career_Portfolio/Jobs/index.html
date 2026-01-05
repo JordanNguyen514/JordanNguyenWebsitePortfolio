@@ -1,85 +1,45 @@
-<!DOCTYPE html>
-<html lang="en" dir ="ltr">
+---
+layout: default
+css_file: "/assets/css/Jobs.css"
+---
+<div class = "CardsUI">
+  <!-- Link updated to root -->
+  <a href="{{ '/' | relative_url }}">
+     <div class = "box">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content =
-    "width=device-width, initial-scale=1">
-
-    <meta name="description" content =
-    "Jordan's Job experiences">
-
-    <title> Job Experience </title>
-
-    <link rel = "stylesheet" href = "../../assets/css/Jobs.css">
-    <script src="../../assets/js/jquery-3.5.0.js" defer></script>
-    <script src="../../assets/js/Jobs.js" defer></script>
-
-  </head>
-
-  <body onload ="startTime()">
-     <div class="topnav">
-
-            <a href="../../index.html"> Home </a>
-            <div class="dropdown2">
-              <button class="dropbtn2"> Browse
-              </button>
-                <div class="dropdown-content2">
-                  <a href="#">Career Portfolio</a>
-                  <a>Academics</a>
-                  <a href="#">Skills</a>
-                  <a href="#">Other interests</a>
-                </div>
-            </div>
-
-            <a id="time"></a>
-            <div class="dropdown">
-              <button class="dropbtn"> Language
-              </button>
-                <div class="dropdown-content">
-                  <a href="#">English</a>
-                  <a href="#">French</a>
-                  <a href="#">Vietnamese</a>
-                </div>
-            </div>
-      </div>
-
-  <div class = "CardsUI">
-    <a href="../../index.html">
-       <div class = "box">
-
-         <div class = "imgbox">
-            <img src="jobpics/Kinova.jpg" alt="Kinova">
-         </div>
-         <div  class = "boxcontent">
-           <h2>Medical Robotics</h2>
-         </div>
+       <div class = "imgbox">
+          <!-- Image path updated to correct directory -->
+          <img src="{{ '/assets/img/jobpics/Kinova.jpg' | relative_url }}" alt="Kinova">
        </div>
-    </a>
-
-    <a href="../../index.html">
-       <div class = "box">
-         <div class = "imgbox">
-            <img src="jobpics/Novo.jpg" alt="Novo">
-         </div>
-         <div class = "boxcontent">
-           <h2>Medical Product <br><br>Development</h2>
-         </div>
+       <div  class = "boxcontent">
+         <h2>Medical Robotics</h2>
        </div>
-    </a>
+     </div>
+  </a>
 
-    <a href="Logibec/index.html">
-       <div class = "box">
-         <div class = "imgbox">
-            <img src="jobpics/Logibec.jpg" alt="Logibec">
-         </div>
-         <div  class = "boxcontent">
-           <h2>Healthcare IT<br><br> Solutions</h2>
-         </div>
+  <!-- Link updated to root -->
+  <a href="{{ '/' | relative_url }}">
+     <div class = "box">
+       <div class = "imgbox">
+          <!-- Image path updated to correct directory -->
+          <img src="{{ '/assets/img/jobpics/Novo.jpg' | relative_url }}" alt="Novo">
        </div>
-    </a>
+       <div class = "boxcontent">
+         <h2>Medical Product <br><br>Development</h2>
+       </div>
+     </div>
+  </a>
 
-  </div>
-  </body>
-
-</html>
+  <!-- Link updated with relative_url filter -->
+  <a href="{{ '/Career_Portfolio/Jobs/Logibec/index.html' | relative_url }}">
+     <div class = "box">
+       <div class = "imgbox">
+          <!-- Image path updated to correct directory -->
+          <img src="{{ '/assets/img/jobpics/Logibec.jpg' | relative_url }}" alt="Logibec">
+       </div>
+       <div  class = "boxcontent">
+         <h2>Healthcare IT<br><br> Solutions</h2>
+       </div>
+     </div>
+  </a>
+</div>

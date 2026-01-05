@@ -21,7 +21,8 @@ phases:
   post_build:
     commands:
       # Sync the generated site files (_site folder) to your S3 bucket
-      - aws s3 sync --delete _site/ s3://my-private-automation-target-2025 --acl public-read --cache-control max-age=604800
+      # Removed the offending --acl public-read flag
+      - aws s3 sync --delete _site/ s3://my-private-automation-target-2025 --cache-control max-age=604800
       # Invalidate the CloudFront cache to see changes immediately
       - aws cloudfront create-invalidation --distribution-id E3NULQTX31PSEZ --paths "/*"
 

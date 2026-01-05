@@ -18,6 +18,11 @@
     <script src="{{ '/assets/js/jquery-3.5.0.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 
+    <!-- Check for and include a page-specific CSS file if defined in the front matter -->
+    {% if page.css_file %}
+      <link rel="stylesheet" href="{{ page.css_file | relative_url }}">
+    {% endif %}
+
   </head>
 
   <body onload ="startTime()">
@@ -30,10 +35,12 @@
               </button>
                 <div class="dropdown-content2">
                   <!-- Link updated for Academics page -->
-                  <a href="#">Career Portfolio</a>
+                  <a href="{{ '/Career_Portfolio/Jobs/index.html' | relative_url }}">Jobs</a>
+                  <a href="{{ '/Career_Portfolio/Internship/index.html' | relative_url }}">Internships</a>
                   <a href="{{ '/Academic_Page/Academic_Page.html' | relative_url }}">Academics</a>
                   <a href="#">Skills</a>
-                  <a href="#">Other interests</a>
+                  <a href="{{ '/OtherSection/index.html' | relative_url }}">Other interests</a>
+
                 </div>
             </div>
 
