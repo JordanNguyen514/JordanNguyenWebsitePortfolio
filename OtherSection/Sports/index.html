@@ -1,51 +1,39 @@
-<!DOCTYPE html>
-<html lang="en" dir ="ltr">
-
-  <head>
-    <meta charset="utf-8">
-
-    <title> Passion for sports </title>
-    <link rel = "stylesheet" href = "Sport.css">
-    <script src="../../jquery-3.5.0.js" defer></script>
-    <script src="Sport.js" defer></script>
-
-  </head>
-
-  <body>
+---
+layout: default
+css_file: "/assets/css/Sport.css"
+---
       <section>
-        <header>
-            <a href="#" class="logo">Sports</a>
-            <div class="toggle"></div>
-        </header>
+        <!-- The logo header is provided by the CSS for styling within this section -->
+        <a href="{{ '/OtherSection/Sports/index.html' | relative_url }}" class="logo">Sports</a>
 
             <div class="container">
               <div class="box">
                   <div class="imgBx">
-                    <a href="javascript:delay1('URL')"><img src="img/img1.jpg"></a>
+                    <!-- Image path updated to correct directory -->
+                    <a href="javascript:delay1('URL')"><img src="{{ '/assets/img/sportsImage/img1.jpg' | relative_url }}"></a>
 
                   </div>
               </div>
 
               <div class="box">
                   <div class="imgBx">
-                    <a href="javascript:delay2('URL')"><img src="img/img2.jpg"></a>
+                    <!-- Image path updated to correct directory -->
+                    <a href="javascript:delay2('URL')"><img src="{{ '/assets/img/sportsImage/img2.jpg' | relative_url }}"></a>
                   </div>
               </div>
 
               <div class="box">
                   <div class="imgBx">
-                    <a href="javascript:delay3('URL')"><img src="img/img3.jpg"></a>
+                    <!-- Image path updated to correct directory -->
+                    <a href="javascript:delay3('URL')"><img src="{{ '/assets/img/sportsImage/img3.jpg' | relative_url }}"></a>
                   </div>
               </div>
 
               <div class="box">
                   <div class="imgBx">
-                    <a href="javascript:delay4('URL')"><img src="img/img4.jpg"></a>
+                    <!-- Image path updated to correct directory -->
+                    <a href="javascript:delay4('URL')"><img src="{{ '/assets/img/sportsImage/img4.jpg' | relative_url }}"></a>
                   </div>
               </div>
             </div>
       </section>
-
-  </body>
-
-</html>
