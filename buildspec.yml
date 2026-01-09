@@ -17,7 +17,7 @@ phases:
       # Run the Jekyll build command to generate static files into the _site folder
       - bundle exec jekyll build
       # FIX: Run tests using the npm run script (if applicable)
-      # - npm run test
+      - npm run test
   post_build:
     commands:
       # Sync the generated site files (_site folder) to your S3 bucket

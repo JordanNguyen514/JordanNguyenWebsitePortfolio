@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             });
 
             // The URL for your API Gateway Endpoint will go here (you get this from AWS later)
-            const apiGatewayUrl = 'https://yx8x3by1x5.execute-api.ca-central-1.amazonaws.com/prod';
+            const apiGatewayUrl = 'https://yx8x3by1x5.execute-api.ca-central-1.amazonaws.com/prod/submit';
 
             fetch(apiGatewayUrl, {
                 method: 'POST',

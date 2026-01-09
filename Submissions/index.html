@@ -1,0 +1,47 @@
+---
+layout: default
+css_file: "/assets/css/submissions.css"
+---
+
+<div class="container">
+    <h1>Submitted Contact Forms</h1>
+    
+    <!-- Login Form Section -->
+    <div id="login-section">
+        <p>Please log in to view submissions.</p>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Log In</button>
+        </form>
+        <p id="error-message" style="color: red; display: none;">Invalid username or password.</p>
+    </div>
+
+    <!-- The table where data will be injected by JavaScript -->
+    <div id="submissions-table-container" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Purpose</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <!-- The tbody will be populated by JavaScript -->
+            <tbody id="table-body">
+                <!-- Data will appear here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Link your JavaScript file -->
+<script src="{{ '/assets/js/submissions.js' | relative_url }}"></script>
