@@ -12,6 +12,13 @@
   font-size: 17px;
 }
 
+/* ADD THIS NEW CSS RULE TO YOUR main.css FILE */
+.topnav::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .topnav a:hover{
   background-color: #C6E9FF;
   color: Black;
