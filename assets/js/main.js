@@ -21,8 +21,7 @@ function startTime() {
   var t = setTimeout(startTime, 500);
 }
 
-
-// --- Top Navigation Toggle Function (Responsive Menu) ---
+startTime();
 
 function myFunction() {
   var x = document.getElementById("mytopnav");
@@ -32,9 +31,6 @@ function myFunction() {
     x.className = "topnav";
   }
 }
-
-
-// --- Single Refactored Read More Function ---
 
 /**
  * Toggles the visibility of extra text and updates the button label.
@@ -66,3 +62,23 @@ function toggleReadMore(dotsId, moreId, btnId, lang) {
     moreText.style.display = "inline";
   }
 }
+
+// Function to fetch and update the visitor count
+function updateVisitorCounter() {
+    // !! IMPORTANT: REPLACE THIS URL with your actual API Gateway Invoke URL from Step 6 !!
+    const apiGatewayUrl = 'https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod'; 
+
+    fetch(apiGatewayUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.visits !== undefined) {
+                // Update the text content of the #visitorCounter element
+                document.getElementById('visitorCounter').textContent = `Visitors: ${data.visits}`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching visitor count:', error);
+            document.getElementById('visitorCounter').textContent = 'Visitors: N/A';
+        });
+}
+updateVisitorCounter();

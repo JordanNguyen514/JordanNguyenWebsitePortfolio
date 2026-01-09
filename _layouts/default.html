@@ -26,7 +26,7 @@
 
   </head>
 
-  <body onload ="startTime()">
+  <body>
      <div class="topnav">
 
             <!-- Link updated to site root using relative_url -->
@@ -55,9 +55,6 @@
                   <a href="{{ '/Submissions/index.html' | relative_url }}">View Submissions</a>
                 </div>
             </div>
-            <!-- END NEW DROPDOWN -->
-
-            <a id="time"></a>
             <div class="dropdown">
               <button class="dropbtn"> Language
               </button>
@@ -67,6 +64,8 @@
                   <a href="#">Vietnamese</a>
                 </div>
             </div>
+            <a id="time"></a>
+            <a id="visitorCounter">Visitors: --</a>
       </div>
 
       <!-- JEKYLL WILL INJECT EACH PAGE'S UNIQUE CONTENT HERE -->
