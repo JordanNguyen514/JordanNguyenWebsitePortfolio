@@ -17,6 +17,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}">
     <script src="{{ '/assets/js/jquery-3.5.0.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/tracker.js' | relative_url }}" defer></script>
 
     {% if page.css_file %}
       <link rel="stylesheet" href="{{ page.css_file | relative_url }}">
@@ -27,17 +28,19 @@
   <body>
      <div class="topnav">
 
-            <a href="{{ '/' | relative_url }}"> Home </a>
+            <!-- Added tracking attributes -->
+            <a href="{{ '/' | relative_url }}" data-event-category="TopNav" data-event-action="Click_Home"> Home </a>
             
             <div class="nav-dropdown">
               <button class="nav-dropdown-btn"> Browse
               </button>
                 <div class="dropdown-menu">
-                  <a href="{{ '/assets/html/jobs.html' | relative_url }}">Jobs</a>
-                  <a href="{{ '/assets/html/internships.html' | relative_url }}">Internships</a>
-                  <a href="{{ '/assets/html/academic.html' | relative_url }}">Academics</a>
-                  <a href="#">Skills</a>
-                  <a href="{{ '/OtherSection/index.html' | relative_url }}">Other interests</a>
+                  <!-- Added tracking attributes -->
+                  <a href="{{ '/assets/html/jobs.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_Jobs">Jobs</a>
+                  <a href="{{ '/assets/html/internships.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_Internships">Internships</a>
+                  <a href="{{ '/assets/html/academic.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_Academics">Academics</a>
+                  <a href="#" data-event-category="TopNav" data-event-action="Click_Skills">Skills</a>
+                  <a href="{{ '/OtherSection/index.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_OtherInterests">Other interests</a>
                 </div>
             </div>
             
@@ -45,9 +48,10 @@
               <button class="nav-dropdown-btn"> Contact
               </button>
                 <div class="dropdown-menu">
-                  <a href="{{ '/assets/html/contacting.html' | relative_url }}">Contact Form</a>
-                  <a href="{{ '/assets/html/emailing.html' | relative_url }}">Email Form</a>
-                  <a href="{{ '/assets/html/submissions.html' | relative_url }}">View Submissions</a>
+                  <!-- Added tracking attributes -->
+                  <a href="{{ '/assets/html/contacting.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_ContactForm">Contact Form</a>
+                  <a href="{{ '/assets/html/emailing.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_EmailForm">Email Form</a>
+                  <a href="{{ '/assets/html/submissions.html' | relative_url }}" data-event-category="TopNav" data-event-action="Click_ViewSubmissions">View Submissions</a>
                 </div>
             </div>
             <a id="time"></a>
