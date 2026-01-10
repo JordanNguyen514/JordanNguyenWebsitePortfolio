@@ -1,110 +1,115 @@
 ---
 layout: default
 ---
-      <div class = "WelcomeTab">
-        <span class = "NameField" >Jordan Nguyen</span>
-        <span class = "WelcomeField" >Welcome to my webpage</span>
-      </div>
-      <div class = "AboutWelcome">
-        <span>Navigate around this website to get to know me</span>
-        <span>You will learn all there is to know about my career interests,
-           past experiences, Academic achievements (and a few failures)
-           and a few personal things as well. Enjoy your stay!</span>
-      </div>
-
-      <div class = "Career_Portfolio">
-        <span class = "CareerPort">Career Portfolio</span>
-
-        <ul>
-          <li data-text = "Jobs"> <a href = "{{ '/Career_Portfolio/Jobs/index.html' | relative_url }}">Jobs</a> </li>
-          <li data-text = "Internships"> <a href = "{{ '/Career_Portfolio/Internship/index.html' | relative_url }}">Internships</a> </li>
-        </ul>
-
-      </div>
-
-      <div class = "Academics">
-          <div class = "AcaTxt" > Academics </div>
-          <a href="{{ '/Academic_Page/index.html' | relative_url }}" class="AcaBtn">
-            Go to Academics Page </a>
-      </div>
-
-  <div class = "SkillBodyInside">
-      <div class = "SkillsContainer">
-        <h2>My Notable Skills</h2>
-          <div class = "Skills">
-            <span class="SkillName">SQL</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 60%;"></div>
-              </div>
-            <span class="SkillValue">60%</span>
-          </div>
-
-          <div class = "Skills">
-            <span class="SkillName">Html</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 60%;"></div>
-              </div>
-            <span class="SkillValue">60%</span>
-          </div>
-
-          <div class = "Skills">
-            <span class="SkillName">JS</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 55%;"></div>
-            </div>
-            <span class="SkillValue">55%</span>
-          </div>
-
-          <div class = "Skills">
-            <span class="SkillName">ISO13485</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 80%;"></div>
-            </div>
-            <span class="SkillValue">80%</span>
-          </div>
-
-          <div class = "Skills">
-            <span class="SkillName">Agile</span>
-            <div class = "PercentageSkill">
-              <div class = "ProgressSkill" style="width: 70%;"></div>
-            </div>
-            <span class="SkillValue">70%</span>
-          </div>
-      </div>
+<section class="hero-section">
+  <div class="welcome-tab">
+    <span class="name-field" id="hero-title">Jordan Nguyen</span>
+    <span class="welcome-field">Welcome to my webpage</span>
   </div>
+  <div class="about-welcome">
+    <span>Navigate around this website to get to know me</span>
+    <span>You will learn all there is to know about my career interests,
+          past experiences, academic achievements (and a few failures)
+          and a few personal things as well. Enjoy your stay!</span>
+  </div>
+</section>
 
+<div class="career-portfolio-section">
+  <span class="career-port-title">Career Portfolio</span>
+    <div class="portfolio-links">
+      <a href="{{ '/assets/html/jobs.html' | relative_url }}" class="portfolio-btn">Jobs</a>
+      <a href="{{ '/assets/html/internships.html' | relative_url }}" class="portfolio-btn">Internships</a>
+    </div>
+</div>
 
-      <section class = "Other">
-          <div class = "OtherHead"> Other Interests and Passions </div>
-          <a href="{{ '/OtherSection/index.html' | relative_url }}" class="OtherBtn">
-            Come Find Out!</a>
-      </section>
+<section class="academics-section">
+  <div class="academics-content">
+    <span class="academics-title">Academics</span>
+    <a href="{{ '/assets/html/academic.html' | relative_url }}" class="academics-btn">
+      Go to Academics Page
+    </a>
+  </div>
+</section>
 
-      <section class = "SocialMedia">
-        <h1> My Social Media Presence </h1>
-                <p class="SocialMediaText">I maintain an active online presence where I share my professional updates, connect with industry peers, and contribute to open-source projects. Feel free to connect via LinkedIn, check out my GitHub profile for code samples, or send me an email regarding potential opportunities.</p>
-          <div class="SocImgBox">
-            <a href="https://www.facebook.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png' | relative_url }}"></a>
-            <a href="https://www.linkedin.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png' | relative_url }}"></a>
-            <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png' | relative_url }}">
-            <a href="https://www.github.com"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/github-logo.png' | relative_url }}"></a>
-          </div>
-        <h1> Lets Talk </h1>
-          <div class="ContactBox">
-            <a href="{{ '/Contacting/index.html' | relative_url }}">
-              <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Contacting.png' | relative_url }}">
-            </a>
-            <a href="{{ '/emailing/index.html' | relative_url }}">
-              <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png' | relative_url }}">
-            </a>
-            <a href="{{ '/CV_English_JordanNguyen.PDF' | relative_url }}" download>
-                <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/CV.jpg' | relative_url }}">
-            </a>
-          </div>
-        <h1> See Submissions </h1>
-          <div class="submissionBox">
-            <a href="{{ '/Submissions/index.html' | relative_url }}">
-              <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/submissions.png' | relative_url }}">
-            </a>
-          </div>
-      </section>
+<section class="skills-section">
+  <div class="skills-container">
+    <h2 class="skills-title">My Notable Skills</h2>
+    <div class="skill-item">
+      <span class="skill-name">SQL</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width: 60%;" data-percent="60%"></div>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-name">Html</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width: 60%;" data-percent="60%"></div>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-name">JS</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width: 55%;" data-percent="55%"></div>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-name">ISO13485</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width: 80%;" data-percent="80%"></div>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-name">Agile</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width: 70%;" data-percent="70%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="other-interests-section">
+  <div class="other-interests-content">
+    <span class="other-interests-title">Other Interests and Passions</span>
+      <a href="{{ '/OtherSection/index.html' | relative_url }}" class="other-interests-btn">
+        Come Find Out!
+      </a>
+  </div>
+</section>
+
+<section class="social-contact-section">
+  <div class="content-container">
+    <h1 class="section-title">My Social Media Presence</h1>
+    <p class="section-description">I maintain an active online presence where I share my professional updates, connect with industry peers, and contribute to open-source projects. Feel free to connect via LinkedIn, check out my GitHub profile for code samples, or send me an email regarding potential opportunities.</p>
+    
+    <div class="icon-grid">
+      <a href="https://www.facebook.com" class="social-icon-link"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png' | relative_url }}" alt="Facebook Link"></a>
+      <a href="https://www.linkedin.com" class="social-icon-link"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png' | relative_url }}" alt="LinkedIn Link"></a>
+      <a href="https://www.instagram.com" class="social-icon-link"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png' | relative_url }}" alt="Instagram Logo"></a>
+      <a href="https://www.github.com" class="social-icon-link"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/github-logo.png' | relative_url }}" alt="GitHub Link"></a>
+    </div>
+    
+    <h1 class="section-title">Lets Talk</h1>
+    <div class="icon-grid">
+      <a href="{{ '/assets/html/contacting.html' | relative_url }}" class="contact-icon-link">
+        <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Contacting.png' | relative_url }}" alt="Contact Form Link">
+      </a>
+      <a href="{{ '/assets/html/emailing.html' | relative_url }}" class="contact-icon-link">
+        <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png' | relative_url }}" alt="Email Form Link">
+      </a>
+      <a href="{{ '/CV_English_JordanNguyen.PDF' | relative_url }}" download class="contact-icon-link">
+          <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/CV.jpg' | relative_url }}" alt="Download CV">
+      </a>
+    </div>
+    
+    <h1 class="section-title">See Submissions</h1>
+    <div class="icon-grid">
+      <a href="{{ '/assets/html/submissions.html' | relative_url }}" class="contact-icon-link">
+        <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/submissions.png' | relative_url }}" alt="View Submissions Link">
+      </a>
+    </div>
+  </div>
+</section>

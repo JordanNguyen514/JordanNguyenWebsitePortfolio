@@ -1,128 +1,167 @@
-/* assets/css/main.css: Centralized navigation and base styles (Modernized) */
-
-/* Updated topnav background color to a deeper blue/black */
-.topnav{
-  width: 100%;
-  overflow: hidden;
-  background-color: #0f1c2e; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add subtle shadow for depth */
+/* assets/css/main.css: Centralized navigation and base styles */
+:root {
+  /* Match the nav background to the body background (assuming pure black or #121212) */
+  --bg-main: #000000; 
+  --nav-bg: var(--bg-main);
+  --text-primary: #ecf0f1;
+  --accent-light: #C6E9FF;
+  --dropdown-bg: #1a2c42;
+  --shadow-dark: rgba(0, 0, 0, 0.4);
 }
 
-/* Base styles for all topnav links */
-.topnav a{
+.topnav {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--nav-bg); 
+  /* Removed box-shadow for a flatter, more seamless look */
+  /* position: fixed; top: 0; z-index: 1001; opacity: 0.98; */ /* Optional: Make it sticky and slightly opaque */
+}
+
+.topnav a, 
+.nav-dropdown-btn,
+#time, 
+#visitorCounter {
   float: left;
   display: block;
-  color: #ecf0f1; /* Softer white text color */
+  color: var(--text-primary); 
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 16px;
-  /* Add smooth transition for hover effects */
   transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
-  font-weight: 500; /* Medium weight font is often sleeker than bold */
+  font-weight: 500;
+  vertical-align: middle;
+  margin: 0; 
+  background-color: inherit;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-/* Hover effect: Subtle underline and slight highlight */
-.topnav a:hover{
-  color: #C6E9FF; /* Accent color on hover */
-  /* background-color: rgba(198, 233, 255, 0.1); /* Very subtle background overlay */
-  border-bottom: 2px solid #C6E9FF; /* Modern underline effect */
-  padding-bottom: 12px; /* Adjust padding to keep height consistent with new border */
+.topnav a:hover, 
+.nav-dropdown-btn:hover,
+#time:hover, 
+#visitorCounter:hover {
+  color: var(--accent-light); 
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: 12px;
 }
 
-/* Fix for clearing floats within the topnav container */
 .topnav::after {
   content: "";
   display: table;
   clear: both;
 }
 
-body{
+body {
   margin: 0;
   padding-top: 0 !important; 
+  background-color: var(--bg-main); /* Ensure the body background is consistently dark */
 }
 
-/* FIX: Ensure all items within the topnav align vertically and have no extraneous margins */
-.topnav a, 
-.dropdown .dropbtn, 
-.dropdown2 .dropbtn2,
-#time, 
-#visitorCounter {
-  vertical-align: middle; /* Use middle alignment for slight centering */
-  margin: 0; 
-  /* Add smooth transition to non-link elements as well */
-  transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
-  padding: 14px 16px; /* Ensure time/counter have correct padding */
-}
-
-/* Dropdown specific styling adjustments */
-.dropdown2, .dropdown {
+.nav-dropdown {
  float: left;
  overflow: hidden;
 }
 
-/* Dropdown buttons inherit the sleek look */
-.dropdown2 .dropbtn2, .dropdown .dropbtn {
- font-size: 16px;
- border: none;
- outline: none;
- color: #ecf0f1;
- padding: 14px 16px;
- background-color: inherit;
- font-family: inherit;
- margin: 0;
- cursor: pointer;
- font-weight: 500;
-}
-
-/* Hover on dropdown button */
-.dropdown2 .dropbtn2:hover, .dropdown .dropbtn:hover {
-    color: #C6E9FF;
-}
-
-
-/* Dropdown Content */
-.dropdown-content2, .dropdown-content {
+.dropdown-menu {
  display: none;
  position: absolute;
- background-color: #1a2c42; /* Darker background for contrast */
+ background-color: var(--dropdown-bg); /* Keep dropdown background different for contrast */
  min-width: 180px;
  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
- z-index: 1000; /* Ensure dropdown is above other content */
- border-radius: 4px; /* Slight rounding of corners */
- overflow: hidden; /* Ensures rounded corners look clean */
+ z-index: 1000;
+ border-radius: 4px;
+ overflow: hidden;
 }
 
-/* Links inside dropdowns */
-.dropdown-content2 a, .dropdown-content a {
+.dropdown-menu a {
  float: none;
- color: #ecf0f1;
- padding: 12px 18px; /* Slightly more modern padding */
+ color: var(--text-primary);
+ padding: 12px 18px;
  text-decoration: none;
  display: block;
  text-align: left;
  font-size: 14px;
 }
 
-/* Dropdown link hover */
-.dropdown-content2 a:hover, .dropdown-content a:hover {
- background-color: #0f1c2e;
- color: #C6E9FF;
+.dropdown-menu a:hover {
+ background-color: var(--nav-bg);
+ color: var(--accent-light);
 }
 
-.dropdown2:hover .dropdown-content2, .dropdown:hover .dropdown-content {
+.nav-dropdown:hover .dropdown-menu {
  display: block;
 }
 
-
-/* Time and Visitor Counter specific styling (now shares base styles above) */
 #time, #visitorCounter {
     float: right;
     text-align: center;
 }
 
-#time:hover, #visitorCounter:hover {
-    color: #C6E9FF;
-    border-bottom: 2px solid #C6E9FF;
-    padding-bottom: 12px;
+.topnav.scrolled {
+  background-color: var(--nav-bg); /* Use your existing dark nav background color */
+  box-shadow: 0 2px 5px var(--shadow-dark); /* Add the subtle shadow back */
+  /* Optional: Make it sticky so it stays visible as they scroll through content */
+  position: fixed; 
+  top: 0;
+  z-index: 1001;
+}
+
+/* --- Back to Top Button Styling --- */
+#backToTopBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 20px; /* Place the button at the right side */
+  z-index: 999; /* Make sure it does not overlap with the topnav dropdown */
+  width: 40px;
+  height: 40px;
+  background-color: var(--accent-blue); /* Use your sleek blue accent color */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Make it a circle */
+  cursor: pointer;
+  padding: 0;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+#backToTopBtn:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+  opacity: 0.9;
+}
+
+/* --- Footer Styling --- */
+.site-footer {
+  background-color: var(--card-bg, #1a1a1a); /* Use card background color for slight contrast from body */
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-secondary, #aaaaaa);
+  font-family: var(--font-stack, sans-serif);
+  font-size: 0.9rem;
+  border-top: 1px solid #333; /* Subtle dividing line */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-footer p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+
+.footer-links a {
+    color: var(--accent-blue, #007bff);
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--text-light, #ffffff);
 }

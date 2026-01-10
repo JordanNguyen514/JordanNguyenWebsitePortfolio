@@ -82,3 +82,53 @@ function updateVisitorCounter() {
         });
 }
 updateVisitorCounter();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const topnav = document.querySelector('.topnav');
+    // The threshold (in pixels) for when the effect should activate
+    const scrollThreshold = 50; 
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > scrollThreshold) {
+            // Add the 'scrolled' class when the user scrolls down
+            topnav.classList.add('scrolled');
+        } else {
+            // Remove the 'scrolled' class when the user scrolls back to the top
+            topnav.classList.remove('scrolled');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Code from previous step (scroll effect) ---
+    const topnav = document.querySelector('.topnav');
+    const scrollThreshold = 50; 
+
+    // --- New Code for Back to Top Button ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    const visibilityThreshold = 300; // Show button after scrolling 300px
+
+    window.addEventListener('scroll', () => {
+        // Top Nav Scroll Effect Logic
+        if (window.scrollY > scrollThreshold) {
+            topnav.classList.add('scrolled');
+        } else {
+            topnav.classList.remove('scrolled');
+        }
+
+        // Back to Top Button Visibility Logic
+        if (window.scrollY > visibilityThreshold) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    // Functionality to smoothly scroll back to the top when clicked
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scrolling effect
+        });
+    });
+});

@@ -1,438 +1,350 @@
 ---
 ---
-.WelcomeTab{
-  padding:  1vw 1vw;
-  background-color: rgb(201, 76, 76);
+:root {
+  --bg-dark: #121212; /* A true dark background */
+  --accent-blue: #007bff; /* A vibrant, sleek blue */
+  --text-light: #ffffff; /* Pure white for high contrast */
+  --text-secondary: #cccccc; /* A light gray for body text */
+  --font-stack: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.WelcomeTab span{
-  text-transform: uppercase;
+/* --- Hero Section Container --- */
+.hero-section {
+  padding: 100px 20px; /* More vertical padding for a modern, open feel */
+  background-color: var(--bg-dark); 
+  text-align: center; 
+  font-family: var(--font-stack);
+}
+
+/* --- WelcomeTab & Name/Welcome Fields --- */
+.welcome-tab {
+  margin-bottom: 40px; /* Increased space below main header block */
+}
+
+.welcome-tab span {
   display: block;
-  text-align: center;
+  text-transform: uppercase;
 }
 
-.NameField{
-  color: blue;
-  font-size: 5vw;
-  font-weight: 300;
-  width: 100%;
-  letter-spacing: 0.75vw;
-  margin-bottom: 3vw;
-  background: Black;
-  position: relative;
-  animation: WelFieldTxt 1s 1;
-
+.name-field {
+  color: var(--accent-blue); 
+  font-size: 4.5rem; /* Slightly larger name */
+  font-weight: 300; 
+  letter-spacing: 0.2rem; 
+  margin-bottom: 15px;
+  /* Add a subtle glow/shadow effect for sleekness */
+  text-shadow: 0 0 15px rgba(0, 123, 255, 0.4); 
 }
 
-.WelcomeField {
-  color: white;
-  font-size: 3vw;
+.welcome-field {
+  color: var(--text-light);
+  font-size: 1.8rem; 
   font-weight: 200;
+  letter-spacing: 0.1rem; /* Added spacing for the welcome message */
 }
 
-@keyframes WelFieldTxt {
-  0% {
-    color: Black;
-    margin-bottom: -3vw;
-  }
-  30%{
-    letter-spacing: 1vw;
-    margin-bottom: -3vw;
-  }
-  85%{
-    letter-spacing: 0.5vw;
-    margin-bottom: -3vw;
-  }
+/* --- AboutWelcome Section (Description text) --- */
+.about-welcome {
+  background-color: var(--bg-dark); 
+  max-width: 800px; /* Wider paragraph for better readability */
+  margin: 0 auto; 
+  line-height: 1.6; /* Improved line spacing */
+  color: var(--text-secondary); /* Lighter gray for better contrast and readability */
 }
 
-.AboutWelcome{
-  padding:  1vw 1vw;
-  background-color: rgb(201, 76, 76);
+.about-welcome span {
+    display: block;
+    margin-bottom: 1.2rem; /* More space between description lines */
+    font-size: 1.1rem; /* Slightly larger font size for readability */
 }
 
-.Career_Portfolio{
-  margin:0;
-  padding: 0;
-  height: 55vh;
-  font-family: 'Poppins', sans-serif;
+.career-portfolio-section {
+  margin: 0;
+  padding: 80px 20px; /* Ample padding for a clean look */
+  background-color: var(--bg-dark); /* Use a solid dark background for professionalism */
+  height: auto; /* Height is determined by content, not fixed viewport height */
+  font-family: var(--font-stack);
   display: flex;
-  /* Updated Path: Go up one level from 'css' to 'assets', then into 'img' */
-  background-image: url('../img/FirstPageImages/Workplace.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  flex-direction: column; /* Stack title and buttons vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
   overflow: hidden;
 }
-.CareerPort{
-  color: blue;
-  font-size: 5vw;
-  font-weight: 300;
-  letter-spacing: 0.75vw;
-  margin-bottom: 0vw;
-  position: relative;
+
+.career-port-title {
+  color: var(--accent-blue);
+  font-size: 2.5rem; /* Large enough to be a section header */
+  font-weight: 300; 
+  letter-spacing: 0.1rem;
+  margin-bottom: 40px; /* Space between title and buttons */
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
 }
 
-.Career_Portfolio ul{
-  position: relative;
+.portfolio-links {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 30px; /* Space between the two buttons */
 }
 
-.Career_Portfolio ul li{
-  list-style: none;
-
-}
-
-.Career_Portfolio ul li:before{
-  content: attr(data-text);
-  position: absolute;
-  top: 50%;
-  left: 70%;
-  transform: translate(-50%,-50%);
-  color: #4285F4;
-  font-size: 10vw;
-  font-weight: 700;
-  pointer-events: none;
-  opacity: 0;
-  letter-spacing: 1vw;
-  transition: 0.5s;
-  white-space: nowrap;;
-}
-
-.Career_Portfolio ul li:hover:before{
-  opacity: 1;
-  letter-spacing: 0vw;
-}
-
-.Career_Portfolio ul li a{
-  position: relative;
+.portfolio-btn {
   display: inline-block;
-  padding: 1.5vw;
+  padding: 14px 40px; /* Large, easy-to-press buttons */
   text-decoration: none;
-  background: #2196f3;
+  background: var(--accent-blue);
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.5vw;
-  margin-bottom: 4vh;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  border-radius: 6px; /* Softly rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Subtle shadow for depth */
+}
+
+.portfolio-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-3px); /* Subtle lift effect */
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5); /* Enhanced shadow on hover */
+}
+
+
+.academics-section {
+  padding: 80px 20px; /* Ample padding */
+  background-color: var(--bg-dark); /* Solid background color looks more professional than a busy image */
+  height: auto; 
+  font-family: var(--font-stack);
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
   overflow: hidden;
-  transition: 1s;
-  z-index: 1;
-  top: 70%;
-  left: -45vw;
-  font-size: 2vw;
-}
-.Career_Portfolio ul:hover li a{
-  opacity: 0.5;
 }
 
-.Career_Portfolio ul li a:hover{
-  transform: scale(1.4);
-  z-index: 1000;
-  background: #ff3f81;
-  opacity: 0.5;
-}
-.Career_Portfolio ul li a:before{
-  content: '';
-  position: absolute;
-  top:0;
-  left: -1vw;
-  width: 2vw;
-  height: 2vw;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-  transform: skewX(35deg);
-  transition: 0s;
+.academics-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.Career_Portfolio ul li a:hover:before{
-   left: calc(100% + 3vw);
-   transition: 0.5s;
-   transition-delay: 0.2s;
-
+.academics-title {
+  /* Match the color of "Jordan Nguyen" section for consistency */
+  color: var(--accent-blue); 
+  font-size: 2.5rem; 
+  font-weight: 300; 
+  letter-spacing: 0.1rem;
+  margin-bottom: 30px; /* Space between title and button */
+  /* subtle glow */
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
 }
 
-.Academics{
-  padding: 0vh 1vw;
-  height: 30vw;
-  /* Updated Path: Go up one level from 'css' to 'assets', then into 'img' */
-  background-image: url('../img/FirstPageImages/Academic1.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  position: relative;
-}
-
-.AcaTxt{
-  position: absolute;
-  left: 4vw;
-  top: 4vh;
-  font-size: 6vw;
-  color: green;
-  font-family: Fantasy;
-}
-
-.AcaBtn{
-  background-color: #1c87c9;
+/* --- Button Styling (Sleek, modern button) --- */
+.academics-btn {
+  background-color: var(--accent-blue);
   border: none;
   color: white;
-  padding: 0.75vw;
+  padding: 14px 40px; /* Large, professional-looking button */
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 3vw;
-  margin: 0.2vw 0.2vw;
+  font-size: 1rem; /* Use rem units for predictable font sizing */
   cursor: pointer;
-  position: absolute;
-  left: 68vw;
-  bottom: 3vh;
+  border-radius: 6px; 
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
-.AcaTxt:hover, .AcaBtn:hover{
-animation: bounceAca 1s linear;
+.academics-btn:hover {
+  background-color: #0056b3; 
+  transform: translateY(-3px); /* Subtle lift effect */
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
 }
 
-@keyframes bounceAca {
-  20%, 50%, 80%, to{
-    transform: translateY(0);
-  }
-
-  40%{
-    transform: translateY(-0.25vw);
-  }
-  70%{
-    transform: translateY(-0.5vw);
-  }
-  90%{
-    transform: translateY(-0.75vw);
-  }
-}
-
-
-.SkillBodyInside{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  display:  flex;
+.skills-section {
+  padding: 80px 20px;
+  background-color: var(--bg-dark); 
+  font-family: var(--font-stack);
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: #2e2e2e;
+  min-height: 50vh; /* Don't force 100vh here, let content flow */
 }
 
-.SkillsContainer{
-  position: relative;
-  width: 700px;
+.skills-container {
+  width: 100%;
+  max-width: 700px; /* Keep the content centered and readable */
 }
 
-.SkillsContainer h2{
-  color: #fff;
+.skills-title {
+  color: var(--text-light);
+  margin-bottom: 30px;
+  font-weight: 400;
+  font-size: 2rem;
+  text-align: center;
 }
 
-.SkillsContainer .Skills{
-  position: relative;
+/* --- Individual Skill Item --- */
+.skill-item {
   display: flex;
+  justify-content: space-between; /* Space out name/bar container */
+  align-items: center;
   margin: 20px 0;
-  padding: 24px 10px 18px;
-  background: linear-gradient(#616161 0%, #333 10%, #222);
+  padding: 15px 20px;
+  background: var(--card-bg);
   border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid #000;
-  transition: 0.5s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.SkillsContainer .Skills:before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 10;
-}
-
-.SkillsContainer .Skills .SkillName{
-  position: relative;
-  width: 110px;
-  text-align: right;
-  color: #fff;
-  margin-top: -2px;
+.skill-name {
+  color: var(--text-light);
   text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 120px; /* Fixed width for alignment */
 }
 
-.SkillsContainer .Skills .SkillValue{
+.skill-bar-container {
   position: relative;
-  width: 40px;
-  text-align: left;
-  color: #fff;
-  margin-top: -2px;
-  text-transform: uppercase;
-}
-
-.SkillsContainer .Skills .PercentageSkill{
-  position: relative;
-  width: calc(150% - 150px);
-  height: 20px;
-  margin: 0 10px;
-  border-radius: 10px;
-  background: #151515;
-  box-shadow: inset 0 0 10px #000;
+  flex-grow: 1; /* Take up remaining space */
+  height: 10px;
+  margin: 0 20px;
+  border-radius: 5px;
+  background: #333; /* Darker background for the empty part */
   overflow: hidden;
-
 }
 
-.SkillsContainer .Skills .PercentageSkill .ProgressSkill{
+.skill-progress {
   position: absolute;
   top: 0;
   left: 0;
-  width: 70%;
   height: 100%;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: inset 0 0 2px #000;
-  animation: animateSkills 10s ease-in-out forwards;
-}
-@keyframes animateSkills {
-  from {
-    width: 0;
-  }
-}
-.Other{
-  padding: 1vw 1vh;
-  height: 100vh;
-  background-size: cover;
-  background-position: cover;
-  position: relative;
-  transition: 5s;
-  background-image: url('../img/FirstPageImages/OtherSection/Other1.jpg');
+  border-radius: 5px;
+  background: var(--accent-blue); /* Sleek blue accent color */
+  transition: width 1s ease-out; /* Smooth animation when page loads */
 }
 
-.OtherHead{
-  position: relative;
-  text-align: left;
-  top: 4vh;
-  font-size: 4vw;
-  margin-left: 2vw;
-  color: #737d73;
-  font-family: Oxygen;
+/* Optional: Display percentage value inside the bar */
+.skill-progress:after {
+  content: attr(data-percent);
+  position: absolute;
+  right: 5px;
+  top: -25px; /* Position above the bar */
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: bold;
 }
-.OtherBtn{
-  background-color: #1c87c9;
+
+/* --- Main Section Container --- */
+.other-interests-section {
+  padding: 100px 20px; /* Generous vertical padding */
+  height: auto; 
+  font-family: var(--font-stack);
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
+  overflow: hidden;
+  /* Use a consistent background color for professionalism and blend */
+  background-color: var(--bg-dark); 
+}
+
+/* --- Content Wrapper (for centering title and button) --- */
+.other-interests-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.other-interests-title {
+  color: var(--accent-blue); 
+  font-size: 2.5rem; 
+  font-weight: 300; 
+  letter-spacing: 0.1rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.other-interests-btn {
+  background-color: var(--accent-blue);
   border: none;
   color: white;
-  padding: 0.75vw 0.75vh;
+  padding: 14px 40px; /* Large, professional-looking button */
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 2vw;
-  margin: 0.2vw 0.2vw;
+  font-size: 1rem; /* Use rem units for predictable font sizing */
   cursor: pointer;
-  position: absolute;
-  left: 90%;
-  top: 90%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  border-radius: 6px; 
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
-.SocialMedia {
-  background: #162c3b;
-  padding: 40px;
+.other-interests-btn:hover {
+  background-color: #0056b3; 
+  transform: translateY(-3px); /* Subtle lift effect */
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+}
+
+/* Use modern CSS variables for consistency */
+
+.social-contact-section {
+  background: var(--bg-dark);
+  padding: 80px 20px; /* Ample padding */
   text-align: center;
-  color: white;
+  color: var(--text-light);
+  font-family: var(--font-stack);
 }
 
-.SocialMedia h1{
-  font-size: 3vw;
-  font-family: cursive;
+.content-container {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+  margin-top: 50px; /* Spacing between sections */
+  color: var(--accent-blue);
+}
 
+.section-description {
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+}
 
-.SocialMedia .SocImgBox {
+/* --- Icon Grid Layout --- */
+.icon-grid {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center icons within the container */
   align-items: center;
   flex-wrap: wrap;
+  gap: 30px; /* Consistent spacing between icons/links */
   margin-top: 20px;
-
 }
 
-.SocialMedia .SocImgBox img {
-  max-width: 200px;
-  margin: 20px;
+/* --- Base Image Styling --- */
+.social-icon-link img, .contact-icon-link img {
+  max-width: 100px; /* Set a standard size for all icons */
+  height: auto;
   cursor: pointer;
-  opacity: 0.25;
-  filter: grayscale(1);
+  /* Start with a cleaner, subtle style */
+  opacity: 0.6; 
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.SocialMedia .SocImgBox img:hover{
+/* --- Hover Effect --- */
+.social-icon-link img:hover, .contact-icon-link img:hover {
   opacity: 1;
-  filter: grayscale(0);
+  /* Use a subtle scale effect instead of grayscale filter */
+  transform: scale(1.1); 
 }
 
- .ContactBox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
-
-}
-
- .ContactBox img {
-  max-width: 15vw;
-  margin: 20px;
-  cursor: pointer;
-  opacity: 0.25;
-  filter: grayscale(1);
-}
-
-.SocialMedia .ContactBox img:hover{
-  opacity: 1;
-  filter: grayscale(0);
-}
-
-/* --- Code Quality Improvement: Social Media Layout Fix --- */
-@media screen and (max-width: 600px) {
-  /* ... existing general rules ... */
-  .NameField, .WelcomeField, .OtherHead {
-    font-size: 5vw !important;
-  }
-  .Career_Portfolio ul {
-      display: block !important;
-      padding: 0 !important;
-      margin: 20px 0 !important;
-  }
-  /* ... existing a, li rules ... */
-  .Career_Portfolio ul li a {
-    position: static !important;
-    margin: 10px auto !important;
-    font-size: 3vw !important;
-    left: auto !important;
-    transform: none !important;
-  }
-  .Academics{
-     background-size: contain !important;
-     height: 50vw !important;
-  }
-  .AcaBtn {
-    position: static !important;
-    display: block !important;
-    margin: 10px auto !important;
-    left: auto !important;
-    bottom: auto !important;
-  }
-
-  /* FIX: Social Media and Contact Box Containers Stacking Vertically */
-  .SocImgBox, .ContactBox {
-    flex-direction: column !important; /* Stack items vertically */
-    align-items: center !important; /* Center the icons horizontally */
-  }
-  
-  .SocialMedia .SocImgBox img, .SocialMedia .ContactBox img {
-    max-width: 80% !important; /* Control image width */
-    margin: 10px 0 !important; /* Add vertical spacing */
-  }
-}

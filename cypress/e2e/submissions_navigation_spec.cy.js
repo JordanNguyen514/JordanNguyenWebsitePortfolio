@@ -19,7 +19,7 @@ describe('Submissions Page Navigation and Authentication', () => {
         cy.contains('.dropdown-content a', 'View Submissions').click({ force: true });
 
         // 3. Verify we have arrived at the submissions page
-        cy.url().should('include', '/Submissions/index.html');
+        cy.url().should('include', '/submissions.html');
         cy.get('#login-section').should('be.visible');
 
         // 4. Input credentials and log in

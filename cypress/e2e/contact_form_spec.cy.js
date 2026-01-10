@@ -17,7 +17,7 @@ describe('Contact Form Functionality', () => {
         cy.contains('.dropdown-content a', 'Contact Form').click({ force: true });
 
         // Verify we are on the correct page before filling the form
-        cy.url().should('include', '/Contacting/index.html');
+        cy.url().should('include', '/contacting.html');
         cy.get('.ContactForm').should('be.visible');
 
         // 2. Fill out all the form fields
