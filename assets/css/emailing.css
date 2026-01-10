@@ -5,10 +5,6 @@ body {
     color: #ecf0f1;
     margin: 0;
     padding: 0;
-    /* Center the form vertically and horizontally */
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: calc(100vh - 60px); /* Adjust min-height for topnav */
     padding-top: 60px; /* Offset for the topnav */
 }
@@ -20,7 +16,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 500px;
-    margin: 20px;
+    margin: 20px auto; /* Changed to 'margin: 20px auto;' to center the block element */
 }
 
 .form-container h1 {

@@ -292,9 +292,9 @@ animation: bounceAca 1s linear;
   border-radius: 10px;
   background: #fff;
   box-shadow: inset 0 0 2px #000;
-  animation: animateSkillz 10s ease-in-out forwards;
+  animation: animateSkills 10s ease-in-out forwards;
 }
-@keyframes animateSkillz {
+@keyframes animateSkills {
   from {
     width: 0;
   }
@@ -302,31 +302,11 @@ animation: bounceAca 1s linear;
 .Other{
   padding: 1vw 1vh;
   height: 100vh;
-
-  background-attachment: fixed;
   background-size: cover;
   background-position: cover;
   position: relative;
   transition: 5s;
-
-  animation-duration: 40s;
-  animation-name: animate;
-  animation-direction: alternate-reverse;
-
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-
-
-}
-
-@keyframes animate {
-  /* Updated Paths: Go up one level from 'css' to 'assets', then into 'img' */
-  0%{background-image: url('../img/FirstPageImages/OtherSection/Other1.jpg');}
-  20%{background-image: url('../img/FirstPageImages/OtherSection/Other2.jpg');}
-  40%{background-image: url('../img/FirstPageImages/OtherSection/Other3.jpeg');}
-  60%{background-image: url('../img/FirstPageImages/OtherSection/Other4.jpeg');}
-  80%{background-image: url('../img/FirstPageImages/OtherSection/Other5.jpg');}
-  100%{background-image: url('../img/FirstPageImages/OtherSection/Other6.jpg');}
+  background-image: url('../img/FirstPageImages/OtherSection/Other1.jpg');
 }
 
 .OtherHead{
