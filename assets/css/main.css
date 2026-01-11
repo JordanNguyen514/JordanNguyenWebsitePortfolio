@@ -109,10 +109,10 @@ body {
 
 /* --- Back to Top Button Styling --- */
 #backToTopBtn {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 20px; /* Place the button at the right side */
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   z-index: 999; /* Make sure it does not overlap with the topnav dropdown */
   width: 40px;
   height: 40px;
@@ -130,7 +130,7 @@ body {
 }
 
 #backToTopBtn:hover {
-  background-color: #0056b3; /* Slightly darker blue on hover */
+  background-color: #0056b3;
   opacity: 0.9;
 }
 
