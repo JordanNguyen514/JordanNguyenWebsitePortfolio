@@ -293,30 +293,65 @@
 
 /* --- Analytics Section Styling --- */
 .analytics-section {
-  /* Use consistent padding and background from previous sections */
   padding: 80px 20px;
-  background-color: var(--bg-dark, #121212); 
+  background-color: var(--bg-dark); 
   text-align: center;
-  font-family: var(--font-stack, sans-serif);
+  font-family: var(--font-stack);
 }
-
-/* section-title and section-description are styled via the Social Media section's CSS */
 
 .analytics-dashboard-placeholder {
-    /* A sleek, card-like container for where you might inject a chart later */
-    background-color: var(--card-bg, #1a1a1a);
-    border: 1px solid var(--accent-blue, #007bff);
+    /* Sleek card styling */
+    background-color: var(--card-bg);
     border-radius: 8px;
-    padding: 50px 20px;
+    padding: 30px 40px; /* More padding */
     margin: 30px auto;
-    max-width: 800px;
-    color: var(--text-secondary, #aaaaaa);
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    max-width: 600px; /* Keep the card concise */
+    color: var(--text-secondary);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow */
+    border: 1px solid #333; /* Subtle border */
 }
 
+.analytics-dashboard-placeholder h2 {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  color: var(--text-light); /* Title pops more */
+  font-weight: 400;
+  text-align: left; /* Align title left */
+  border-bottom: 1px solid var(--accent-blue);
+  padding-bottom: 10px;
+}
+
+/* Style for the dynamically injected metric lines */
+.analytics-dashboard-placeholder p {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-between; /* Push value to the right */
+  align-items: center;
+  padding: 10px 0;
+  margin: 0;
+  border-bottom: 1px solid #333; /* Subtle separator */
+  font-size: 1rem;
+}
+
+.analytics-dashboard-placeholder p:last-of-type {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.analytics-dashboard-placeholder p strong {
+    color: var(--text-secondary); /* Keep metric name subtle */
+    font-weight: normal;
+}
+
+/* Make the count values prominent */
+.analytics-dashboard-placeholder p span:last-child {
+    font-weight: bold;
+    color: var(--accent-blue);
+    font-family: monospace, sans-serif; /* Monospace font for data */
+    font-size: 1.1rem;
+}
+
+/* Styling for the button below the dashboard */
 .analytics-btn {
-    /* Match the style of the portfolio/academics buttons for consistency */
-    background-color: var(--accent-blue, #007bff);
+    background-color: var(--accent-blue);
     border: none;
     color: white;
     padding: 14px 40px;
@@ -329,7 +364,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-    margin-top: 20px; 
+    margin-top: 30px; 
 }
 
 .analytics-btn:hover {
@@ -337,7 +372,6 @@
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
 }
-
 
 .social-contact-section {
   background: var(--bg-dark);
