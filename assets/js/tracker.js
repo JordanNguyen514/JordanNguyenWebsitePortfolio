@@ -1,5 +1,4 @@
 function trackUserEvent(category, action, label) {
-    // !! IMPORTANT: Replace this URL with your deployed API Gateway Endpoint !!
     const apiEndpoint = 'https://nj8jrrntii.execute-api.ca-central-1.amazonaws.com/prod/track-event'; 
 
     const eventData = {

@@ -17,7 +17,6 @@ layout: default
 <div class="career-portfolio-section">
   <span class="career-port-title">Career Portfolio</span>
     <div class="portfolio-links">
-      <!-- Added tracking attributes -->
       <a href="{{ '/assets/html/jobs.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Jobs_Button">Jobs</a>
       <a href="{{ '/assets/html/internships.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Internships_Button">Internships</a>
     </div>
@@ -26,7 +25,6 @@ layout: default
 <section class="academics-section">
   <div class="academics-content">
     <span class="academics-title">Academics</span>
-    <!-- Added tracking attributes -->
     <a href="{{ '/assets/html/academic.html' | relative_url }}" class="academics-btn" data-event-category="Content" data-event-action="Click_Academics_Button">
       Go to Academics Page
     </a>
@@ -76,12 +74,27 @@ layout: default
 <section class="other-interests-section">
   <div class="other-interests-content">
     <span class="other-interests-title">Other Interests and Passions</span>
-      <!-- Added tracking attributes -->
       <a href="{{ '/OtherSection/index.html' | relative_url }}" class="other-interests-btn" data-event-category="Content" data-event-action="Click_OtherInterests_Button">
         Come Find Out!
       </a>
   </div>
 </section>
+
+<!-- NEW: Website Analytics Section -->
+<section class="analytics-section">
+    <h1 class="section-title">Website Analytics (AWS Kinesis/Lambda)</h1>
+    <p class="section-description">A real-time demonstration of user interaction tracking built using AWS services.</p>
+    
+    <div class="analytics-dashboard-placeholder">
+        <!-- Data visualizations (charts, graphs) would be injected here via JavaScript -->
+        <p>Dashboard data loading...</p>
+    </div>
+    
+    <a href="#" class="analytics-btn" data-event-category="Content" data-event-action="Click_View_Analytics_Dashboard">
+        View Live Dashboard (External Link)
+    </a>
+</section>
+
 
 <section class="social-contact-section">
   <div class="content-container">
@@ -89,7 +102,6 @@ layout: default
     <p class="section-description">I maintain an active online presence where I share my professional updates, connect with industry peers, and contribute to open-source projects. Feel free to connect via LinkedIn, check out my GitHub profile for code samples, or send me an email regarding potential opportunities.</p>
     
     <div class="icon-grid">
-      <!-- Added tracking attributes -->
       <a href="https://www.facebook.com" class="social-icon-link" data-event-category="Content" data-event-action="Click_Facebook_Icon"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png' | relative_url }}" alt="Facebook Link"></a>
       <a href="https://www.linkedin.com" class="social-icon-link" data-event-category="Content" data-event-action="Click_LinkedIn_Icon"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png' | relative_url }}" alt="LinkedIn Link"></a>
       <a href="https://www.instagram.com" class="social-icon-link" data-event-category="Content" data-event-action="Click_Instagram_Icon"><img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png' | relative_url }}" alt="Instagram Logo"></a>
@@ -98,7 +110,6 @@ layout: default
     
     <h1 class="section-title">Lets Talk</h1>
     <div class="icon-grid">
-      <!-- Added tracking attributes -->
       <a href="{{ '/assets/html/contacting.html' | relative_url }}" class="contact-icon-link" data-event-category="Content" data-event-action="Click_ContactForm_Icon">
         <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/Contacting.png' | relative_url }}" alt="Contact Form Link">
       </a>
@@ -112,7 +123,6 @@ layout: default
     
     <h1 class="section-title">See Submissions</h1>
     <div class="icon-grid">
-      <!-- Added tracking attributes -->
       <a href="{{ '/assets/html/submissions.html' | relative_url }}" class="contact-icon-link" data-event-category="Content" data-event-action="Click_ViewSubmissions_Icon">
         <img src = "{{ '/assets/img/FirstPageImages/SocialMediaPics/submissions.png' | relative_url }}" alt="View Submissions Link">
       </a>
