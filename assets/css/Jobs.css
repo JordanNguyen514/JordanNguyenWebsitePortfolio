@@ -1,103 +1,160 @@
-.CardsUI {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  min-height: 93vh;
-  background: #010615;
-  vertical-align: center;
-}
+/* New jobs.css for Vertical Timeline Layout */
 
-.CardsUI .box{
-  position: relative;
-  width: 19.53125vw;
-  height: 39.787798408488065vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5.3vh 5.6vw;
-  background: #060c21;
-  transition: 0.5s;
-
-}
-
-.CardsUI .box:hover{
-  height: 53.05039787798408vh;
-}
-
-.CardsUI .box .imgbox{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 1.3262599469496021vh 0.6510416666666666vw;
-  box-sizing: border-box;
-}
-
-.CardsUI .box .imgbox img{
-  position: relative;
-  max-width: 100%;
-  opacity: 0.1;
-  transition: 0.5s;
-
-}
-
-.CardsUI .box:hover .imgbox img{
-  opacity: 1;
-}
-
-.CardsUI .box:before {
-  content: '';
-  position: absolute;
-  top: -0.26525198938992045vh;
-  left: -0.13020833333333334vw;
-  right: -0.13020833333333334vw;
-  bottom: -0.26525198938992045vh;
-  background: #fff;
-  z-index: -1;
-}
-
-.CardsUI .box:after {
-  content: '';
-  position: absolute;
-  top: -0.26525198938992045vh;
-  left: -0.13020833333333334vw;
-  right: -0.13020833333333334vw;
-  bottom: -0.26525198938992045vh;
-  background: #fff;
-  z-index: -1;
-
-}
-
-.CardsUI .box .boxcontent{
-  position: absolute;
-  top: 11.936339522546419vh;
-  left: 0.6510416666666666vw;
-  right: 0.6510416666666666vw;
-  bottom: 1.3262599469496021vh;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#jobs-portfolio {
+  padding: 40px 20px;
   text-align: center;
+  color: #e0e0e0;
+  background: #010615;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+#jobs-portfolio h1 {
+  margin-bottom: 40px;
+  border-bottom: 2px solid #555;
+  padding-bottom: 10px;
+  display: inline-block;
+  font-size: 2.5rem;
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* The actual timeline vertical line */
+.timeline-container::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #00aaff;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+.timeline-item {
+  padding: 10px 0; 
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circle marker on the timeline */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #060c21;
+  border: 4px solid #00aaff;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the timeline items to the left/right */
+.left {
+  left: 0;
+}
+
+.right {
+  left: 50%;
+}
+
+/* Use margins to ensure cards are pushed away from the center line */
+.left .job-card {
+  margin-right: 30px; 
+}
+
+.right .job-card {
+  margin-left: 30px;
+}
+
+/* Position markers correctly for both sides */
+.left::after {
+  right: -14px;
+}
+
+.right::after {
+  left: -12px;
+}
+
+.job-card {
+  padding: 20px;
+  background-color: #060c21;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+/* Content inside the card styles */
+.company-logo {
+  width: 100%;
+  /* FIX: Increased image height to 150px */
+  height: 150px; 
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.job-details h2 { font-size: 1.2rem; color: #00aaff; margin-bottom: 5px; }
+.job-details .duration { font-size: 0.8rem; color: #888; margin-bottom: 15px; }
+.project-summary h3 { font-size: 1rem; color: #ccc; margin-bottom: 5px; }
+.project-summary ul { list-style-type: disc; margin-left: 20px; padding: 0; font-size: 0.9rem; }
+.project-summary li { margin-bottom: 5px; color: #e0e0e0; }
+
+/* --- Expandable Content Styling --- */
+.project-summary {
+  display: none; 
   opacity: 0;
-  transition: 0.5s;
+  max-height: 0;
+  transition: opacity 0.3s ease-out, max-height 0.3s ease-out, display 0.3s;
 }
 
-.CardsUI .box:hover .boxcontent{
+.project-summary.visible {
+  display: block;
   opacity: 1;
+  max-height: 500px;
+  margin-top: 15px;
 }
 
-.CardsUI .box .boxcontent h2{
-  font-size: 2vw;
-  color:#fff;
-  font-weight: 500;
-  margin-top: 20vh;
-  line-height: 2.6525198938992043vh;
-  letter-spacing:0.06510416666666667vw;
+.toggle-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 12px; 
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-button:hover { background-color: #0088cc; }
+
+/* Media queries for responsiveness (single column on mobile) */
+@media screen and (max-width: 768px) {
+  .timeline-container::after {
+    left: 20px;
+  }
+  .timeline-item {
+    width: 100%;
+    padding-left: 40px;
+  }
+  
+  .left .job-card, .right .job-card {
+      margin-left: 10px;
+      margin-right: 10px;
+  }
+  
+  .timeline-item.right {
+    left: 0%; 
+  }
+  .left::after, .right::after {
+    left: 14px; 
+    right: auto;
+  }
 }

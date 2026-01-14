@@ -1,10 +1,6 @@
-// cypress/e2e/email_form_navigation_and_submission_spec.cy.js
-
 describe('Email Form Navigation and Functionality', () => {
 
-    // Visit the home page before each test
     beforeEach(() => {
-        // Configure your actual site URL in cypress.config.js's 'baseUrl' property
         cy.visit('/'); 
 
         cy.get('a[href="/assets/html/emailing.html"]')

@@ -22,7 +22,6 @@
 #time, 
 #visitorCounter {
   float: left;
-  display: block;
   color: var(--text-primary); 
   text-align: center;
   padding: 14px 16px;
@@ -101,8 +100,6 @@ body {
 .topnav.scrolled {
   background-color: var(--nav-bg); /* Use your existing dark nav background color */
   box-shadow: 0 2px 5px var(--shadow-dark); /* Add the subtle shadow back */
-  /* Optional: Make it sticky so it stays visible as they scroll through content */
-  position: fixed; 
   top: 0;
   z-index: 1001;
 }

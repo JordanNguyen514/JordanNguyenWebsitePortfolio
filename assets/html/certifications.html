@@ -1,0 +1,31 @@
+---
+layout: default
+css_file: "/assets/css/certifications.css"
+---
+
+<section id="certifications">
+  <h1>My Certifications</h1>
+  <div class="badge-container">
+    
+    <!-- AWS Certified Cloud Practitioner -->
+    {% include certification_item.html
+      url="www.credly.com"
+      img_path="/assets/img/certifications/awsCloudPractitioner.png" 
+      alt_text="AWS Certified Cloud Practitioner"
+      cert_id="C080fec8-9a5b-4205-a7ec-4c66fe628efa"
+      issued="August 16, 2023"
+      expires="August 16, 2026"
+    %}
+
+    <!-- ISTQB Certified Tester -->
+    {% include certification_item.html
+      url="cstb.ca"
+      img_path="/assets/img/certifications/istqb.png" 
+      alt_text="ISTQB Certified Tester"
+      cert_id="76391139-2021-03-01CAN"
+      issued="March 2021"
+      expires="Never (Valid for life)"
+    %}
+
+  </div>
+</section>

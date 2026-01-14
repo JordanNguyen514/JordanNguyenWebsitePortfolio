@@ -109,8 +109,8 @@
 
 
 .academics-section {
-  padding: 80px 20px; /* Ample padding */
-  background-color: var(--bg-dark); /* Solid background color looks more professional than a busy image */
+  padding: 80px 20px;
+  background-color: var(--bg-dark);
   height: auto; 
   font-family: var(--font-stack);
   display: flex;
@@ -129,17 +129,14 @@
 }
 
 .academics-title {
-  /* Match the color of "Jordan Nguyen" section for consistency */
   color: var(--accent-blue); 
   font-size: 2.5rem; 
   font-weight: 300; 
   letter-spacing: 0.1rem;
-  margin-bottom: 30px; /* Space between title and button */
-  /* subtle glow */
+  margin-bottom: 30px;
   text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
 }
 
-/* --- Button Styling (Sleek, modern button) --- */
 .academics-btn {
   background-color: var(--accent-blue);
   border: none;
