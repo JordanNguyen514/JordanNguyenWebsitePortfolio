@@ -1,0 +1,36 @@
+name: Post-Deployment UI Tests
+on:
+  workflow_run:
+    workflows: ["Deploy to S3"] # Replace this with the EXACT 'name:' defined in your deploy.yml
+    types:
+      - completed
+
+jobs:
+  e2e-tests:
+    # Only run if the deployment workflow actually succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Cypress Run (CloudFront Production)
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          # Use your CloudFront URL as the base for all tests
+          config: baseUrl=https://d2kmkdebgfkxyh.cloudfront.net/
+          # Ensures CloudFront is serving the site before starting tests
+          wait-on: 'https://d2kmkdebgfkxyh.cloudfront.net/'
+          wait-on-timeout: 60 
+
+      - name: Upload Test Evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
