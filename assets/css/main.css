@@ -1,164 +1,192 @@
-/* assets/css/main.css: Centralized navigation and base styles */
+/* --- Root Variables for easy customization --- */
 :root {
-  /* Match the nav background to the body background (assuming pure black or #121212) */
-  --bg-main: #000000; 
-  --nav-bg: var(--bg-main);
-  --text-primary: #ecf0f1;
-  --accent-light: #C6E9FF;
-  --dropdown-bg: #1a2c42;
-  --shadow-dark: rgba(0, 0, 0, 0.4);
-}
-
-.topnav {
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--nav-bg); 
-  /* Removed box-shadow for a flatter, more seamless look */
-  /* position: fixed; top: 0; z-index: 1001; opacity: 0.98; */ /* Optional: Make it sticky and slightly opaque */
-}
-
-.topnav a, 
-.nav-dropdown-btn,
-#time, 
-#visitorCounter {
-  float: left;
-  color: var(--text-primary); 
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
-  font-weight: 500;
-  vertical-align: middle;
-  margin: 0; 
-  background-color: inherit;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.topnav a:hover, 
-.nav-dropdown-btn:hover,
-#time:hover, 
-#visitorCounter:hover {
-  color: var(--accent-light); 
-  border-bottom: 2px solid var(--accent-light);
-  padding-bottom: 12px;
-}
-
-.topnav::after {
-  content: "";
-  display: table;
-  clear: both;
+  --nav-bg: #ffffff;
+  --nav-text: #333333;
+  --accent-color: #00bcd4; /* Vibrant Teal for high contrast */
+  --hover-bg: #f8f9fa;
+  --dropdown-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
 }
 
 body {
   margin: 0;
-  padding-top: 0 !important; 
-  background-color: var(--bg-main); /* Ensure the body background is consistently dark */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* --- Topnav Container (Alignment fixed here) --- */
+.topnav {
+  background-color: var(--nav-bg);
+  display: flex;
+  align-items: center; /* This centers all items vertically */
+  padding: 0 5%;
+  height: 70px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* --- Navigation Links & Buttons --- */
+.topnav a, .nav-dropdown-btn {
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: 14px 20px; /* Consistent padding for vertical alignment */
+  font-size: 16px;
+  font-weight: 500;
+  display: block;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: var(--transition);
+  /* The next line helps ensure consistent height for flex alignment */
+  line-height: normal; 
+}
+
+.topnav a:hover, .nav-dropdown:hover .nav-dropdown-btn {
+  color: var(--accent-color);
+  background-color: var(--hover-bg);
+}
+
+/* --- Dropdown Logic --- */
 .nav-dropdown {
- float: left;
- overflow: hidden;
+  position: relative;
+  display: inline-block;
+  height: 100%;
 }
 
 .dropdown-menu {
- display: none;
- position: absolute;
- background-color: var(--dropdown-bg); /* Keep dropdown background different for contrast */
- min-width: 180px;
- box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
- z-index: 1000;
- border-radius: 4px;
- overflow: hidden;
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: var(--dropdown-shadow);
+  border-radius: 4px;
+  top: 100%; /* Sits right below the nav bar */
+  left: 0;
 }
 
 .dropdown-menu a {
- float: none;
- color: var(--text-primary);
- padding: 12px 18px;
- text-decoration: none;
- display: block;
- text-align: left;
- font-size: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
 }
 
-.dropdown-menu a:hover {
- background-color: var(--nav-bg);
- color: var(--accent-light);
+.dropdown-menu a:last-child {
+  border-bottom: none;
 }
 
+/* Show dropdown on hover */
 .nav-dropdown:hover .dropdown-menu {
- display: block;
+  display: block;
+  animation: fadeIn 0.2s ease-in;
 }
 
+/* --- Utility/Right-side Items --- */
 #time, #visitorCounter {
-    float: right;
-    text-align: center;
+  margin-left: auto; /* Pushes the clock and counter to the right */
+  font-size: 14px;
+  color: #666;
 }
 
-.topnav.scrolled {
-  background-color: var(--nav-bg); /* Use your existing dark nav background color */
-  box-shadow: 0 2px 5px var(--shadow-dark); /* Add the subtle shadow back */
-  top: 0;
-  z-index: 1001;
+#visitorCounter {
+  margin-left: 20px;
 }
 
-/* --- Back to Top Button Styling --- */
+/* --- Back to Top Button --- */
 #backToTopBtn {
-  display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999; /* Make sure it does not overlap with the topnav dropdown */
-  width: 40px;
-  height: 40px;
-  background-color: var(--accent-blue); /* Use your sleek blue accent color */
-  color: white;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
   border: none;
-  border-radius: 50%; /* Make it a circle */
+  outline: none;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
   cursor: pointer;
-  padding: 0;
-  font-size: 24px;
-  line-height: 40px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: background-color 0.3s, opacity 0.3s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: var(--transition);
 }
 
 #backToTopBtn:hover {
-  background-color: #0056b3;
-  opacity: 0.9;
+  transform: translateY(-5px);
 }
 
-/* --- Footer Styling --- */
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Mobile Responsiveness --- */
+@media screen and (max-width: 768px) {
+  .topnav {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+  
+  .topnav a, .nav-dropdown, .nav-dropdown-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    background-color: #f1f1f1;
+  }
+  
+  #time, #visitorCounter {
+    margin: 10px 0;
+  }
+}
+
+/* --- Site Footer Styling --- */
 .site-footer {
-  background-color: var(--card-bg, #1a1a1a); /* Use card background color for slight contrast from body */
-  padding: 40px 20px;
-  text-align: center;
-  color: var(--text-secondary, #aaaaaa);
-  font-family: var(--font-stack, sans-serif);
-  font-size: 0.9rem;
-  border-top: 1px solid #333; /* Subtle dividing line */
+    background-color: #1a1a1a; /* Same background as the topnav */
+    color: #888; /* Softer text color */
+    padding: 20px 0; /* Vertical padding */
+    text-align: center; /* Center all text */
+    border-top: 1px solid #333; /* A subtle line at the top */
+    margin-top: 40px; /* Space between content and footer */
 }
 
 .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1000px; /* Constrain width to align with page content if max-width is set */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0 20px; /* Horizontal padding */
 }
 
 .site-footer p {
-    margin: 0 0 10px 0;
-    line-height: 1.5;
+    margin: 5px 0; /* Small margin between paragraphs */
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
-.footer-links a {
-    color: var(--accent-blue, #007bff);
+/* Specific styling for the main copyright line if needed */
+.site-footer p:first-child {
+    color: #e0e0e0; /* Slightly brighter color for the main copyright line */
+}
+
+/* Subtle hover effect for links that might be added later */
+.site-footer a {
+    color: #4da6ff;
     text-decoration: none;
-    margin: 0 5px;
     transition: color 0.3s ease;
 }
 
-.footer-links a:hover {
-    color: var(--text-light, #ffffff);
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive Styling --- */
+@media screen and (max-width: 600px) {
+    .site-footer {
+        padding: 15px 0;
+    }
+
+    .site-footer p {
+        font-size: 0.8rem;
+    }
 }

@@ -6,22 +6,16 @@ describe('Submissions Page Navigation and Authentication', () => {
     beforeEach(() => {
         // Visit the home page using the relative path
         cy.visit('/');
-    });
-
-    it('should navigate via the topnav, log in, and display the table', () => {
-        // 1. Start at the home page (handled by beforeEach)
-
-        // 2. Navigate to the 'View Submissions' page via the 'Contact' dropdown
-        // A normal click on the button to make the menu *visible*
-        cy.contains('.dropbtn', 'Contact').click();
-        
         // Use { force: true } to click the 'View Submissions' link even if display: none is set
-        cy.contains('.dropdown-content a', 'View Submissions').click({ force: true });
+        cy.get('img[alt="View Submissions Link"]').click({ force: true });
 
         // 3. Verify we have arrived at the submissions page
         cy.url().should('include', '/submissions.html');
         cy.get('#login-section').should('be.visible');
+    });
 
+    it('should navigate via the topnav, log in, and display the table', () => {
+        
         // 4. Input credentials and log in
         cy.get('#username').type(username);
         cy.get('#password').type(password);
@@ -36,12 +30,6 @@ describe('Submissions Page Navigation and Authentication', () => {
     });
 
     it('should show an error with invalid credentials', () => {
-        // Visit homepage again for this separate test case (handled by beforeEach)
-        
-        cy.contains('.dropbtn', 'Contact').click();
-        // Use { force: true } here too
-        cy.contains('.dropdown-content a', 'View Submissions').click({ force: true });
-
         // Input invalid credentials
         cy.get('#username').type('wronguser');
         cy.get('#password').type('wrongpass');

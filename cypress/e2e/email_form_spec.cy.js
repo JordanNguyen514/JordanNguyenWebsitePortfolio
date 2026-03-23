@@ -7,11 +7,7 @@ describe('Email Form Navigation and Functionality', () => {
           .filter(':has(img)') 
           .scrollIntoView() 
           .click();
-
-        // 2. Verify that we have navigated to the correct page
-        cy.url().should('include', '/assets/html/emailing.html');
-        
-        // Verify the form container is visible
+        cy.url().should('include', 'emailing.html');
         cy.get('#emailForm').should('be.visible');
     });
 

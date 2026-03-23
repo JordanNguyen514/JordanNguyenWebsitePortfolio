@@ -1,20 +1,89 @@
-// smoke.cy.js
-describe('Smoke Test: Jordan Nguyen Website is Live', () => {
-  it('Verifies key sections and elements on the homepage', () => {
-    // The baseUrl (d2kmkdebgfkxyh.cloudfront.net) is set in buildspec.yml
-    cy.visit('/'); 
-    
-    // Check the page title
-    cy.title().should('eq', 'Jordan 1st Page');
+describe('Portfolio Website Smoke Test', () => {
+  
+  beforeEach(() => {
+    cy.visit('/');
+  });
 
-    // Check main welcome text
-    cy.get('.NameField').should('contain', 'Jordan Nguyen');
-    cy.get('.WelcomeField').should('contain', 'Welcome to my webpage');
-
-    // Check for the "Career Portfolio" heading
-    cy.get('.CareerPort').should('be.visible').and('contain', 'Career Portfolio');
+  it('should load the main page and display core content', () => {
+    // Check for the main hero title
+    cy.get('#hero-title').should('be.visible').and('contain', 'Jordan Nguyen');
     
-    // Check for a specific skill name (e.g., SQL)
-    cy.contains('.SkillName', 'SQL').should('be.visible');
+    // Check for core section titles
+    cy.contains('.career-port-title', 'Career Portfolio').should('be.visible');
+    cy.contains('.academics-title', 'Academics').should('be.visible');
+    cy.contains('.skills-title', 'My Notable Skills').should('be.visible');
+    cy.contains('.other-interests-title', 'Other Interests and Passions').should('be.visible');
+    cy.contains('.section-title', 'Website Analytics (AWS Kinesis/Lambda)').should('be.visible');
+    cy.contains('.section-title', 'My Social Media Presence').should('be.visible');
+  });
+
+  it('should verify navigation links in the Career Portfolio section', () => {
+    // Check if portfolio buttons are visible and have correct text
+    cy.get('[data-event-action="Click_Jobs_Button"]').should('be.visible').and('contain', 'Jobs');
+    cy.get('[data-event-action="Click_Internships_Button"]').should('be.visible').and('contain', 'Internships');
+    cy.get('[data-event-action="Click_Certifications_Button"]').should('be.visible').and('contain', 'Certifications');
+
+    // Optional: Click a link and verify URL change
+    cy.get('[data-event-action="Click_Jobs_Button"]').click();
+    cy.url().should('include', '/assets/html/jobs.html');
+    cy.go('back'); // Go back to index page for next potential tests
+  });
+
+  it('should verify social media and contact links', () => {
+    // Check for key social links using their data attributes
+    cy.get('[data-event-action="Click_LinkedIn_Icon"]').should('be.visible');
+    cy.get('[data-event-action="Click_GitHub_Icon"]').should('be.visible');
+    
+    // Check contact form, email, CV, and submissions links
+    cy.get('[data-event-action="Click_ContactForm_Icon"]').should('be.visible');
+    cy.get('[data-event-action="Click_CV_Icon"]').should('be.visible');
+    cy.get('[data-event-action="Click_ViewSubmissions_Icon"]').should('be.visible');
+  });
+
+  it('should load the navigation bar and display the Home link', () => {
+    // Check if the topnav div exists
+    cy.get('.topnav').should('be.visible');
+
+    // Check if the "Home" link is visible and has the correct tracking attribute
+    cy.get('a[data-event-action="Click_Home"]')
+      .should('be.visible')
+      .and('contain', 'Home');
+  });
+
+  it('should open the "Browse" dropdown and show its links', () => {
+    // Click the "Browse" dropdown button
+    // Cypress handles triggering hover/focus necessary for dropdowns to appear in UI
+    cy.contains('button', 'Browse').click();
+
+    // Verify the dropdown menu is visible
+    cy.get('.dropdown-menu').eq(0).should('be.visible');
+
+    // Verify specific links within the browse menu are now visible
+    cy.get('[data-event-action="Click_Jobs"]').should('be.visible').and('contain', 'Jobs');
+    cy.get('[data-event-action="Click_Academics"]').should('be.visible').and('contain', 'Academics');
+    
+    // Click outside to close the dropdown (cleanup for next test)
+    cy.get('body').click(0, 0);
+  });
+
+  it('should open the "Contact" dropdown and show its links', () => {
+    // Click the "Contact" dropdown button (second button on the page)
+    cy.contains('button', 'Contact').click();
+
+    // Verify the second dropdown menu is visible
+    cy.get('.dropdown-menu').eq(1).should('be.visible');
+
+    // Verify specific links within the contact menu are now visible
+    cy.get('[data-event-action="Click_ContactForm"]').should('be.visible').and('contain', 'Contact Form');
+    cy.get('[data-event-action="Click_ViewSubmissions"]').should('be.visible').and('contain', 'View Submissions');
+
+    // Click outside to close the dropdown
+    cy.get('body').click(0, 0);
+  });
+
+  it('should display dynamic elements like time and visitor counter', () => {
+    // These elements are updated by JavaScript, so we just check for their presence
+    cy.get('#time').should('exist');
+    cy.get('#visitorCounter').should('exist').and('contain', 'Visitors');
   });
 });

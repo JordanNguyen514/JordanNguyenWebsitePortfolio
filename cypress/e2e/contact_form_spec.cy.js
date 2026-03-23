@@ -5,21 +5,13 @@ describe('Contact Form Functionality', () => {
     // Visit the home page before each test to start navigation from the top
     beforeEach(() => {
         cy.visit('/'); 
+        cy.get('img[alt="Contact Form Link"]').click({ force: true });
+        cy.url().should('include', '/contacting.html');
+        cy.get('.ContactForm').should('be.visible');
     });
 
     it('should navigate to the contact page, submit the form, and show a success message', () => {
         
-        // 1. Navigate to the 'Contact Form' page via the 'Contact' dropdown
-        // The menu item is "Contact" in the default.html file
-        cy.contains('.dropbtn', 'Contact').click();
-        
-        // The link name in the dropdown content is "Contact Form"
-        cy.contains('.dropdown-content a', 'Contact Form').click({ force: true });
-
-        // Verify we are on the correct page before filling the form
-        cy.url().should('include', '/contacting.html');
-        cy.get('.ContactForm').should('be.visible');
-
         // 2. Fill out all the form fields
         cy.get('#firstName').type('JordanTest');
         cy.get('#lastName').type('NguyenTest');
@@ -42,6 +34,4 @@ describe('Contact Form Functionality', () => {
         // Optionally verify form fields are cleared after submission
         cy.get('#firstName').should('be.empty');
     });
-
-    // You can add more tests here to check for validation errors, etc.
 });
