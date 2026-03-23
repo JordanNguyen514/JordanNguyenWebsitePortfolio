@@ -28,9 +28,9 @@ jobs:
           install: false
           browser: chrome
           # RESTORED ORIGINAL URL:
-          config: baseUrl=https://cloudfront.net
+          config: baseUrl=https://d2kmkdebgfkxyh.cloudfront.net/
           # Ensures CloudFront is serving the site before starting tests
-          wait-on: 'https://cloudfront.net'
+          wait-on: 'https://d2kmkdebgfkxyh.cloudfront.net/'
           wait-on-timeout: 120 
 
       - name: Upload Test Evidence
