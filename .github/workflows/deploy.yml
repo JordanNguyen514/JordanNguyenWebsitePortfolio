@@ -14,7 +14,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Adjust this to match your local version if needed
+          ruby-version: '3.3' # Adjust this to match your local version if needed
           bundler-cache: true # Runs 'bundle install' automatically
 
       - name: Build Jekyll Site
