@@ -425,3 +425,95 @@
   transform: scale(1.1); 
 }
 
+/* SDET Section Styling */
+.sdet-highlights-section {
+  padding: 50px 20px;
+  background: #0b0d11; /* Matches your dark background */
+  color: white;
+  text-align: center;
+}
+
+.sdet-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #3498db; /* Matches your "Jordan Nguyen" blue */
+}
+
+.sdet-grid {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sdet-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 25px;
+  width: 280px;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sdet-card:hover {
+  transform: translateY(-5px);
+  border-color: #3498db;
+}
+
+/* Ensure the SVG container has a size */
+.chart-box {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-chart {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #2c3e50; /* Dark circle background */
+  stroke-width: 3;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke: #2ecc71; /* Success Green */
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.percentage {
+  fill: white;
+  font-family: sans-serif;
+  font-size: 8px; /* Adjusted for the 36x36 viewbox */
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+
+/* Trend & Stack Styling */
+.trend-value { font-size: 2rem; font-weight: bold; color: #e74c3c; display: block; }
+.tag {
+  background: #3498db;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin: 3px;
+  display: inline-block;
+}
+
+.sdet-info h3 { font-size: 1.2rem; margin: 15px 0 5px; color: #3498db; }
+.sdet-info p { font-size: 0.9rem; color: #bdc3c7; line-height: 1.4; }

@@ -1,0 +1,555 @@
+---
+---
+/* ============================================================
+   SDET SHOWCASE PAGE — sdet.css
+   Palette inherited from site: --bg-dark #121212, --accent-blue #007bff
+   ============================================================ */
+
+:root {
+  --bg-dark: #121212;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222;
+  --accent-blue: #007bff;
+  --accent-cyan: #00d4ff;
+  --accent-green: #00e676;
+  --accent-orange: #ff9100;
+  --accent-purple: #7c4dff;
+  --text-light: #ffffff;
+  --text-secondary: #aaaaaa;
+  --border: #2a2a2a;
+  --font-stack: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Courier New', 'Cascadia Code', monospace;
+}
+
+/* ── Page Header ── */
+.sdet-hero {
+  padding: 80px 20px 60px;
+  background: var(--bg-dark);
+  text-align: center;
+  font-family: var(--font-stack);
+  border-bottom: 1px solid var(--border);
+}
+
+.sdet-hero h1 {
+  color: var(--accent-blue);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 0.15rem;
+  margin: 0 0 16px;
+  text-shadow: 0 0 20px rgba(0,123,255,0.4);
+}
+
+.sdet-hero p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Section Wrappers ── */
+.sdet-section {
+  padding: 80px 5%;
+  background: var(--bg-dark);
+  font-family: var(--font-stack);
+  border-bottom: 1px solid var(--border);
+}
+
+.sdet-section:nth-child(even) {
+  background: #0e0e0e;
+}
+
+.sdet-section-title {
+  color: var(--text-light);
+  font-size: 1.9rem;
+  font-weight: 400;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdet-section-title .title-tag {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  background: var(--accent-blue);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05rem;
+  vertical-align: middle;
+}
+
+.sdet-section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0 48px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   1. SKILLS MATRIX
+   ============================================================ */
+.skills-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.skill-category-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.skill-category-card:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-3px);
+}
+
+.skill-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.skill-category-icon {
+  font-size: 1.4rem;
+}
+
+.skill-category-name {
+  color: var(--accent-blue);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+}
+
+.skill-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #252525;
+  border: 1px solid #333;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 7px 13px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.skill-tag:hover {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.skill-tag .skill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Level badges */
+.skill-tag.expert   { border-color: var(--accent-green);  }
+.skill-tag.advanced { border-color: var(--accent-blue);   }
+.skill-tag.mid      { border-color: var(--accent-orange); }
+.skill-tag.learning { border-color: var(--accent-purple); }
+
+.skill-tag.expert:hover   { background: var(--accent-green);  border-color: var(--accent-green);  color: #111; }
+.skill-tag.advanced:hover { background: var(--accent-blue);   border-color: var(--accent-blue);   color: #fff; }
+.skill-tag.mid:hover      { background: var(--accent-orange); border-color: var(--accent-orange); color: #111; }
+.skill-tag.learning:hover { background: var(--accent-purple); border-color: var(--accent-purple); color: #fff; }
+
+.skill-matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ============================================================
+   2. TEST AUTOMATION SHOWCASE
+   ============================================================ */
+.showcase-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+  padding: 8px 8px 0;
+  overflow-x: auto;
+}
+
+.showcase-tab {
+  padding: 10px 20px;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.showcase-tab:hover {
+  color: var(--text-light);
+  background: #252525;
+}
+
+.showcase-tab.active {
+  color: var(--accent-cyan);
+  background: #111;
+  border-bottom: 2px solid var(--accent-cyan);
+}
+
+.showcase-code-panel {
+  display: none;
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 28px;
+  overflow-x: auto;
+}
+
+.showcase-code-panel.active {
+  display: block;
+}
+
+.code-block {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #cdd6f4;
+  white-space: pre;
+}
+
+/* Syntax highlight tokens */
+.tok-keyword   { color: #cba6f7; }  /* purple - describe/it/cy */
+.tok-string    { color: #a6e3a1; }  /* green  - selectors, urls */
+.tok-comment   { color: #6c7086; font-style: italic; }
+.tok-fn        { color: #89b4fa; }  /* blue   - function names */
+.tok-num       { color: #fab387; }  /* orange - numbers */
+.tok-operator  { color: #89dceb; }  /* cyan   - => . */
+.tok-param     { color: #f38ba8; }  /* red    - params */
+
+.showcase-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 11px;
+}
+
+.showcase-badge .badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+}
+
+/* ============================================================
+   3. CI/CD PIPELINE DIAGRAM
+   ============================================================ */
+.pipeline-wrapper {
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.pipeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 900px;
+  position: relative;
+}
+
+.pipeline-stage {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Arrow connector */
+.pipeline-stage:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 34px;
+  right: -16px;
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+  z-index: 2;
+}
+
+/* Arrow head */
+.pipeline-stage:not(:last-child)::before {
+  content: '▶';
+  position: absolute;
+  top: 26px;
+  right: -24px;
+  color: var(--accent-cyan);
+  font-size: 0.7rem;
+  z-index: 3;
+}
+
+.pipeline-node {
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: default;
+  z-index: 1;
+}
+
+.pipeline-node:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 20px rgba(0,123,255,0.3);
+}
+
+.pipeline-node.success  { border-color: var(--accent-green); }
+.pipeline-node.warning  { border-color: var(--accent-orange); }
+.pipeline-node.trigger  { border-color: var(--accent-purple); }
+
+.pipeline-label {
+  color: var(--text-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+}
+
+.pipeline-sublabel {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  text-align: center;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  line-height: 1.4;
+}
+
+.pipeline-status {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #111;
+  border: 2px solid var(--bg-dark);
+}
+
+.pipeline-status.pass   { background: var(--accent-green); }
+.pipeline-status.active { background: var(--accent-orange); }
+
+/* ============================================================
+   4. QA METRICS DASHBOARD
+   ============================================================ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+}
+
+.metric-card.blue::before   { background: var(--accent-blue);   }
+.metric-card.green::before  { background: var(--accent-green);  }
+.metric-card.orange::before { background: var(--accent-orange); }
+.metric-card.cyan::before   { background: var(--accent-cyan);   }
+.metric-card.purple::before { background: var(--accent-purple); }
+
+.metric-card:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-4px);
+}
+
+.metric-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.metric-value {
+  color: var(--text-light);
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07rem;
+}
+
+.metric-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.metric-trend.up   { background: rgba(0,230,118,0.15); color: var(--accent-green); }
+.metric-trend.down { background: rgba(255,145,0,0.15);  color: var(--accent-orange); }
+
+/* Donut chart for test results */
+.donut-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.donut-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.donut-chart {
+  flex-shrink: 0;
+}
+
+.donut-legend {
+  flex: 1;
+  min-width: 160px;
+}
+
+.donut-legend h3 {
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 0.85rem;
+}
+
+.legend-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legend-val {
+  color: var(--text-light);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sdet-hero h1 { font-size: 2rem; }
+  .pipeline { min-width: 600px; }
+  .donut-row { grid-template-columns: 1fr; }
+  .showcase-tabs { gap: 2px; }
+  .showcase-tab { padding: 8px 12px; font-size: 0.75rem; }
+}
