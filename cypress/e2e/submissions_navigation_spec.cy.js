@@ -4,39 +4,35 @@ describe('Submissions Page Navigation and Authentication', () => {
     const password = 'admin123';
 
     beforeEach(() => {
-        // Visit the home page using the relative path
         cy.visit('/');
-        // Use { force: true } to click the 'View Submissions' link even if display: none is set
         cy.get('img[alt="View Submissions Link"]').click({ force: true });
-
-        // 3. Verify we have arrived at the submissions page
         cy.url().should('include', '/submissions.html');
         cy.get('#login-section').should('be.visible');
     });
 
     it('should navigate via the topnav, log in, and display the table', () => {
-        
-        // 4. Input credentials and log in
+
         cy.get('#username').type(username);
         cy.get('#password').type(password);
         cy.get('#login-form button').click();
 
-        // 5. Verify the table appears (give the fetch request time to complete)
-        cy.wait(2000); 
-        cy.get('#submissions-table-container').should('be.visible');
-        
-        // Optional: Verify specific data is present
+        // FIX: Replace cy.wait(2000) with an assertion-based wait.
+        // cypress/no-unnecessary-waiting bans arbitrary time waits — they
+        // make tests slow AND flaky (pass on fast machines, fail on slow CI).
+        // cy.get() with a timeout retries until the element appears or time runs out.
+        cy.get('#submissions-table-container', { timeout: 8000 }).should('be.visible');
         cy.contains('th', 'First Name').should('be.visible');
     });
 
     it('should show an error with invalid credentials', () => {
-        // Input invalid credentials
+
         cy.get('#username').type('wronguser');
         cy.get('#password').type('wrongpass');
         cy.get('#login-form button').click();
 
-        // Verify the error message appears
-        cy.wait(1000);
-        cy.get('#error-message').should('be.visible').and('contain', 'Invalid username or password.');
+        // FIX: Replace cy.wait(1000) with assertion-based wait.
+        cy.get('#error-message', { timeout: 5000 })
+          .should('be.visible')
+          .and('contain', 'Invalid username or password.');
     });
 });

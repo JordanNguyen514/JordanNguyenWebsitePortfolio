@@ -1,0 +1,46 @@
+#!/bin/sh
+# ============================================================
+#  PRE-COMMIT HOOK  —  .husky/pre-commit  (Husky v9)
+# ============================================================
+
+echo ""
+echo "🔍 Running pre-commit quality gates..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# ── Gate 1: ESLint ──────────────────────────────────────────
+# --max-warnings=-1 means: block on ERRORS only, warnings are allowed.
+# This is the right setting while you're gradually cleaning up legacy code.
+# Once the codebase is clean, tighten this to --max-warnings=0.
+echo ""
+echo "📋 Gate 1/2 — ESLint (errors block commit, warnings allowed)"
+
+npx eslint "assets/js/main.js" "cypress/**/*.js" "__tests__/**/*.js" --max-warnings=-1
+
+ESLINT_EXIT=$?
+if [ $ESLINT_EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ ESLint found ERRORS — commit blocked."
+  echo "   Run: npm run lint:fix   to auto-fix what's possible."
+  echo "   Run: npm run lint       to see all issues."
+  exit 1
+fi
+echo "  ✅ ESLint passed"
+
+# ── Gate 2: Unit Tests ──────────────────────────────────────
+echo ""
+echo "🧪 Gate 2/2 — Jest Unit Tests"
+
+npx jest --passWithNoTests --bail
+
+JEST_EXIT=$?
+if [ $JEST_EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ Unit tests FAILED — commit blocked."
+  exit 1
+fi
+echo "  ✅ Unit tests passed"
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ All pre-commit gates passed — committing!"
+echo ""

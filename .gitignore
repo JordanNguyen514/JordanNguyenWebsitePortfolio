@@ -5,3 +5,5 @@ _site
 vendor
 cypress/screenshots/
 /package/
+node_modules
+coverage

@@ -1,0 +1,20 @@
+# ── Vendor / third-party ──────────────────────────────────
+assets/js/jquery-3.5.0.js
+
+# ── Legacy files not written with ESLint in mind ──────────
+# These existed before ESLint was added to the project.
+# Gradually remove entries here as you clean up each file.
+assets/js/tracker.js
+assets/js/analytics-dashboard.js
+assets/js/submissions.js
+assets/js/emailing.js
+assets/js/contact_form_handler.js
+assets/js/Jobs.js
+assets/js/Sport.js
+
+# ── Build output ───────────────────────────────────────────
+_site/
+node_modules/
+
+# ── Pact generated contracts ───────────────────────────────
+pact/pacts/

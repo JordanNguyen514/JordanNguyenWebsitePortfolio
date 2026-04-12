@@ -1,26 +1,56 @@
 {
   "name": "jordanguyenwebsiteportfolio",
   "version": "1.0.0",
-  "description": "Jordan's 1st project",
+  "description": "Jordan's Portfolio — SDET Showcase",
   "main": "FirstPage.js",
+  "type": "commonjs",
   "scripts": {
     "test": "cypress run --config baseUrl=https://d2kmkdebgfkxyh.cloudfront.net",
+    "test:local": "cypress run",
+    "test:open": "cypress open",
+    "test:unit": "jest --passWithNoTests",
+    "test:unit:watch": "jest --watch",
+    "test:unit:coverage": "jest --coverage --passWithNoTests",
+    "test:contract": "jest pact/consumer.contact.test.js",
+    "test:contract:verify": "jest pact/provider.test.js",
+    "test:perf": "lhci autorun --config=lighthouserc.js",
+    "lint": "eslint \"assets/js/**/*.js\" \"cypress/**/*.js\" \"__tests__/**/*.js\"",
+    "lint:fix": "eslint --fix \"assets/js/**/*.js\" \"cypress/**/*.js\"",
+    "prepare": "husky",
     "start": "http-server src"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+github.com"
+    "url": "git+github.com/JordanNguyen514/JordanNguyenWebsitePortfolio.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "sdet",
+    "qa",
+    "portfolio",
+    "cypress",
+    "playwright"
+  ],
+  "author": "Jordan Nguyen",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "github.com"
-  },
-  "homepage": "github.com",
   "devDependencies": {
     "cypress": "^13.13.0",
-    "http-server": "^14.1.1"
+    "eslint": "^8.57.0",
+    "eslint-plugin-cypress": "^3.5.0",
+    "husky": "^9.1.7",
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0",
+    "@lhci/cli": "^0.14.0",
+    "@pact-foundation/pact": "^12.3.0"
   }
 }

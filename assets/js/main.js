@@ -1,134 +1,100 @@
-// --- Global Time Function (used on body onload) ---
+// --- Global Time Function ---
 
 function checkTime(i) {
-  if (i < 10) { // add zero in front of numbers < 10
-    i = "0" + i;
+  if (i < 10) {
+    i = '0' + i;
   }
   return i;
 }
 
 function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
+  const today = new Date();
+  const h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
   m = checkTime(m);
   s = checkTime(s);
-  // Check if the 'time' element exists before trying to update it
   if (document.getElementById('time')) {
-    document.getElementById('time').innerHTML = "Time: " + h + ":" + m + ":" + s;
+    document.getElementById('time').innerHTML = 'Time: ' + h + ':' + m + ':' + s;
   }
-  var t = setTimeout(startTime, 500);
+  setTimeout(startTime, 500); // no need to store — never cancelled
 }
 
 startTime();
 
-function myFunction() {
-  var x = document.getElementById("mytopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+// Exposed on window so inline HTML onclick="myFunction()" can call it
+window.myFunction = function () {
+  const x = document.getElementById('mytopnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
   } else {
-    x.className = "topnav";
+    x.className = 'topnav';
   }
-}
+};
 
 /**
- * Toggles the visibility of extra text and updates the button label.
- * @param {string} dotsId - The ID of the span element containing the '...'
- * @param {string} moreId - The ID of the span element containing the extra text
- * @param {string} btnId - The ID of the button element
- * @param {string} lang - The language ('en' for English, 'fr' for French)
+ * Toggles read-more/less text. Called via onclick in HTML templates.
+ * @param {string} dotsId
+ * @param {string} moreId
+ * @param {string} btnId
+ * @param {string} lang - 'en' or 'fr'
  */
-function toggleReadMore(dotsId, moreId, btnId, lang) {
-  var dots = document.getElementById(dotsId);
-  var moreText = document.getElementById(moreId);
-  var btnText = document.getElementById(btnId);
+window.toggleReadMore = function (dotsId, moreId, btnId, lang) {
+  const dots = document.getElementById(dotsId);
+  const moreText = document.getElementById(moreId);
+  const btnText = document.getElementById(btnId);
 
-  if (dots.style.display === "none") {
-    dots.style.display = "inline";
-    if (lang === 'en') {
-      btnText.innerHTML = "Read More";
-    } else if (lang === 'fr') {
-      btnText.innerHTML = "Lire Plus";
-    }
-    moreText.style.display = "none";
+  if (dots.style.display === 'none') {
+    dots.style.display = 'inline';
+    btnText.innerHTML = lang === 'fr' ? 'Lire Plus' : 'Read More';
+    moreText.style.display = 'none';
   } else {
-    dots.style.display = "none";
-    if (lang === 'en') {
-      btnText.innerHTML = "Read Less";
-    } else if (lang === 'fr') {
-      btnText.innerHTML = "Lire Moins";
-    }
-    moreText.style.display = "inline";
+    dots.style.display = 'none';
+    btnText.innerHTML = lang === 'fr' ? 'Lire Moins' : 'Read Less';
+    moreText.style.display = 'inline';
   }
-}
+};
 
-// Function to fetch and update the visitor count
+// Visitor counter
 function updateVisitorCounter() {
-    // !! IMPORTANT: REPLACE THIS URL with your actual API Gateway Invoke URL from Step 6 !!
-    const apiGatewayUrl = 'https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod'; 
+  const apiGatewayUrl = 'https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod';
 
-    fetch(apiGatewayUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data && data.visits !== undefined) {
-                // Update the text content of the #visitorCounter element
-                document.getElementById('visitorCounter').textContent = `Visitors: ${data.visits}`;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching visitor count:', error);
-            document.getElementById('visitorCounter').textContent = 'Visitors: N/A';
-        });
+  fetch(apiGatewayUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.visits !== undefined) {
+        document.getElementById('visitorCounter').textContent = `Visitors: ${data.visits}`;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching visitor count:', error);
+      document.getElementById('visitorCounter').textContent = 'Visitors: N/A';
+    });
 }
 updateVisitorCounter();
 
+// Scroll effects + Back to Top button (single consolidated DOMContentLoaded listener)
 document.addEventListener('DOMContentLoaded', () => {
-    const topnav = document.querySelector('.topnav');
-    // The threshold (in pixels) for when the effect should activate
-    const scrollThreshold = 50; 
+  const topnav = document.querySelector('.topnav');
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  const scrollThreshold = 50;
+  const visibilityThreshold = 300;
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > scrollThreshold) {
-            // Add the 'scrolled' class when the user scrolls down
-            topnav.classList.add('scrolled');
-        } else {
-            // Remove the 'scrolled' class when the user scrolls back to the top
-            topnav.classList.remove('scrolled');
-        }
-    });
-});
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > scrollThreshold) {
+      topnav.classList.add('scrolled');
+    } else {
+      topnav.classList.remove('scrolled');
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Code from previous step (scroll effect) ---
-    const topnav = document.querySelector('.topnav');
-    const scrollThreshold = 50; 
+    if (backToTopBtn) {
+      backToTopBtn.style.display = window.scrollY > visibilityThreshold ? 'block' : 'none';
+    }
+  });
 
-    // --- New Code for Back to Top Button ---
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    const visibilityThreshold = 300; // Show button after scrolling 300px
-
-    window.addEventListener('scroll', () => {
-        // Top Nav Scroll Effect Logic
-        if (window.scrollY > scrollThreshold) {
-            topnav.classList.add('scrolled');
-        } else {
-            topnav.classList.remove('scrolled');
-        }
-
-        // Back to Top Button Visibility Logic
-        if (window.scrollY > visibilityThreshold) {
-            backToTopBtn.style.display = 'block';
-        } else {
-            backToTopBtn.style.display = 'none';
-        }
-    });
-
-    // Functionality to smoothly scroll back to the top when clicked
+  if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Smooth scrolling effect
-        });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  }
 });
