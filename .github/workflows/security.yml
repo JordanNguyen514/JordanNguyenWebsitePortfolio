@@ -1,0 +1,145 @@
+name: Security Scanning
+
+# ============================================================
+#  CONCEPT — Security Testing in a QA Pipeline
+#  -----------------------------------------------
+#  Security testing covers two distinct concerns:
+#
+#  1. DEPENDENCY VULNERABILITIES (Snyk)
+#     Scans your package.json dependencies for known CVEs.
+#     "Your app is only as secure as its dependencies."
+#     Catches issues like: lodash prototype pollution,
+#     axios SSRF vulnerabilities, jest sandbox escapes, etc.
+#
+#  2. WEB APPLICATION VULNERABILITIES (OWASP ZAP)
+#     Runs an automated scanner against your LIVE site looking
+#     for: XSS, clickjacking, missing security headers,
+#     insecure cookies, CORS misconfigurations, etc.
+#     OWASP ZAP is the industry-standard open-source DAST tool.
+#     DAST = Dynamic Application Security Testing (tests running app)
+#
+#  As a Deloitte QA consultant, you'll be expected to know the
+#  difference between SAST (static code analysis) and DAST
+#  (dynamic runtime analysis). This workflow demonstrates both.
+#
+#  SETUP:
+#    - Add SNYK_TOKEN to GitHub Secrets (free at snyk.io)
+#    - ZAP runs without any token — no setup needed
+# ============================================================
+
+on:
+  # Run on every push to master
+  push:
+    branches: [master]
+
+  # Run weekly — catch new CVEs in existing dependencies
+  schedule:
+    - cron: '0 8 * * 1'  # Every Monday 8am UTC
+
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+
+  # ════════════════════════════════════════════════════════════
+  #  JOB 1: Snyk — Dependency Vulnerability Scanning (SAST)
+  # ════════════════════════════════════════════════════════════
+  snyk-dependency-scan:
+    name: Snyk Dependency Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Snyk Dependency Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          # 'monitor' uploads results to Snyk dashboard for ongoing tracking
+          # 'test' runs a one-time check and fails on high/critical CVEs
+          command: test
+          args: >
+            --severity-threshold=high
+            --json-file-output=snyk-report.json
+
+      - name: Upload Snyk Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-dependency-report
+          path: snyk-report.json
+          retention-days: 30
+
+      - name: Post Snyk Summary
+        if: always()
+        run: |
+          echo "## 🔐 Snyk Dependency Scan" >> $GITHUB_STEP_SUMMARY
+          echo "Scanned: package.json dependencies" >> $GITHUB_STEP_SUMMARY
+          echo "Threshold: HIGH and CRITICAL vulnerabilities fail the build" >> $GITHUB_STEP_SUMMARY
+          echo "Full report in the snyk-dependency-report artifact." >> $GITHUB_STEP_SUMMARY
+
+  # ════════════════════════════════════════════════════════════
+  #  JOB 2: OWASP ZAP — Dynamic Application Security Testing
+  #  Runs AFTER deploy (triggered manually or on schedule)
+  #  to scan the live CloudFront site.
+  # ════════════════════════════════════════════════════════════
+  owasp-zap-scan:
+    name: OWASP ZAP Baseline Scan
+    runs-on: ubuntu-latest
+    # Only run on schedule or manual trigger — not on every push
+    # (ZAP scans the live site, so it needs the deploy to complete first)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          # Scan the live CloudFront URL
+          target: 'https://d2kmkdebgfkxyh.cloudfront.net'
+
+          # Baseline scan = passive only (no active attack attempts)
+          # Safe for production — just observes, doesn't exploit
+          rules_file_name: '.zap/rules.tsv'
+
+          # Create a GitHub issue automatically if HIGH alerts found
+          issue_title: 'ZAP Security Scan — Alerts Found'
+          create_issue: true
+
+          # Fail the workflow if any HIGH severity alerts are found
+          # WARN = informational only, FAIL = blocks the pipeline
+          cmd_options: '-a'  # Treat alerts as failures at WARN level
+
+      - name: Upload ZAP Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-security-report
+          path: report_html.html
+          retention-days: 30
+
+      - name: Post ZAP Summary
+        if: always()
+        run: |
+          echo "## 🛡️ OWASP ZAP Security Scan" >> $GITHUB_STEP_SUMMARY
+          echo "Target: https://d2kmkdebgfkxyh.cloudfront.net" >> $GITHUB_STEP_SUMMARY
+          echo "Type: Baseline (passive — no active attacks)" >> $GITHUB_STEP_SUMMARY
+          echo "Report: Download the zap-security-report artifact for full details." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Common findings for static sites:" >> $GITHUB_STEP_SUMMARY
+          echo "- Missing security headers (CSP, X-Frame-Options)" >> $GITHUB_STEP_SUMMARY
+          echo "- Cookie attributes (Secure, HttpOnly, SameSite)" >> $GITHUB_STEP_SUMMARY
+          echo "- Information disclosure (server version headers)" >> $GITHUB_STEP_SUMMARY

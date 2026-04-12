@@ -164,7 +164,7 @@ font-family: Oxygen;
 
 /* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(1) .face.face1 {
-    background: url('/assets/img/OtherImages/SportsCover.jpg');
+    background: url('https://d2kmkdebgfkxyh.cloudfront.net/assets/img/OtherImages/SportsCover.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
   }
@@ -175,21 +175,21 @@ font-family: Oxygen;
 }
 /* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(2) .face.face1{
-    background: url('/assets/img/OtherImages/Travelling.jpg');
+    background: url('https://d2kmkdebgfkxyh.cloudfront.net/assets/img/OtherImages/Travelling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }
 
 /* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(3) .face.face1{
-    background: url('/assets/img/OtherImages/Socialling.jpg');
+    background: url('https://d2kmkdebgfkxyh.cloudfront.net/assets/img/OtherImages/Socialling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }
 
 /* Corrected path: Changed 'Images/' to '/assets/img/OtherImages/' */
 .container .card:nth-child(4) .face.face1{
-    background: url('/assets/img/OtherImages/Socialling.jpg');
+    background: url('https://d2kmkdebgfkxyh.cloudfront.net/assets/img/OtherImages/Socialling.jpg');
     background-repeat: no-repeat;
     background-size: 360px 240px;
 }

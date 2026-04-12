@@ -1,6 +1,9 @@
 // ***********************************************************
 // This support/e2e.js is loaded automatically before test files.
 // ***********************************************************
+
+import '@applitools/eyes-cypress/commands'
+
 import './commands'
 
 // Suppress uncaught exceptions from the app under test.

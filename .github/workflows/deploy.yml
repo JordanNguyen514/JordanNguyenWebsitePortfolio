@@ -1,4 +1,5 @@
 name: Deploy to S3
+
 on:
   push:
     branches:
@@ -14,8 +15,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Adjust this to match your local version if needed
-          bundler-cache: true # Runs 'bundle install' automatically
+          ruby-version: '3.3'
+          bundler-cache: true
 
       - name: Build Jekyll Site
         run: bundle exec jekyll build
@@ -30,10 +31,18 @@ jobs:
           aws-region: ca-central-1
 
       - name: Deploy to S3
-        # IMPORTANT: We are now syncing the './_site' folder, not the root '.'
         run: |
-          aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} --delete
+          # Sync all site files EXCEPT the images folder.
+          # Images live permanently in S3 — uploaded once via scripts/upload-images.sh.
+          # Excluding them here prevents --delete from wiping them on every deploy.
+          aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} \
+            --delete \
+            --exclude "assets/img/*"
 
-      - name: Invalidate CloudFront
+      - name: Invalidate CloudFront (non-image assets only)
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }} --paths "/*"
+          # Only invalidate HTML/CSS/JS — images are immutable on the CDN.
+          # This makes invalidation faster and reduces CloudFront costs.
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.DISTRIBUTION_ID }} \
+            --paths "/*.html" "/assets/css/*" "/assets/js/*" "/assets/html/*" "/"

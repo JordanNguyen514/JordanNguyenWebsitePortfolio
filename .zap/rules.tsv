@@ -1,0 +1,47 @@
+# .zap/rules.tsv
+# ============================================================
+#  OWASP ZAP Custom Rules
+#  Controls which alerts are IGNORED, WARN, or FAIL
+#
+#  Format: Rule-ID  Action  Parameter
+#  Actions: IGNORE | WARN | FAIL
+# ============================================================
+
+# ── Ignore false positives for static S3/CloudFront sites ──────────────────────
+
+# "Cookie No HttpOnly Flag" — CloudFront session cookies, not our code
+10010	IGNORE
+
+# "Cookie Without Secure Flag" — same reason
+10011	IGNORE
+
+# "Private IP Disclosure" — AWS internal IPs sometimes appear in headers
+2	IGNORE
+
+# ── Downgrade to WARN (informational — fix eventually but don't block) ──────────
+
+# "X-Content-Type-Options Header Missing" — add via CloudFront response headers policy
+10021	WARN
+
+# "Anti-clickjacking Header" — add X-Frame-Options via CloudFront
+10020	WARN
+
+# "Content Security Policy (CSP) Header Not Set" — complex to implement for Jekyll
+10038	WARN
+
+# "Permissions Policy Header Not Set"
+10063	WARN
+
+# ── FAIL the build on these (genuine security issues) ───────────────────────────
+
+# "Cross-Site Scripting" — should never appear on a static site
+40012	FAIL
+40014	FAIL
+40016	FAIL
+40017	FAIL
+
+# "SQL Injection" — should never appear on a static site
+40018	FAIL
+
+# "Remote File Inclusion"
+7	FAIL

@@ -1,0 +1,155 @@
+name: API Monitoring & Synthetics
+
+# ============================================================
+#  CONCEPT — What is API Monitoring / Synthetics?
+#  -------------------------------------------------
+#  Synthetic monitoring simulates user transactions on a
+#  schedule to detect outages and degradation PROACTIVELY —
+#  before real users notice.
+#
+#  This is different from E2E tests:
+#    E2E tests:   Run after a deploy to verify correctness
+#    Synthetics:  Run continuously (every 5-15 min) to verify
+#                 the system is UP and responding correctly
+#
+#  Your portfolio has 3 live APIs to monitor:
+#    1. Visitor Counter  (API Gateway → Lambda → DynamoDB)
+#    2. Contact Form     (API Gateway → Lambda → email)
+#    3. CloudFront CDN   (the site itself)
+#
+#  Enterprise tools: Datadog Synthetics, New Relic, Checkly
+#  This workflow replicates the pattern using GitHub Actions
+#  + curl for a zero-cost equivalent.
+#
+#  On failure: GitHub Actions notifies you via email automatically.
+#  Add Slack/PagerDuty webhooks for production-grade alerting.
+# ============================================================
+
+on:
+  schedule:
+    # Run every 30 minutes around the clock
+    - cron: '*/30 * * * *'
+
+  # Also allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  synthetic-checks:
+    name: Synthetic API Health Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ── Check 1: CloudFront CDN (main site) ──────────────────────────
+      - name: 🌐 Check — CloudFront site is reachable
+        id: check_site
+        run: |
+          echo "Checking: https://d2kmkdebgfkxyh.cloudfront.net/"
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code},%{time_total}" \
+            --max-time 15 \
+            "https://d2kmkdebgfkxyh.cloudfront.net/")
+          HTTP_CODE=$(echo $RESPONSE | cut -d',' -f1)
+          TIME=$(echo $RESPONSE | cut -d',' -f2)
+
+          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+          echo "response_time=$TIME" >> $GITHUB_OUTPUT
+          echo "Status: $HTTP_CODE | Response time: ${TIME}s"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ FAIL: CloudFront returned HTTP $HTTP_CODE (expected 200)"
+            exit 1
+          fi
+          echo "✅ PASS: CloudFront is up (${TIME}s)"
+
+      # ── Check 2: Visitor Counter API ─────────────────────────────────
+      - name: 📊 Check — Visitor Counter API (GET)
+        id: check_visitor_api
+        run: |
+          echo "Checking: Visitor Counter Lambda"
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            --max-time 10 \
+            "https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -1)
+
+          echo "Status: $HTTP_CODE"
+          echo "Body: $BODY"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ FAIL: Visitor API returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+          # Verify the response contains a 'visits' field
+          if echo "$BODY" | grep -q '"visits"'; then
+            echo "✅ PASS: Visitor API is healthy (visits field present)"
+          else
+            echo "❌ FAIL: Response missing 'visits' field. Body: $BODY"
+            exit 1
+          fi
+
+      # ── Check 3: Contact Form API (POST health check) ─────────────────
+      - name: 📬 Check — Contact Form API (POST)
+        id: check_contact_api
+        run: |
+          echo "Checking: Contact Form Lambda"
+          # Send a synthetic request with a test flag so Lambda can identify
+          # and skip it (add a check in your Lambda for x-synthetic: true)
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 10 \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-synthetic-monitor: true" \
+            -d '{"firstName":"Synthetic","lastName":"Monitor","email":"monitor@test.com","message":"Automated health check","type":"O"}' \
+            "https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod")
+
+          echo "Status: $HTTP_CODE"
+
+          # Accept 200 (success) or 400 (validation — Lambda is running)
+          # Reject 500 (server error) or timeouts
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "400" ]; then
+            echo "✅ PASS: Contact API is reachable (HTTP $HTTP_CODE)"
+          else
+            echo "❌ FAIL: Contact API returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+      # ── Check 4: Key sub-pages ────────────────────────────────────────
+      - name: 📄 Check — Key pages return 200
+        run: |
+          PAGES=(
+            "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/jobs.html"
+            "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/certifications.html"
+            "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/sdet.html"
+          )
+
+          FAILED=0
+          for URL in "${PAGES[@]}"; do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$URL")
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "✅ $URL → $HTTP_CODE"
+            else
+              echo "❌ $URL → $HTTP_CODE"
+              FAILED=1
+            fi
+          done
+
+          if [ $FAILED -ne 0 ]; then
+            exit 1
+          fi
+
+      # ── Summary ───────────────────────────────────────────────────────
+      - name: Post Monitoring Summary
+        if: always()
+        run: |
+          echo "## 🔬 Synthetic Monitor Results — $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| CloudFront CDN | ${{ steps.check_site.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Visitor Counter API | ${{ steps.check_visitor_api.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Contact Form API | ${{ steps.check_contact_api.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Response time (homepage): ${{ steps.check_site.outputs.response_time }}s" >> $GITHUB_STEP_SUMMARY

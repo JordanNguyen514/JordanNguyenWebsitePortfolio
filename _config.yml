@@ -18,16 +18,21 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
+title: Jordan Nguyen — SDET Portfolio
 email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://d2kmkdebgfkxyh.cloudfront.net" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+description: >-
+  SDET portfolio showcasing test automation, CI/CD pipelines, and QA engineering.
+baseurl: ""
+url: "https://d2kmkdebgfkxyh.cloudfront.net"
+
+# ── CDN base URL for all images ────────────────────────────────────────────────
+# Images live permanently in S3/CloudFront. They are NOT stored in the repo.
+# To add or update images: run scripts/upload-images.sh
+# To use in HTML: {{ site.cdn }}/assets/img/your-image.png
+# To use in CSS:  background: url('https://d2kmkdebgfkxyh.cloudfront.net/assets/img/...')
+cdn: "https://d2kmkdebgfkxyh.cloudfront.net"
+
+github_username: JordanNguyen514
 
 # Build settings
 #theme: minima

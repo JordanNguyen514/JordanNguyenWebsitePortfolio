@@ -1,0 +1,55 @@
+name: Playwright Cross-Browser Tests
+
+on:
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  playwright:
+    name: Playwright (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    strategy:
+      fail-fast: false  # Run all browsers even if one fails
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Run Playwright Tests (${{ matrix.browser }})
+        run: npx playwright test --browser=${{ matrix.browser }}
+        env:
+          CI: true
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload Test Videos (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-videos-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
