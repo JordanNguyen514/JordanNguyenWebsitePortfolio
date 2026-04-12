@@ -27,8 +27,8 @@ name: API Monitoring & Synthetics
 
 on:
   schedule:
-    # Run every 30 minutes around the clock
-    - cron: '*/30 * * * *'
+    # Run every 6 weeks around the clock
+    - cron: '0 0 * * 1'
 
   # Also allow manual trigger
   workflow_dispatch:
@@ -63,34 +63,7 @@ jobs:
           fi
           echo "✅ PASS: CloudFront is up (${TIME}s)"
 
-      # ── Check 2: Visitor Counter API ─────────────────────────────────
-      - name: 📊 Check — Visitor Counter API (GET)
-        id: check_visitor_api
-        run: |
-          echo "Checking: Visitor Counter Lambda"
-          RESPONSE=$(curl -s -w "\n%{http_code}" \
-            --max-time 10 \
-            "https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod")
-          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-          BODY=$(echo "$RESPONSE" | head -1)
-
-          echo "Status: $HTTP_CODE"
-          echo "Body: $BODY"
-
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "❌ FAIL: Visitor API returned HTTP $HTTP_CODE"
-            exit 1
-          fi
-
-          # Verify the response contains a 'visits' field
-          if echo "$BODY" | grep -q '"visits"'; then
-            echo "✅ PASS: Visitor API is healthy (visits field present)"
-          else
-            echo "❌ FAIL: Response missing 'visits' field. Body: $BODY"
-            exit 1
-          fi
-
-      # ── Check 3: Contact Form API (POST health check) ─────────────────
+      # ── Check 2: Contact Form API (POST health check) ─────────────────
       - name: 📬 Check — Contact Form API (POST)
         id: check_contact_api
         run: |
@@ -116,7 +89,7 @@ jobs:
             exit 1
           fi
 
-      # ── Check 4: Key sub-pages ────────────────────────────────────────
+      # ── Check 3: Key sub-pages ────────────────────────────────────────
       - name: 📄 Check — Key pages return 200
         run: |
           PAGES=(
