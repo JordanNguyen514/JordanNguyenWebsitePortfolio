@@ -2,7 +2,7 @@
 :root {
   --nav-bg: #ffffff;
   --nav-text: #333333;
-  --accent-color: #00bcd4; /* Vibrant Teal for high contrast */
+  --accent-color: #007a8a; /* Darkened teal — passes WCAG AA (5.07:1 on white) */
   --hover-bg: #f8f9fa;
   --dropdown-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   --transition: all 0.3s ease;
@@ -84,7 +84,7 @@ body {
 #time, #visitorCounter {
   margin-left: auto; /* Pushes the clock and counter to the right */
   font-size: 14px;
-  color: #666;
+  color: #767676; /* Minimum WCAG AA gray on white (4.54:1) */
 }
 
 #visitorCounter {

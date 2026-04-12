@@ -37,7 +37,7 @@ jobs:
         run: npm install
 
       - name: Run Stryker Mutation Tests
-        run: npx stryker run
+        run: npx stryker run --config-file config/stryker.config.mjs
         env:
           # Optional: publish to stryker dashboard
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

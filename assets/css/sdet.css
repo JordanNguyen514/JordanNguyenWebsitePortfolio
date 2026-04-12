@@ -262,7 +262,7 @@
 /* Syntax highlight tokens */
 .tok-keyword   { color: #cba6f7; }  /* purple - describe/it/cy */
 .tok-string    { color: #a6e3a1; }  /* green  - selectors, urls */
-.tok-comment   { color: #6c7086; font-style: italic; }
+.tok-comment   { color: #8b90a8; font-style: italic; } /* Lightened: #6c7086 failed WCAG AA on dark bg */
 .tok-fn        { color: #89b4fa; }  /* blue   - function names */
 .tok-num       { color: #fab387; }  /* orange - numbers */
 .tok-operator  { color: #89dceb; }  /* cyan   - => . */

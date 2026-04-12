@@ -1,41 +1,36 @@
 # Jordan Nguyen — SDET Portfolio Website
 
-> A personal portfolio built and tested like a production application — featuring automated E2E testing, CI/CD pipelines, performance auditing, auto-healing selectors, contract testing, and shift-left quality gates.
+> A personal portfolio built and tested like a production application — featuring automated E2E testing, cross-browser Playwright tests, CI/CD pipelines, performance auditing, auto-healing selectors, visual regression, contract testing, security scanning, API synthetics, mutation testing, and shift-left quality gates.
 
 [![Deploy to S3](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/deploy.yml)
 [![Post-Deploy Tests](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/post-deploy-tests.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/post-deploy-tests.yml)
+[![Playwright](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/playwright.yml)
 [![Lighthouse CI](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/lighthouse.yml)
+[![Security](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/security.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/security.yml)
+[![API Synthetics](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/synthetics.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/synthetics.yml)
 
-**Live site:** [https://d2kmkdebgfkxyh.cloudfront.net](https://d2kmkdebgfkxyh.cloudfront.net)
+**Live site:** https://d2kmkdebgfkxyh.cloudfront.net
 
 ---
 
 ## Table of Contents
 
-- [About the Project](#about-the-project)
+- [About](#about)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Testing](#testing)
-  - [E2E Tests (Cypress)](#e2e-tests-cypress)
-  - [Unit Tests (Jest)](#unit-tests-jest)
-  - [Contract Tests (Pact)](#contract-tests-pact)
-  - [Performance Audits (Lighthouse CI)](#performance-audits-lighthouse-ci)
 - [QA Engineering Features](#qa-engineering-features)
-  - [Auto-Healing Selectors](#auto-healing-selectors)
-  - [Shift Left — Pre-Commit Gates](#shift-left--pre-commit-gates)
-  - [CI/CD Pipeline](#cicd-pipeline)
 - [Infrastructure](#infrastructure)
+- [CI/CD Pipeline](#cicd-pipeline)
 - [Pages Overview](#pages-overview)
 - [Certifications](#certifications)
 
 ---
 
-## About the Project
+## About
 
-This portfolio is both a personal website and a **living QA engineering showcase**. Every page is covered by automated tests that run in a real CI/CD pipeline against the production CloudFront distribution after every deployment.
-
-The project intentionally applies enterprise QA patterns — auto-healing selectors, consumer-driven contract testing, shift-left pre-commit hooks, and Lighthouse performance gates — to demonstrate skills relevant to SDET and QA consultant roles.
+This portfolio is both a personal website and a living QA engineering showcase. Every page is covered by automated tests running in a real CI/CD pipeline against the production CloudFront distribution. The project applies enterprise QA patterns across the full testing pyramid: unit, contract, E2E, cross-browser, visual regression, performance, security, and mutation testing.
 
 ---
 
@@ -43,18 +38,22 @@ The project intentionally applies enterprise QA patterns — auto-healing select
 
 | Layer | Technology |
 |---|---|
-| **Site Generator** | Jekyll 4.4 (Ruby) |
-| **Hosting** | AWS S3 + CloudFront CDN |
-| **CI/CD** | GitHub Actions |
-| **E2E Testing** | Cypress 13 |
-| **Unit Testing** | Jest 29 |
-| **Contract Testing** | Pact Foundation v12 |
-| **Performance** | Lighthouse CI (`@lhci/cli`) |
-| **Linting** | ESLint 8 + `eslint-plugin-cypress` |
-| **Pre-Commit Hooks** | Husky 9 |
-| **Analytics** | AWS Kinesis + Lambda + QuickSight |
-| **Contact Backend** | AWS API Gateway + Lambda |
-| **Visitor Counter** | AWS API Gateway + Lambda + DynamoDB |
+| Site Generator | Jekyll 4.4 (Ruby) |
+| Hosting | AWS S3 + CloudFront CDN |
+| CI/CD | GitHub Actions (7 workflows) |
+| E2E Testing | Cypress 13 |
+| Cross-Browser Testing | Playwright 1.44 |
+| Visual Regression | Applitools Eyes + Playwright screenshots |
+| Unit Testing | Jest 29 |
+| Contract Testing | Pact Foundation v12 |
+| Mutation Testing | StrykerJS 8 |
+| Performance | Lighthouse CI |
+| Security (SAST) | Snyk |
+| Security (DAST) | OWASP ZAP Baseline |
+| API Monitoring | GitHub Actions Synthetics |
+| Linting | ESLint 8 + eslint-plugin-cypress |
+| Pre-Commit Hooks | Husky 9 |
+| Images | AWS S3 + CloudFront CDN (not in repo) |
 
 ---
 
@@ -62,73 +61,90 @@ The project intentionally applies enterprise QA patterns — auto-healing select
 
 ```
 JordanNguyenWebsitePortfolio/
-│
-├── .github/
-│   └── workflows/
-│       ├── deploy.yml              # Build Jekyll → push to S3 → invalidate CloudFront
-│       ├── post-deploy-tests.yml   # Run Cypress E2E against live CloudFront URL
-│       └── lighthouse.yml          # Lighthouse CI performance audit (post-deploy)
-│
-├── _layouts/
-│   └── default.html                # Shared nav, footer, script imports
-│
-├── _includes/
-│   └── certification_item.html     # Reusable certification badge component
-│
-├── assets/
-│   ├── css/                        # Per-page stylesheets
-│   │   ├── main.css                # Nav, footer, global resets
-│   │   ├── FirstPage.css           # Homepage sections
-│   │   ├── sdet.css                # SDET Showcase page
-│   │   └── ...
-│   ├── html/                       # Sub-pages (rendered by Jekyll)
-│   │   ├── jobs.html
-│   │   ├── internships.html
-│   │   ├── certifications.html
-│   │   ├── academic.html
-│   │   ├── contacting.html
-│   │   ├── emailing.html
-│   │   ├── submissions.html
-│   │   └── sdet.html               # SDET Showcase — skills matrix, pipeline diagram, QA metrics
-│   └── js/
-│       ├── main.js                 # Clock, visitor counter, scroll effects
-│       ├── tracker.js              # AWS Kinesis event tracking
-│       ├── analytics-dashboard.js  # Analytics section
-│       └── contact_form_handler.js # Contact form → API Gateway → Lambda
-│
-├── cypress/
-│   ├── e2e/
-│   │   ├── smoke.cy.js                     # Full homepage smoke suite
-│   │   ├── autoHeal_demo.cy.js             # Auto-healing selector showcase
-│   │   ├── contact_form_spec.cy.js         # Contact form E2E (hits real Lambda)
-│   │   ├── email_form_spec.cy.js           # Email form E2E
-│   │   ├── jobs_page_spec.cy.js            # Jobs page toggle interactions
-│   │   ├── internships_page_spec.cy.js     # Internships page
-│   │   └── submissions_navigation_spec.cy.js
-│   └── support/
-│       ├── autoHeal.js             # Auto-healing selector engine
-│       ├── commands.js             # Custom Cypress commands
-│       └── e2e.js                  # Global hooks
-│
-├── pact/
-│   ├── consumer.contact.test.js    # Consumer contract: frontend → Lambda
-│   ├── provider.test.js            # Provider verification: Lambda honours contract
-│   └── pacts/                      # Generated contract JSON files (gitignored in prod)
-│
-├── __tests__/
-│   └── portfolio.unit.test.js      # Jest unit tests for JS utility functions
-│
-├── .husky/
-│   └── pre-commit                  # Runs ESLint + Jest before every commit
-│
-├── .eslintrc.js                    # ESLint config (cypress plugin, no-var, eqeqeq, etc.)
-├── lighthouserc.js                 # Lighthouse CI thresholds and URLs
-├── cypress.config.js               # Cypress base URL and node event config
-├── package.json                    # Scripts, deps (Cypress, Jest, LHCI, Pact, Husky)
-├── _config.yml                     # Jekyll site config
-├── Gemfile                         # Ruby gems (Jekyll, plugins)
-└── index.html                      # Homepage (Jekyll front matter + Liquid templates)
+|
++-- .github/
+|   +-- workflows/
+|       +-- deploy.yml                  # Jekyll build -> S3 -> CloudFront
+|       +-- post-deploy-tests.yml       # Cypress E2E after deploy
+|       +-- playwright.yml              # Cross-browser tests (Chromium/Firefox/WebKit)
+|       +-- lighthouse.yml              # Performance audit after deploy
+|       +-- security.yml                # Snyk deps + OWASP ZAP scan
+|       +-- synthetics.yml              # API health checks every 30 min
+|       +-- mutation.yml                # StrykerJS mutation tests (weekly)
+|
++-- config/                             # All tool configuration files
+|   +-- cypress.config.js
+|   +-- playwright.config.ts
+|   +-- lighthouserc.js
+|   +-- stryker.config.mjs
+|
++-- tests/
+|   +-- unit/                           # Jest unit tests
+|   |   +-- portfolio.unit.test.js
+|   +-- contract/                       # Pact contract tests
+|   |   +-- consumer.contact.test.js
+|   |   +-- provider.test.js
+|   +-- playwright/                     # Playwright cross-browser specs
+|       +-- portfolio.spec.ts
+|       +-- snapshots/                  # Visual regression baselines
+|
++-- cypress/
+|   +-- e2e/
+|   |   +-- smoke.cy.js
+|   |   +-- autoHeal_demo.cy.js         # Auto-healing selector showcase
+|   |   +-- visual_regression.cy.js     # Applitools Eyes integration
+|   |   +-- contact_form_spec.cy.js
+|   |   +-- email_form_spec.cy.js
+|   |   +-- jobs_page_spec.cy.js
+|   |   +-- internships_page_spec.cy.js
+|   |   +-- submissions_navigation_spec.cy.js
+|   +-- support/
+|       +-- autoHeal.js                 # cy.getHealed() custom command
+|       +-- commands.js
+|       +-- e2e.js
+|
++-- pact/                               # Legacy pact location (tests/ is canonical)
++-- __tests__/                          # Legacy unit test location (tests/ is canonical)
++-- scripts/
+|   +-- upload-images.sh                # One-time S3 image migration script
++-- .husky/
+|   +-- pre-commit                      # ESLint + Jest before every commit
++-- .zap/
+|   +-- rules.tsv                       # OWASP ZAP custom rule overrides
++-- _layouts/
+|   +-- default.html                    # Shared nav, footer, scripts
++-- _includes/
+|   +-- certification_item.html
++-- assets/
+|   +-- css/                            # Per-page stylesheets
+|   +-- html/                           # Sub-pages
+|   |   +-- jobs.html
+|   |   +-- internships.html
+|   |   +-- certifications.html
+|   |   +-- academic.html
+|   |   +-- sdet.html                   # SDET Showcase page
+|   |   +-- contacting.html
+|   |   +-- emailing.html
+|   |   +-- submissions.html
+|   +-- js/
+|       +-- main.js                     # Clock, scroll effects, back-to-top
+|       +-- tracker.js                  # AWS Kinesis event tracking
+|       +-- analytics-dashboard.js
+|       +-- contact_form_handler.js
++-- index.html                          # Homepage
++-- _config.yml                         # Jekyll config + CDN base URL
++-- package.json
++-- Gemfile
++-- .eslintrc.js
++-- .eslintignore
++-- .gitignore
++-- lighthouserc.js -> config/          # Canonical location: config/
++-- stryker.config.mjs -> config/
 ```
+
+> **Note on images:** All images are stored in S3/CloudFront, not in the repo.
+> CDN base: `https://d2kmkdebgfkxyh.cloudfront.net/assets/img/`
+> To upload new images: `bash scripts/upload-images.sh`
 
 ---
 
@@ -136,109 +152,121 @@ JordanNguyenWebsitePortfolio/
 
 ### Prerequisites
 
-- **Node.js** 20+
-- **Ruby** 3.3+ with Bundler
-- **Git**
+- Node.js 20+
+- Ruby 3.3+ with Bundler
+- Git
+- AWS CLI (for image uploads only)
 
 ### Installation
 
 ```bash
-# 1. Clone the repository
+# 1. Clone
 git clone https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio.git
 cd JordanNguyenWebsitePortfolio
 
-# 2. Install Node dependencies (Cypress, Jest, ESLint, Husky, etc.)
+# 2. Install Node dependencies
 npm install
 
-# 3. Install Husky pre-commit hooks
-npx husky install
+# 3. Activate Husky pre-commit hooks
+npx husky init
+# Then copy .husky/pre-commit from the repo over the generated file
 
-# 4. Install Ruby gems (Jekyll)
+# 4. Install Ruby gems
 bundle install
 
-# 5. Serve the site locally
+# 5. Serve locally
 bundle exec jekyll serve --port 8080
-# → Site available at http://localhost:8080
+# -> http://localhost:8080
+
+# 6. Install Playwright browsers (first time only)
+npx playwright install
 ```
 
 ---
 
 ## Testing
 
+All test commands use config files from the `config/` folder.
+
 ### E2E Tests (Cypress)
 
-Cypress tests run against the **live production CloudFront URL** in CI, and against `localhost:8080` locally.
-
 ```bash
-# Run all tests headlessly against production
-npm test
-
-# Run all tests headlessly against localhost
-npm run test:local
-
-# Open Cypress interactive runner (recommended for development)
-npm run test:open
+npm test                    # Run against production CloudFront
+npm run test:local          # Run against localhost:8080
+npm run test:open           # Interactive Cypress UI
 ```
-
-**Test suites:**
 
 | File | What it covers |
 |---|---|
-| `smoke.cy.js` | Homepage load, nav dropdowns, social links, dynamic elements |
-| `autoHeal_demo.cy.js` | Auto-healing selector strategies across 5 fallback levels |
-| `contact_form_spec.cy.js` | Full form fill → Lambda API → success message assertion |
-| `email_form_spec.cy.js` | Email form submission flow |
-| `jobs_page_spec.cy.js` | Job card expand/collapse toggle state |
-| `internships_page_spec.cy.js` | Internship card navigation and content |
-| `submissions_navigation_spec.cy.js` | Submissions page routing |
+| smoke.cy.js | Homepage, nav dropdowns, social links, dynamic clock |
+| autoHeal_demo.cy.js | Auto-healing selector strategies (5 fallback levels) |
+| visual_regression.cy.js | Applitools Eyes visual AI across 3 viewports |
+| contact_form_spec.cy.js | Full form -> Lambda API -> success assertion |
+| email_form_spec.cy.js | Email form submission flow |
+| jobs_page_spec.cy.js | Job card expand/collapse toggle state |
+| internships_page_spec.cy.js | Tab navigation + detail toggle |
+| submissions_navigation_spec.cy.js | Login flow + table visibility |
+
+### Cross-Browser Tests (Playwright)
+
+```bash
+npm run test:playwright                    # All browsers
+npm run test:playwright:ui                 # Interactive UI mode
+npm run test:playwright:update-snapshots   # Regenerate visual baselines
+```
+
+Runs on Chromium, Firefox, WebKit (Safari), and Pixel 7 mobile in parallel.
+
+**First run:** Visual regression tests create baseline images. Run `npm run test:playwright:update-snapshots` once to generate baselines, commit the `tests/playwright/snapshots/` folder, then subsequent runs diff against them.
 
 ### Unit Tests (Jest)
 
-Fast, browser-free tests for JavaScript utility functions. Run in milliseconds — designed to run on every commit via the Husky pre-commit hook.
-
 ```bash
 npm run test:unit              # Run once
-npm run test:unit:watch        # Watch mode (re-runs on file save)
-npm run test:unit:coverage     # With coverage report (threshold: 70%)
+npm run test:unit:watch        # Watch mode
+npm run test:unit:coverage     # With coverage report
 ```
 
-**Functions covered:** `checkTime()`, `formatVisitorCount()`, `isValidEmail()`, `sanitizeInput()`, `buildPageUrl()`
+Functions covered: `checkTime()`, `formatVisitorCount()`, `isValidEmail()`, `sanitizeInput()`, `buildPageUrl()`
 
 ### Contract Tests (Pact)
 
-Consumer-driven contract testing between the JS frontend and the AWS Lambda contact API. No live backend required for the consumer side.
-
 ```bash
-# Step 1: Run consumer tests → generates pact/pacts/*.json contract file
-npm run test:contract
-
-# Step 2: Verify the real Lambda honours the contract
-npm run test:contract:verify
+npm run test:contract            # Consumer: generates pact/pacts/*.json
+npm run test:contract:verify     # Provider: verifies Lambda honours contract
 ```
 
-**Contract location:** `pact/pacts/PortfolioFrontend-ContactLambda.json`
-
-The contract defines the exact request/response shape the frontend expects. If the Lambda API changes (e.g., a field is renamed), `test:contract:verify` will catch it before it reaches production.
-
-### Performance Audits (Lighthouse CI)
-
-Lighthouse CI runs automatically after every successful deployment and on a weekly schedule. It audits 4 pages against defined score thresholds and uploads HTML reports as GitHub Actions artifacts.
+### Performance (Lighthouse CI)
 
 ```bash
-# Run Lighthouse audits manually against production
 npm run test:perf
 ```
 
-**Quality thresholds:**
-
-| Category | Threshold | Action on failure |
+| Category | Threshold | Failure mode |
 |---|---|---|
-| Performance | ≥ 80 | Warn |
-| Accessibility | ≥ 90 | **Fail build** |
-| Best Practices | ≥ 90 | **Fail build** |
-| SEO | ≥ 80 | Warn |
-| Largest Contentful Paint | < 3000ms | Warn |
-| Cumulative Layout Shift | < 0.15 | **Fail build** |
+| Performance | >= 70 | Warn |
+| Accessibility | >= 90 | Fail build |
+| Best Practices | >= 90 | Fail build |
+| SEO | >= 80 | Warn |
+| color-contrast | score = 1 | Fail build |
+| unsized-images | score = 1 | Fail build |
+| CLS | < 0.15 | Fail build |
+
+### Security
+
+```bash
+npm run test:security:deps     # Snyk dependency scan
+```
+
+OWASP ZAP runs automatically on schedule via GitHub Actions (no local setup needed).
+
+### Mutation Testing (StrykerJS)
+
+```bash
+npm run test:mutation
+```
+
+Thresholds: >= 80% killed = green, < 50% = build fails.
 
 ---
 
@@ -246,89 +274,82 @@ npm run test:perf
 
 ### Auto-Healing Selectors
 
-Located in `cypress/support/autoHeal.js`. Replaces `cy.get()` with `cy.getHealed()` — a custom Cypress command that tries 5 selector strategies in priority order and uses Cypress's built-in retry engine to survive page transitions and lazy DOM rendering.
+`cypress/support/autoHeal.js` adds `cy.getHealed(token)` — tries 5 selector strategies with Cypress's retry engine before failing:
 
-**Strategy priority (most stable → least stable):**
+1. `[data-testid="token"]`
+2. `[data-event-action="token"]`
+3. `[aria-label="token"]`
+4. `#token`
+5. `.token`
 
-1. `[data-testid="token"]` — explicit test ID, survives all refactors
-2. `[data-event-action="token"]` — existing analytics tracking attributes
-3. `[aria-label="token"]` — accessibility attributes
-4. `#token` — ID attribute
-5. `.token` — CSS class (last resort)
+### Shift Left
 
-```js
-// Usage — drop-in replacement for cy.get()
-cy.getHealed('Click_Jobs_Button').click();
-cy.getHealed('hero-title').should('contain', 'Jordan Nguyen');
-```
+Husky pre-commit hook runs ESLint + Jest before every commit. Bad code never reaches the repo.
 
-When an element is found via a fallback strategy (anything below strategy 2), the command logs a `⚠️ Heal Needed` warning recommending a `data-testid` be added — creating a self-documenting improvement backlog.
+### Visual Regression (Applitools)
 
-### Shift Left — Pre-Commit Gates
+AI-powered visual testing across Chromium, Firefox, and iPhone 14 Pro simultaneously. Detects genuine UI regressions while ignoring rendering noise (anti-aliasing, font differences). Playwright screenshot comparison also runs in CI.
 
-The Husky pre-commit hook (`.husky/pre-commit`) blocks commits automatically if either gate fails:
+### Contract Testing
 
-```
-git commit -m "my change"
+Consumer-driven contract testing between the JS frontend and AWS Lambda. The frontend defines what it expects; both sides are tested independently without a live backend.
 
-🔍 Running pre-commit quality gates...
-📋 Gate 1/2 — ESLint (static analysis)      ✅ passed
-🧪 Gate 2/2 — Jest Unit Tests               ✅ passed
-✅ All pre-commit gates passed — committing!
-```
+### Security Testing
 
-**ESLint rules enforced:** `no-var`, `eqeqeq`, `no-debugger`, `prefer-const`, `cypress/no-unnecessary-waiting` (no `cy.wait(5000)`), `no-console` (warn).
+Two-layer approach: Snyk (SAST) scans dependencies on every push. OWASP ZAP (DAST) passively scans the live site weekly for XSS, missing headers, and CORS issues.
 
-To bypass in emergencies only:
-```bash
-git commit --no-verify -m "hotfix: urgent fix"
-```
+### API Synthetics
 
-### CI/CD Pipeline
+Health checks run every 30 minutes against CloudFront and the Contact Form Lambda. GitHub alerts on failure automatically.
 
-```
-git push (master)
-    │
-    ▼
-[deploy.yml — GitHub Actions]
-    │  ├─ Checkout code
-    │  ├─ Setup Ruby 3.3
-    │  ├─ bundle exec jekyll build
-    │  ├─ Configure AWS credentials
-    │  ├─ aws s3 sync ./_site → S3 bucket
-    │  └─ CloudFront invalidation (/* paths)
-    │
-    ▼ (on: workflow_run — deploy succeeded)
-[post-deploy-tests.yml]
-    │  ├─ npm install
-    │  ├─ Cypress run (Chrome, CloudFront URL)
-    │  ├─ Upload screenshots on failure
-    │  └─ Upload videos always
-    │
-    ▼ (on: workflow_run — deploy succeeded)
-[lighthouse.yml]
-    │  ├─ Wait 45s for CloudFront propagation
-    │  ├─ lhci autorun (3 runs × 4 pages)
-    │  ├─ Assert score thresholds
-    │  └─ Upload HTML reports (30-day retention)
-```
+### Mutation Testing
+
+StrykerJS introduces automatic bugs into source code and verifies tests catch them. Runs weekly and on changes to test files.
 
 ---
 
 ## Infrastructure
 
-All backend services run on AWS in the `ca-central-1` region.
+All services in `ca-central-1`.
 
 | Service | Purpose |
 |---|---|
-| **S3** | Static site hosting (Jekyll `_site/` output) |
-| **CloudFront** | CDN with global edge caching, HTTPS |
-| **API Gateway + Lambda** | Contact form submission handler |
-| **API Gateway + Lambda + DynamoDB** | Visitor counter (persistent hit tracking) |
-| **Kinesis + Lambda** | Real-time user interaction event streaming |
-| **QuickSight** | Analytics dashboard (linked from homepage) |
+| S3 | Static site + image hosting |
+| CloudFront | Global CDN, HTTPS, long-lived image cache |
+| API Gateway + Lambda | Contact form handler |
+| Kinesis + Lambda | User interaction event streaming |
+| QuickSight | Analytics dashboard |
 
-AWS credentials are stored as GitHub Actions secrets (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET`, `DISTRIBUTION_ID`).
+Images use `Cache-Control: max-age=31536000, public, immutable` (1-year cache). HTML/CSS/JS use targeted CloudFront invalidations on each deploy.
+
+---
+
+## CI/CD Pipeline
+
+```
+git push -> master
+    |
+    v
+[deploy.yml]
+    |- Checkout + Ruby setup
+    |- jekyll build
+    |- aws s3 sync (excludes assets/img/*)
+    |- CloudFront invalidation (HTML/CSS/JS only)
+    |
+    v (on: workflow_run success)
+[post-deploy-tests.yml]        [playwright.yml]           [lighthouse.yml]
+    |- Cypress E2E                 |- Chromium                |- Wait 45s
+    |- Chrome on CloudFront        |- Firefox                 |- lhci autorun
+    |- Upload videos               |- WebKit                  |- 3 runs x 4 pages
+                                   |- Pixel 7 mobile          |- Assert thresholds
+                                   |- Parallel matrix         |- Upload HTML report
+
+[security.yml]                 [synthetics.yml]           [mutation.yml]
+    |- Snyk (on push)              |- Every 30 min            |- Weekly (Sunday)
+    |- OWASP ZAP (weekly)          |- CloudFront check        |- StrykerJS
+    |- Upload reports              |- Contact API check       |- Mutation score
+                                   |- Key pages check         |- HTML report
+```
 
 ---
 
@@ -336,26 +357,26 @@ AWS credentials are stored as GitHub Actions secrets (`AWS_ACCESS_KEY_ID`, `AWS_
 
 | Page | URL | Description |
 |---|---|---|
-| Home | `/` | Hero, Career Portfolio links, Skills bars, Analytics, Social |
-| Jobs | `/assets/html/jobs.html` | Timeline of work experiences with expandable detail cards |
-| Internships | `/assets/html/internships.html` | Internship history |
-| Certifications | `/assets/html/certifications.html` | AWS & ISTQB badge showcase |
-| Academics | `/assets/html/academic.html` | Academic background |
-| **SDET Showcase** | `/assets/html/sdet.html` | Skills matrix, automation code showcase, CI/CD diagram, QA metrics dashboard |
-| Contact Form | `/assets/html/contacting.html` | Form → API Gateway → Lambda → email |
-| Email Form | `/assets/html/emailing.html` | Direct email form |
-| Submissions | `/assets/html/submissions.html` | View past form submissions |
+| Home | / | Hero, Career Portfolio, Skills bars, Social |
+| Jobs | /assets/html/jobs.html | Work timeline with expandable cards |
+| Internships | /assets/html/internships.html | Tabbed internship history |
+| Certifications | /assets/html/certifications.html | AWS and ISTQB badges |
+| Academics | /assets/html/academic.html | Academic background |
+| SDET Showcase | /assets/html/sdet.html | Skills matrix, automation showcase, CI/CD diagram, QA metrics |
+| Contact Form | /assets/html/contacting.html | Form -> API Gateway -> Lambda |
+| Email Form | /assets/html/emailing.html | Direct email form |
+| Submissions | /assets/html/submissions.html | View past form submissions |
 
 ---
 
 ## Certifications
 
-| Badge | Certification | Issued | Expires |
-|---|---|---|---|
-| ![AWS](assets/img/certifications/awsDeveloperAssociate.png) | AWS Certified Developer – Associate | Feb 2026 | Feb 2029 |
-| ![AWS](assets/img/certifications/awsCloudPractitioner.png) | AWS Certified Cloud Practitioner | Aug 2023 | Feb 2029 |
-| ![ISTQB](assets/img/certifications/istqb.png) | ISTQB Certified Tester (Foundation) | Mar 2021 | Never (lifetime) |
+| Certification | Issued | Expires |
+|---|---|---|
+| AWS Certified Developer Associate | Feb 2026 | Feb 2029 |
+| AWS Certified Cloud Practitioner | Aug 2023 | Feb 2029 |
+| ISTQB Certified Tester Foundation | Mar 2021 | Never (lifetime) |
 
 ---
 
-*Built with Jekyll · Hosted on AWS · Tested with Cypress · © Jordan Nguyen*
+*Built with Jekyll - Hosted on AWS - Tested with Cypress and Playwright - (c) Jordan Nguyen*

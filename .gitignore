@@ -1,4 +1,4 @@
-# Jekyll build output
+# Jekyll
 _site
 .sass-cache
 .jekyll-cache
@@ -14,16 +14,23 @@ coverage
 cypress/screenshots/
 cypress/videos/
 
-# ── Images: stored in S3/CloudFront, NOT in the repo ──────────────────────────
-# To add/update images: run scripts/upload-images.sh
-# CDN base: https://d2kmkdebgfkxyh.cloudfront.net/assets/img/
+# Images — stored in S3/CloudFront
 assets/img/
 
-# Pact generated contracts (generated at test time)
-pact/pacts/
+# Pact generated contracts
+tests/contract/pacts/
 
-# Lighthouse CI reports
+# Lighthouse CI
 .lighthouseci/
 
 # Stryker mutation reports
 reports/
+
+# Playwright output
+playwright-report/
+test-results/
+
+# Old root-level folders (now reorganized)
+__tests__/
+pact/
+playwright/

@@ -1,12 +1,15 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
 
-// 1. Wrap the entire export in the Applitools function
-module.exports = require('@applitools/eyes-cypress')(defineConfig({
+// Cypress requires this file at the project root.
+// Do NOT move it — Cypress v15 auto-discovers cypress.config.js from root only.
+module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8080',
-    setupNodeEvents(on, config) {
-      // 2. This is where Applitools hooks into the test lifecycle
-      // implement node event listeners here
-    },
+    specPattern: 'cypress/e2e/**/*.cy.js',
+    supportFile: 'cypress/support/e2e.js',
+    setupNodeEvents(on, config) {},
   },
-}));
+});
+
+
+require('@applitools/eyes-cypress')(module);

@@ -34,7 +34,7 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run Playwright Tests (${{ matrix.browser }})
-        run: npx playwright test --browser=${{ matrix.browser }}
+        run: npx playwright test --config config/playwright.config.ts --browser=${{ matrix.browser }}
         env:
           CI: true
 

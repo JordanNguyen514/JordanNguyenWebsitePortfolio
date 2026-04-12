@@ -55,23 +55,6 @@ window.toggleReadMore = function (dotsId, moreId, btnId, lang) {
   }
 };
 
-// Visitor counter
-function updateVisitorCounter() {
-  const apiGatewayUrl = 'https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod';
-
-  fetch(apiGatewayUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.visits !== undefined) {
-        document.getElementById('visitorCounter').textContent = `Visitors: ${data.visits}`;
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching visitor count:', error);
-      document.getElementById('visitorCounter').textContent = 'Visitors: N/A';
-    });
-}
-updateVisitorCounter();
 
 // Scroll effects + Back to Top button (single consolidated DOMContentLoaded listener)
 document.addEventListener('DOMContentLoaded', () => {

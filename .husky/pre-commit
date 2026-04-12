@@ -8,13 +8,10 @@ echo "🔍 Running pre-commit quality gates..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # ── Gate 1: ESLint ──────────────────────────────────────────
-# --max-warnings=-1 means: block on ERRORS only, warnings are allowed.
-# This is the right setting while you're gradually cleaning up legacy code.
-# Once the codebase is clean, tighten this to --max-warnings=0.
 echo ""
 echo "📋 Gate 1/2 — ESLint (errors block commit, warnings allowed)"
 
-npx eslint "assets/js/main.js" "cypress/**/*.js" "__tests__/**/*.js" --max-warnings=-1
+npx eslint "assets/js/main.js" "cypress/**/*.js" "tests/unit/**/*.js" --max-warnings=-1
 
 ESLINT_EXIT=$?
 if [ $ESLINT_EXIT -ne 0 ]; then
@@ -30,7 +27,7 @@ echo "  ✅ ESLint passed"
 echo ""
 echo "🧪 Gate 2/2 — Jest Unit Tests"
 
-npx jest --passWithNoTests --bail
+npx jest --passWithNoTests --bail --testMatch="**/tests/unit/**/*.test.js"
 
 JEST_EXIT=$?
 if [ $JEST_EXIT -ne 0 ]; then

@@ -84,6 +84,6 @@ describe('Portfolio Website Smoke Test', () => {
   it('should display dynamic elements like time and visitor counter', () => {
     // These elements are updated by JavaScript, so we just check for their presence
     cy.get('#time').should('exist');
-    cy.get('#visitorCounter').should('exist').and('contain', 'Visitors');
+    // Visitor counter removed — Lambda decommissioned
   });
 });

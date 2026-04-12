@@ -61,7 +61,7 @@ jobs:
 
       # ── Step 4: Run Lighthouse CI audits ─────────────────────────
       - name: Run Lighthouse CI
-        run: lhci autorun --config=lighthouserc.js
+        run: lhci autorun --config=config/lighthouserc.js
         env:
           # If you set up a private LHCI server later, add token here:
           # LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
