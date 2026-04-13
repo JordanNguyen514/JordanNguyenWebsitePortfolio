@@ -8,14 +8,15 @@ on:
 
 jobs:
   playwright:
-    name: Playwright (${{ matrix.browser }})
+    name: Playwright (${{ matrix.project }})
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
     strategy:
-      fail-fast: false  # Run all browsers even if one fails
+      fail-fast: false 
       matrix:
-        browser: [chromium, firefox, webkit]
+        # These names match exactly what is in your playwright.config.ts
+        project: [chromium, firefox, webkit, mobile-chrome]
 
     steps:
       - name: Checkout Code
@@ -31,10 +32,12 @@ jobs:
         run: npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps ${{ matrix.browser }}
+        # Installs only the browser needed for this specific matrix job to save time
+        run: npx playwright install --with-deps ${{ matrix.project == 'mobile-chrome' && 'chromium' || matrix.project }}
 
-      - name: Run Playwright Tests (${{ matrix.browser }})
-        run: npx playwright test --config config/playwright.config.ts --browser=${{ matrix.browser }}
+      - name: Run Playwright Tests
+        # FIXED: Uses --project instead of --browser to support your config file
+        run: npx playwright test --config config/playwright.config.ts --project=${{ matrix.project }}
         env:
           CI: true
 
@@ -42,7 +45,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report-${{ matrix.project }}
           path: playwright-report/
           retention-days: 30
 
@@ -50,6 +53,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-videos-${{ matrix.browser }}
+          name: playwright-videos-${{ matrix.project }}
           path: test-results/
           retention-days: 7

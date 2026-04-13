@@ -19,7 +19,9 @@ jobs:
 
       - name: Install Dependencies
         # Using 'npm install' to bypass the 'npm ci' lockfile error seen in your logs
-        run: npm install
+        run: |
+          npm install
+          npx cypress install
 
       - name: Cypress Run (CloudFront Production)
         uses: cypress-io/github-action@v6
