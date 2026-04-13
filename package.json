@@ -1,7 +1,7 @@
 {
   "name": "jordanguyenwebsiteportfolio",
   "version": "1.0.0",
-  "description": "Jordan's Portfolio — SDET Showcase",
+  "description": "Jordan's Portfolio \u2014 SDET Showcase",
   "main": "FirstPage.js",
   "type": "commonjs",
   "scripts": {
@@ -20,7 +20,7 @@
     "start": "http-server src",
     "test:playwright": "playwright test --config config/playwright.config.ts",
     "test:playwright:ui": "playwright test --config config/playwright.config.ts --ui",
-    "test:playwright:report": "playwright show-report",
+    "test:playwright:report": "playwright show-report playwright-report --config config/playwright.config.ts",
     "test:visual": "cypress run --spec 'cypress/e2e/visual_regression.cy.js'",
     "test:mutation": "stryker run --config-file config/stryker.config.mjs",
     "test:security:deps": "snyk test --severity-threshold=high",

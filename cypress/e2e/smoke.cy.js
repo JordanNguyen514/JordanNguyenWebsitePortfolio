@@ -81,9 +81,7 @@ describe('Portfolio Website Smoke Test', () => {
     cy.get('body').click(0, 0);
   });
 
-  it('should display dynamic elements like time and visitor counter', () => {
-    // These elements are updated by JavaScript, so we just check for their presence
-    cy.get('#time').should('exist');
-    // Visitor counter removed — Lambda decommissioned
+  it('should display the live clock in the navigation bar', () => {
+    cy.get('#time').should('exist').and('not.be.empty');
   });
 });

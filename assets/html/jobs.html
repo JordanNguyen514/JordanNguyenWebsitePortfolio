@@ -1,102 +1,105 @@
 ---
 layout: default
+title: "Work Experience"
+description: "Jordan Nguyen's professional work history — Quality Engineer, Quality Specialist, QA Analyst, and SDET roles."
 css_file: "/assets/css/jobs.css"
 ---
 
 <section id="jobs-portfolio">
   <h1>My Work Experiences</h1>
-  
+
   <div class="timeline-container">
 
-    <!-- Kinova Job Entry -->
+    <!-- Kinova -->
     <div class="timeline-item right" id="kinova-card">
       <div class="job-card">
-          <h2>Kinova | Quality Engineer</h2>
-          <p class="duration">May 2018 - Mar 2019</p>
-          <img src="{{ site.cdn }}/assets/img/jobpics/Kinova.jpg" alt="Kinova Logo" class="company-logo" width="120" height="60" />
-          <div class="project-summary">
-              <h3>Key Responsibilities:</h3>
-              <ul>
-                  <li>Managed non-conforming parts and processes within production for all Kinova robot arms.</li>
-                  <li>Head Quality resource in new affordable arm project (PQE: Project Quality Engineer).</li>
-                  <li>Worked with SWE, Firmware, EE, and Mech teams on Design risk analysis and inspection criteria.</li>
-                  <li>Participated in QA activities: audits, documentation, certifications (**ISO and IEC**), and risk analysis.</li>
-              </ul>
-          </div>
-          <button class="toggle-button" onclick="toggleDetails('kinova-card', this)">More Details</button>
+        <h2>Kinova | Quality Engineer</h2>
+        <p class="duration">May 2018 - Mar 2019</p>
+        <img src="{{ site.cdn }}/assets/img/jobpics/Kinova.jpg"
+             alt="Kinova Logo" class="company-logo" width="120" height="60" />
+        <div class="project-summary">
+          <h3>Key Responsibilities:</h3>
+          <ul>
+            <li>Managed non-conforming parts and processes within production for all Kinova robot arms.</li>
+            <li>Head Quality resource in new affordable arm project (PQE: Project Quality Engineer).</li>
+            <li>Worked with SWE, Firmware, EE, and Mech teams on Design risk analysis and inspection criteria.</li>
+            <li>Participated in QA activities: audits, documentation, certifications (<strong>ISO and IEC</strong>), and risk analysis.</li>
+          </ul>
+        </div>
+        <button class="toggle-button" data-testid="kinova-toggle"
+                onclick="toggleDetails('kinova-card', this)">More Details</button>
       </div>
     </div>
 
-    <!-- Novo Job Entry -->
+    <!-- Novo -->
     <div class="timeline-item left" id="novo-card">
       <div class="job-card">
-          <h2>Novo | Quality Specialist</h2>
-          <p class="duration">Apr 2019 - Apr 2020</p>
-          <img src="{{ site.cdn }}/assets/img/jobpics/Novo.jpg" alt="Novo Logo" class="company-logo" width="120" height="60" />
-          <div class="project-summary">
-              <h3>Key Responsibilities:</h3>
-              <ul>
-                  <li>Assisted clients with product certification planning (**EMI/EMC, FCC, WiFi, Bluetooth**).</li>
-                  <li>Implemented conformity matrix for standards (**ISO-10993, IEC62366, IEC60601-1, UL1069/UL2900**).</li>
-                  <li>Managed risk management with respect to **ISO14971**.</li>
-                  <li>Assisted in putting in place an **ISO 13485** certified Quality Management System (QMS).</li>
-              </ul>
-          </div>
-          <button class="toggle-button" onclick="toggleDetails('novo-card', this)">More Details</button>
+        <h2>Novo | Quality Specialist</h2>
+        <p class="duration">Apr 2019 - Apr 2020</p>
+        <img src="{{ site.cdn }}/assets/img/jobpics/Novo.jpg"
+             alt="Novo Logo" class="company-logo" width="120" height="60" />
+        <div class="project-summary">
+          <h3>Key Responsibilities:</h3>
+          <ul>
+            <li>Assisted clients with product certification planning (<strong>EMI/EMC, FCC, WiFi, Bluetooth</strong>).</li>
+            <li>Implemented conformity matrix for standards (<strong>ISO-10993, IEC62366, IEC60601-1, UL1069/UL2900</strong>).</li>
+            <li>Managed risk management with respect to <strong>ISO14971</strong>.</li>
+            <li>Assisted in putting in place an <strong>ISO 13485</strong> certified Quality Management System (QMS).</li>
+          </ul>
+        </div>
+        <button class="toggle-button" data-testid="novo-toggle"
+                onclick="toggleDetails('novo-card', this)">More Details</button>
       </div>
     </div>
 
-    <!-- Logibec Job Entry -->
+    <!-- Logibec -->
     <div class="timeline-item right" id="logibec-card">
       <div class="job-card">
-          <h2>Logibec | Quality Assurance Analyst</h2>
-          <p class="duration">Jun 2020 - Apr 2021</p>
-          <img src="{{ site.cdn }}/assets/img/jobpics/Logibec.jpg" alt="Logibec Logo" class="company-logo" width="120" height="60" />
-          <div class="project-summary">
-              <h3>Key Responsibilities:</h3>
-              <ul>
-                  <li>Designed, wrote, reviewed, and validated test cases and test plans.</li>
-                  <li>Established and tracked QA metrics relating to test execution and defect findings.</li>
-                  <li>Ensured product development adhered to established SDLC processes.</li>
-              </ul>
-          </div>
-          <button class="toggle-button" onclick="toggleDetails('logibec-card', this)">More Details</button>
+        <h2>Logibec | Quality Assurance Analyst</h2>
+        <p class="duration">Jun 2020 - Apr 2021</p>
+        <img src="{{ site.cdn }}/assets/img/jobpics/Logibec.jpg"
+             alt="Logibec Logo" class="company-logo" width="120" height="60" />
+        <div class="project-summary">
+          <h3>Key Responsibilities:</h3>
+          <ul>
+            <li>Designed, wrote, reviewed, and validated test cases and test plans.</li>
+            <li>Established and tracked QA metrics relating to test execution and defect findings.</li>
+            <li>Ensured product development adhered to established SDLC processes.</li>
+          </ul>
+        </div>
+        <button class="toggle-button" data-testid="logibec-toggle"
+                onclick="toggleDetails('logibec-card', this)">More Details</button>
       </div>
     </div>
-    
-    <!-- National Bank Job Entry -->
+
+    <!-- National Bank -->
     <div class="timeline-item left" id="nationalbank-card">
       <div class="job-card">
-          <h2>National Bank | SDET</h2>
-          <p class="duration">Apr 2021 - Present</p>
-          <img src="{{ site.cdn }}/assets/img/jobpics/nationalBank.jpg" alt="National Bank Logo" class="company-logo" width="120" height="60" />
-          <div class="project-summary">
-              <h3>Key Achievements:</h3>
-              <ul>
-                  <li>Developed automated **Java** E2E and functional tests using **IntelliJ IDE**.</li>
-                  <li>Executed CI/CD tests via **Docker** and **Openshift**, utilizing automated **Cucumber** tests.</li>
-                  <li>Assisted in peer programming, code reviews, and managed defect reports on **Jira**.</li>
-              </ul>
-          </div>
-          <button class="toggle-button" onclick="toggleDetails('nationalbank-card', this)">More Details</button>
+        <h2>National Bank | SDET</h2>
+        <p class="duration">Apr 2021 - Present</p>
+        <img src="{{ site.cdn }}/assets/img/jobpics/nationalBank.jpg"
+             alt="National Bank Logo" class="company-logo" width="120" height="60" />
+        <div class="project-summary">
+          <h3>Key Achievements:</h3>
+          <ul>
+            <li>Developed automated <strong>Java</strong> E2E and functional tests using <strong>IntelliJ IDE</strong>.</li>
+            <li>Executed CI/CD tests via <strong>Docker</strong> and <strong>OpenShift</strong>, utilizing automated <strong>Cucumber</strong> tests.</li>
+            <li>Assisted in peer programming, code reviews, and managed defect reports on <strong>Jira</strong>.</li>
+          </ul>
+        </div>
+        <button class="toggle-button" data-testid="nationalbank-toggle"
+                onclick="toggleDetails('nationalbank-card', this)">More Details</button>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- JavaScript function to handle the expanding cards (Same as last turn) -->
 <script>
 function toggleDetails(cardId, buttonElement) {
-    const card = document.getElementById(cardId);
-    const summary = card.querySelector('.project-summary');
-    
-    summary.classList.toggle('visible');
-
-    if (summary.classList.contains('visible')) {
-        buttonElement.textContent = 'Hide Details';
-    } else {
-        buttonElement.textContent = 'More Details';
-    }
+  const card = document.getElementById(cardId);
+  const summary = card.querySelector('.project-summary');
+  summary.classList.toggle('visible');
+  buttonElement.textContent = summary.classList.contains('visible') ? 'Hide Details' : 'More Details';
 }
 </script>
