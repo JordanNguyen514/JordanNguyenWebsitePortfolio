@@ -34,3 +34,5 @@ test-results/
 __tests__/
 pact/
 playwright/
+
+.env

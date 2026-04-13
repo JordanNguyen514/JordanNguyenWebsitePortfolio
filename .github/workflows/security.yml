@@ -34,7 +34,7 @@ on:
 
   # Run weekly — catch new CVEs in existing dependencies
   schedule:
-    - cron: '0 8 * * 1'  # Every Monday 8am UTC
+    - cron: '0 0 1 * *'  # Every Monday 8am UTC
 
   # Allow manual trigger from GitHub UI
   workflow_dispatch:
@@ -114,10 +114,8 @@ jobs:
           # Baseline scan = passive only (no active attack attempts)
           # Safe for production — just observes, doesn't exploit
           rules_file_name: '.zap/rules.tsv'
-
-          # Create a GitHub issue automatically if HIGH alerts found
-          issue_title: 'ZAP Security Scan — Alerts Found'
-          create_issue: true
+          token: ${{ github.token }}
+          
 
           # Fail the workflow if any HIGH severity alerts are found
           # WARN = informational only, FAIL = blocks the pipeline

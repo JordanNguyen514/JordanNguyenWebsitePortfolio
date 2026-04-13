@@ -24,7 +24,7 @@ on:
 
   # Weekly scheduled audit — catch degradation over time
   schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 9am UTC
+    - cron: '0 0 1 * *'  # Every Monday at 9am UTC
 
 jobs:
   lighthouse:

@@ -59,6 +59,7 @@
     "@stryker-mutator/core": "^8.2.0",
     "@stryker-mutator/jest-runner": "^8.2.0",
     "cypress": "^15.13.1",
+    "dotenv": "^17.4.2",
     "eslint": "^8.57.0",
     "eslint-plugin-cypress": "^3.5.0",
     "http-server": "^14.1.1",

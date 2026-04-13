@@ -23,6 +23,10 @@ jobs:
 
       - name: Cypress Run (CloudFront Production)
         uses: cypress-io/github-action@v6
+        # Map secrets to environment variables so the Applitools plugin can find them
+        env:
+          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+          APPLITOOLS_BATCH_ID: ${{ github.run_id }}
         with:
           # Tell the action not to run install again since we just did it above
           install: false

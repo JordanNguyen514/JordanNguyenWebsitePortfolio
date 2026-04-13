@@ -4,89 +4,78 @@
  *  cypress/e2e/visual_regression.cy.js
  * ============================================================
  *
- *  CONCEPT — What is Applitools Eyes?
- *  ------------------------------------
- *  Applitools is an AI-powered visual testing platform.
- *  Unlike pixel-by-pixel screenshot diffs, it uses Visual AI
- *  to distinguish real UI regressions from rendering noise
- *  (anti-aliasing, font differences, dynamic content).
+ *  PREREQUISITES (run once in your terminal):
+ *    npm install @applitools/eyes-cypress dotenv --save-dev
+ *    npx eyes-setup
+ *    Create .env at project root: APPLITOOLS_API_KEY=your_key_here
  *
- *  HOW APPLITOOLS WORKS WITH CYPRESS
- *  ------------------------------------
- *  Applitools does NOT use imports. It injects Cypress commands
- *  (cy.eyesOpen, cy.eyesCheckWindow, cy.eyesClose) globally
- *  via a one-time setup command. This is different from most
- *  libraries — do NOT import it in spec files.
+ *  Your cypress.config.js already has the correct setup:
+ *    require('dotenv').config()
+ *    module.exports = require('@applitools/eyes-cypress')(defineConfig({...}))
+ *    config.env.APPLITOOLS_API_KEY = process.env.APPLITOOLS_API_KEY
  *
- *  ONE-TIME SETUP (run these once in your terminal):
- *  -------------------------------------------------
- *  1. Sign up free: https://applitools.com
- *     (Free tier = 100 checkpoints/month — enough for this portfolio)
- *
- *  2. Install the package:
- *       npm install @applitools/eyes-cypress --save-dev
- *
- *  3. Run the setup wizard (modifies cypress/support/e2e.js automatically):
- *       npx eyes-setup
- *
- *  4. Add your API key — two options:
- *     a) Local .env file (create this file, already in .gitignore):
- *          APPLITOOLS_API_KEY=your_key_here
- *     b) GitHub Secret for CI:
- *          Settings -> Secrets -> APPLITOOLS_API_KEY
- *
- *  5. Run visual tests:
- *       npm run test:visual
- *
- *  AFTER SETUP, THIS SPEC WILL RUN AUTOMATICALLY.
- *  The cy.eyes* commands below will be available globally.
- *
- *  WHY IT SKIPS GRACEFULLY
- *  -------------------------
- *  If APPLITOOLS_API_KEY is not set, each test skips with a
- *  clear message rather than failing the entire CI run.
- *  This lets the rest of the Cypress suite pass normally.
- *
+ *  Run visual tests:
+ *    npm run test:visual
  * ============================================================
  */
 
-// NOTE: No import needed — Applitools commands are injected
-// globally by `npx eyes-setup` into cypress/support/e2e.js.
-// If you see "cy.eyesOpen is not a function", run: npx eyes-setup
-
 describe('Visual Regression — Applitools Eyes', () => {
 
-  // Skip all tests if API key is not configured
+  // Track whether eyesOpen succeeded so afterEach can guard eyesClose.
+  // Without this flag, if eyesOpen throws, afterEach will call eyesClose
+  // on a non-open instance and cause a cascading "Eyes not opened" error.
+  let eyesOpened = false;
+
   before(function () {
-    if (!Cypress.env('APPLITOOLS_API_KEY')) {
-      Cypress.log({
-        name: '⚠️ Applitools',
-        message: 'APPLITOOLS_API_KEY not set — skipping visual tests. Run: npx eyes-setup',
-      });
+    // Applitools reads APPLITOOLS_API_KEY from process.env via dotenv.
+    // Your cypress.config.js bridges it to Cypress.env too.
+    // We check both so the skip works regardless of how the key was loaded.
+    const apiKey = Cypress.env('APPLITOOLS_API_KEY') || process.env.APPLITOOLS_API_KEY;
+
+    if (!apiKey) {
+      cy.log('⚠️ APPLITOOLS_API_KEY not set — skipping visual tests.');
+      cy.log('Create a .env file at project root with: APPLITOOLS_API_KEY=your_key_here');
       this.skip();
     }
   });
 
   beforeEach(() => {
+    eyesOpened = false; // Reset flag before each test
+
     cy.eyesOpen({
       appName: 'Jordan Nguyen Portfolio',
+      batchName: 'Portfolio UI Regression',
+      // ── FIX: Do NOT pass testName here ─────────────────────────────
+      // Applitools automatically uses the it() description as the test name.
+      // Passing Cypress.currentTest.title in beforeEach is unreliable —
+      // currentTest may be undefined depending on Cypress/Applitools version,
+      // which causes eyesOpen to throw and leaves Eyes in a broken state.
       browser: [
-        { width: 1280, height: 800, name: 'chrome' },
-        { width: 1280, height: 800, name: 'firefox' },
-        { width: 390,  height: 844, name: 'chrome', deviceName: 'iPhone 14 Pro' },
+        { width: 1280, height: 800, name: 'chrome'   },
+        { width: 1280, height: 800, name: 'firefox'  },
+        { width: 390,  height: 844, name: 'chrome', deviceName: 'iPhone 15' },
       ],
+    }).then(() => {
+      eyesOpened = true; // Only set true after eyesOpen resolves successfully
     });
   });
 
   afterEach(() => {
-    cy.eyesClose();
+    // ── FIX: Only call eyesClose if eyesOpen actually succeeded ────────
+    // If eyesOpen threw, the Eyes instance is not open.
+    // Calling eyesClose on a non-open instance causes "Eyes not opened" error,
+    // which overrides the real error and makes debugging harder.
+    if (eyesOpened) {
+      cy.eyesClose();
+    }
   });
 
-  // ── Full page snapshots ─────────────────────────────────────
+  // ── Full page snapshots ─────────────────────────────────────────────
 
   it('Homepage — full page visual check', () => {
     cy.visit('/');
     cy.get('#hero-title').should('be.visible');
+    cy.get('.career-port-title').should('be.visible');
     cy.eyesCheckWindow({ tag: 'Homepage', fully: true });
   });
 
@@ -108,7 +97,7 @@ describe('Visual Regression — Applitools Eyes', () => {
     cy.eyesCheckWindow({ tag: 'Certifications', fully: true });
   });
 
-  // ── Component snapshots ─────────────────────────────────────
+  // ── Component snapshots ─────────────────────────────────────────────
 
   it('Navigation bar — component visual check', () => {
     cy.visit('/');
@@ -122,8 +111,8 @@ describe('Visual Regression — Applitools Eyes', () => {
 
   it('Job card — expanded details state', () => {
     cy.visit('/assets/html/jobs.html');
-    cy.get('.toggle-button').first().click();
-    cy.get('.project-summary').first().should('be.visible');
+    cy.get('#nationalbank-card .toggle-button').click();
+    cy.get('#nationalbank-card .project-summary').should('be.visible');
     cy.eyesCheckWindow({
       tag: 'Job Card — Expanded',
       target: 'region',
