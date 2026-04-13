@@ -29,10 +29,4 @@ reports/
 # Playwright output
 playwright-report/
 test-results/
-
-# Old root-level folders (now reorganized)
-__tests__/
-pact/
-playwright/
-
 .env
