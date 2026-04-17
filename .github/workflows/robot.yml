@@ -1,0 +1,157 @@
+name: Robot Framework Tests
+
+# ============================================================
+#  CONCEPT — Why Robot Framework alongside Cypress?
+#  --------------------------------------------------
+#  Cypress:          JavaScript-native, great for reactive UI,
+#                    auto-retry, and developer-focused workflows.
+#  Robot Framework:  Keyword-driven, Python-based, generates
+#                    structured HTML/XML reports ideal for
+#                    regulatory documentation and stakeholder
+#                    sign-off (common in medical/banking/consulting).
+#
+#  Having BOTH demonstrates breadth as an SDET — you choose
+#  the right tool for the context, not just one you know.
+# ============================================================
+
+on:
+  # Run after every successful deploy — tests live production
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types:
+      - completed
+
+  # Also allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Base URL to test against'
+        required: false
+        default: 'https://d2kmkdebgfkxyh.cloudfront.net'
+      include_tags:
+        description: 'Robot tags to include (e.g. smoke, or leave blank for all)'
+        required: false
+        default: ''
+      exclude_tags:
+        description: 'Robot tags to exclude (e.g. api to skip live Lambda tests)'
+        required: false
+        default: 'api'
+
+jobs:
+  robot-tests:
+    name: Robot Framework — ${{ matrix.suite }}
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    strategy:
+      fail-fast: false   # Run all suites even if one fails
+      matrix:
+        suite:
+          - 01_smoke
+          - 02_navigation
+          - 03_jobs_page
+          - 04_internships
+          - 05_contact_form
+          - 06_sdet_showcase
+
+    steps:
+      # ── Step 1: Checkout ─────────────────────────────────────────────────────
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ── Step 2: Python + Robot Framework ─────────────────────────────────────
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: tests/robot/requirements.txt
+
+      - name: Install Robot Framework Dependencies
+        run: pip install -r tests/robot/requirements.txt
+
+      # ── Step 3: Chrome (headless) ─────────────────────────────────────────────
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Install ChromeDriver
+        run: |
+          # webdriver-manager handles driver/browser version matching
+          python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
+
+      # ── Step 4: Run Robot Framework ───────────────────────────────────────────
+      - name: Run Robot Framework Suite — ${{ matrix.suite }}
+        env:
+          HEADLESS: "true"    # Tells common.resource to use --headless=new
+        run: |
+          BASE_URL="${{ github.event.inputs.base_url || 'https://d2kmkdebgfkxyh.cloudfront.net' }}"
+          INCLUDE_TAGS="${{ github.event.inputs.include_tags }}"
+          EXCLUDE_TAGS="${{ github.event.inputs.exclude_tags || 'api' }}"
+
+          # Build the robot command
+          CMD="robot"
+          CMD="$CMD --variable BASE_URL:${BASE_URL}"
+          CMD="$CMD --outputdir tests/robot/results/${{ matrix.suite }}"
+          CMD="$CMD --output output.xml"
+          CMD="$CMD --log log.html"
+          CMD="$CMD --report report.html"
+          CMD="$CMD --loglevel INFO"
+
+          # Apply tag filters if provided
+          if [ -n "$INCLUDE_TAGS" ]; then
+            CMD="$CMD --include $INCLUDE_TAGS"
+          fi
+          if [ -n "$EXCLUDE_TAGS" ]; then
+            CMD="$CMD --exclude $EXCLUDE_TAGS"
+          fi
+
+          CMD="$CMD tests/robot/suites/${{ matrix.suite }}.robot"
+
+          echo "Running: $CMD"
+          eval $CMD
+
+      # ── Step 5: Merge all results into one report ─────────────────────────────
+      #    rebot merges multiple output.xml files into a single combined report.
+      #    Only runs in the last matrix job (smoke) to avoid race conditions.
+      - name: Merge Results Into Combined Report
+        if: always() && matrix.suite == '06_sdet_showcase'
+        run: |
+          rebot \
+            --outputdir tests/robot/results/combined \
+            --output output.xml \
+            --log log.html \
+            --report report.html \
+            --name "Jordan Portfolio — Full Robot Suite" \
+            tests/robot/results/*/output.xml || true
+
+      # ── Step 6: Upload artifacts ──────────────────────────────────────────────
+      - name: Upload Robot Results — ${{ matrix.suite }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results-${{ matrix.suite }}
+          path: tests/robot/results/${{ matrix.suite }}/
+          retention-days: 30
+
+      - name: Upload Combined Report
+        if: always() && matrix.suite == '06_sdet_showcase'
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-combined-report
+          path: tests/robot/results/combined/
+          retention-days: 30
+
+      # ── Step 7: GitHub Job Summary ────────────────────────────────────────────
+      - name: Post Robot Summary
+        if: always()
+        run: |
+          echo "## 🤖 Robot Framework — ${{ matrix.suite }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{ github.event.inputs.base_url || 'https://d2kmkdebgfkxyh.cloudfront.net' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Excluded tags:** ${{ github.event.inputs.exclude_tags || 'api' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Full HTML report available in the **robot-results-${{ matrix.suite }}** artifact." >> $GITHUB_STEP_SUMMARY

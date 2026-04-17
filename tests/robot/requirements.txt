@@ -1,0 +1,17 @@
+# ============================================================
+#  tests/robot/requirements.txt
+#  Robot Framework + SeleniumLibrary dependencies
+#
+#  Install locally:
+#    pip install -r tests/robot/requirements.txt
+#
+#  Also requires ChromeDriver to match your installed Chrome:
+#    pip install webdriver-manager   (handles this automatically)
+#    OR download manually from https://chromedriver.chromium.org
+# ============================================================
+
+robotframework==7.1
+robotframework-seleniumlibrary==6.7.0
+robotframework-requests==0.9.7
+webdriver-manager==4.0.2
+selenium==4.25.0

@@ -25,7 +25,12 @@
     "test:mutation": "stryker run --config-file config/stryker.config.mjs",
     "test:security:deps": "snyk test --severity-threshold=high",
     "upload:images": "bash scripts/upload-images.sh",
-    "test:playwright:update-snapshots": "playwright test --config config/playwright.config.ts --update-snapshots"
+    "test:playwright:update-snapshots": "playwright test --config config/playwright.config.ts --update-snapshots",
+    "test:robot": "robot --variable BASE_URL:https://d2kmkdebgfkxyh.cloudfront.net --outputdir tests/robot/results --exclude api tests/robot/suites/",
+    "test:robot:local": "robot --variable BASE_URL:http://localhost:8080 --outputdir tests/robot/results --exclude api tests/robot/suites/",
+    "test:robot:smoke": "robot --variable BASE_URL:https://d2kmkdebgfkxyh.cloudfront.net --include smoke --outputdir tests/robot/results tests/robot/suites/",
+    "test:robot:report": "python -m robot.rebot --outputdir tests/robot/results/combined tests/robot/results/*/output.xml",
+    "test:robot:install": "pip install -r tests/robot/requirements.txt"
   },
   "jest": {
     "testEnvironment": "node",

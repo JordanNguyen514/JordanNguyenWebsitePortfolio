@@ -31,3 +31,5 @@ playwright-report/
 config/tests/playwright/snapshots/portfolio.spec.ts-snapshots
 test-results/
 .env
+# Robot Framework output
+tests/robot/results/
