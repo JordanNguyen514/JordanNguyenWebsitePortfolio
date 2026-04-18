@@ -30,7 +30,12 @@
     "test:robot:local": "robot --variable BASE_URL:http://localhost:8080 --outputdir tests/robot/results --exclude api tests/robot/suites/",
     "test:robot:smoke": "robot --variable BASE_URL:https://d2kmkdebgfkxyh.cloudfront.net --include smoke --outputdir tests/robot/results tests/robot/suites/",
     "test:robot:report": "python -m robot.rebot --outputdir tests/robot/results/combined tests/robot/results/*/output.xml",
-    "test:robot:install": "pip install -r tests/robot/requirements.txt"
+    "test:robot:install": "pip install -r tests/robot/requirements.txt",
+    "test:karate": "cd tests/karate && mvn test -Dtest=\"KarateRunner#runAll\" -q",
+    "test:karate:health": "cd tests/karate && mvn test -Dtest=\"KarateRunner#runHealthChecks\" -q",
+    "test:karate:contact": "cd tests/karate && mvn test -Dtest=\"KarateRunner#runContactApi\" -q",
+    "test:karate:local": "cd tests/karate && mvn test -Dkarate.env=local -q",
+    "test:karate:install": "cd tests/karate && mvn dependency:resolve -q"
   },
   "jest": {
     "testEnvironment": "node",

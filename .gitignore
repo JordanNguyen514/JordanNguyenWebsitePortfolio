@@ -33,3 +33,6 @@ test-results/
 .env
 # Robot Framework output
 tests/robot/results/
+
+# Karate API test output
+tests/karate/target/

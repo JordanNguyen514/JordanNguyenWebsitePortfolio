@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.jordan.portfolio</groupId>
+  <artifactId>karate-api-tests</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Jordan Portfolio — Karate API Tests</name>
+
+  <!--
+    CONCEPT — Why Karate alongside Cypress and Robot Framework?
+    ─────────────────────────────────────────────────────────────
+    Cypress:          Browser UI automation (JavaScript)
+    Robot Framework:  Keyword-driven UI automation (Python)
+    Karate:           API contract & functional testing (Java/Gherkin)
+
+    Karate uses the same BDD Gherkin syntax as Cucumber but is
+    purpose-built for API testing — no glue code needed. You
+    write Given/When/Then directly against HTTP endpoints.
+
+    For Deloitte: banking/financial clients typically mandate API
+    contract testing as a quality gate before any UI testing runs.
+    Having Karate on your portfolio shows you understand the full
+    testing pyramid, not just the browser layer.
+  -->
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- 1.4.0 under com.intuit.karate is the latest version confirmed
+         on Maven Central. The new io.karatelabs groupId (1.4.1+) is not
+         yet published to Central and requires a separate repository. -->
+    <karate.version>1.4.0</karate.version>
+    <junit.version>5.10.2</junit.version>
+    <surefire.version>3.2.5</surefire.version>
+  </properties>
+
+  <dependencies>
+
+    <!-- Karate Core + JUnit 5 runner
+         groupId: com.intuit.karate — confirmed on Maven Central.
+         Do NOT use io.karatelabs (the new org) — it is not yet
+         published to Central and will fail to resolve offline. -->
+    <dependency>
+      <groupId>com.intuit.karate</groupId>
+      <artifactId>karate-junit5</artifactId>
+      <version>${karate.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 5 engine (needed for surefire to discover tests) -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <!-- Karate .feature files must be on the classpath — put them in resources -->
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <!-- Pass system properties through to Karate -->
+          <systemPropertyVariables>
+            <karate.env>${karate.env}</karate.env>
+          </systemPropertyVariables>
+          <!-- Surefire needs this to find JUnit 5 tests -->
+          <useModulePath>false</useModulePath>
+          <!-- Karate parallel report dir -->
+          <argLine>-Dfile.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

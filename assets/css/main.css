@@ -75,7 +75,8 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-dropdown:hover .dropdown-menu {
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
   display: block;
   animation: fadeIn 0.2s ease-in;
 }

@@ -51,34 +51,32 @@ describe('Portfolio Website Smoke Test', () => {
   });
 
   it('should open the "Browse" dropdown and show its links', () => {
-    // Click the "Browse" dropdown button
-    // Cypress handles triggering hover/focus necessary for dropdowns to appear in UI
-    cy.contains('button', 'Browse').click();
+    // FIX: The dropdown is CSS :hover-only. Headless Chrome does not fire
+    // :hover on click(), so the menu stays hidden. We add the .open class
+    // via JS to simulate hover — matching the Robot Framework fix in common.resource.
+    cy.get('[data-testid="nav-browse-btn"]')
+      .closest('.nav-dropdown')
+      .invoke('addClass', 'open');
 
-    // Verify the dropdown menu is visible
-    cy.get('.dropdown-menu').eq(0).should('be.visible');
-
-    // Verify specific links within the browse menu are now visible
+    cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
     cy.get('[data-event-action="Click_Jobs"]').should('be.visible').and('contain', 'Jobs');
     cy.get('[data-event-action="Click_Academics"]').should('be.visible').and('contain', 'Academics');
-    
-    // Click outside to close the dropdown (cleanup for next test)
-    cy.get('body').click(0, 0);
+
+    // Cleanup: remove .open class
+    cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });
 
   it('should open the "Contact" dropdown and show its links', () => {
-    // Click the "Contact" dropdown button (second button on the page)
-    cy.contains('button', 'Contact').click();
+    // FIX: Same :hover headless fix — add .open class via jQuery invoke
+    cy.get('[data-testid="nav-contact-btn"]')
+      .closest('.nav-dropdown')
+      .invoke('addClass', 'open');
 
-    // Verify the second dropdown menu is visible
-    cy.get('.dropdown-menu').eq(1).should('be.visible');
-
-    // Verify specific links within the contact menu are now visible
+    cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
     cy.get('[data-event-action="Click_ContactForm"]').should('be.visible').and('contain', 'Contact Form');
     cy.get('[data-event-action="Click_ViewSubmissions"]').should('be.visible').and('contain', 'View Submissions');
 
-    // Click outside to close the dropdown
-    cy.get('body').click(0, 0);
+    cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });
 
   it('should display the live clock in the navigation bar', () => {

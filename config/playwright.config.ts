@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: '../tests/playwright',
+  testDir: '/tests/playwright',
   testMatch: '**/*.spec.ts',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -9,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
 
   reporter: [
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['html', { outputFolder: '/playwright-report', open: 'never' }],
     ['github'],
     ['list'],
   ],
@@ -21,7 +21,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  snapshotDir: './tests/playwright/snapshots',
+  snapshotDir: '/tests/playwright/snapshots',
   expect: {
     toHaveScreenshot: { maxDiffPixelRatio: 0.05 },
   },

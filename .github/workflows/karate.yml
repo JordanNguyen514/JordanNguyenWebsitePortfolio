@@ -1,0 +1,110 @@
+name: Karate API Tests
+
+# ============================================================
+#  CONCEPT — Why a separate workflow for API tests?
+#  ─────────────────────────────────────────────────
+#  API tests are the fastest layer of the testing pyramid.
+#  Running them as a separate job lets CI fail fast:
+#
+#  1. Deploy to S3
+#  2. → Karate API tests (30s)  ← this workflow
+#  3. → Cypress E2E tests (3min) only if step 2 passes
+#  4. → Robot Framework (5min)  only if step 2 passes
+#
+#  If the Lambda API is broken, there's no point launching
+#  200+ browser tests that will all fail on the form step.
+# ============================================================
+
+on:
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types:
+      - completed
+
+  workflow_dispatch:
+    inputs:
+      karate_env:
+        description: 'Karate environment (prod / local / ci)'
+        required: false
+        default: 'prod'
+
+jobs:
+  karate-api-tests:
+    name: Karate API Tests
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      # ── Step 1: Checkout ──────────────────────────────────────────────────
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ── Step 2: Java 17 ───────────────────────────────────────────────────
+      # Karate requires Java 11+. Java 17 LTS is the recommended version.
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          cache-dependency-path: tests/karate/pom.xml
+
+      # ── Step 3: Wait for CloudFront propagation ───────────────────────────
+      - name: Wait for CloudFront Propagation
+        if: github.event_name == 'workflow_run'
+        run: |
+          echo "Waiting 30s for CloudFront to propagate..."
+          sleep 30
+          curl -sSf https://d2kmkdebgfkxyh.cloudfront.net/ > /dev/null
+          echo "Site is reachable."
+
+      # ── Step 4: Run Karate health checks first (fast gate) ────────────────
+      - name: Run Health Check Smoke Tests
+        working-directory: tests/karate
+        run: |
+          mvn test \
+            -Dtest="KarateRunner#runHealthChecks" \
+            -Dkarate.env=${{ github.event.inputs.karate_env || 'prod' }} \
+            -q
+        # -q = quiet Maven output (reduces log noise)
+
+      # ── Step 5: Run full API test suite ───────────────────────────────────
+      - name: Run Full Karate API Suite
+        working-directory: tests/karate
+        run: |
+          mvn test \
+            -Dtest="KarateRunner#runAll" \
+            -Dkarate.env=${{ github.event.inputs.karate_env || 'prod' }} \
+            -q
+
+      # ── Step 6: Upload Karate HTML report ─────────────────────────────────
+      # Karate generates a rich HTML report at target/karate-reports/
+      - name: Upload Karate Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karate-report-${{ github.run_number }}
+          path: tests/karate/target/karate-reports/
+          retention-days: 30
+
+      # ── Step 7: Upload surefire XML for test parsers ──────────────────────
+      - name: Upload Surefire Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karate-surefire-${{ github.run_number }}
+          path: tests/karate/target/surefire-reports/
+          retention-days: 14
+
+      # ── Step 8: GitHub Job Summary ────────────────────────────────────────
+      - name: Post Karate Summary
+        if: always()
+        run: |
+          echo "## 🥋 Karate API Tests" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event.inputs.karate_env || 'prod' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**API Under Test:** AWS Lambda Contact Form + CloudFront Health Checks" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Full HTML report available in the **karate-report-${{ github.run_number }}** artifact." >> $GITHUB_STEP_SUMMARY
