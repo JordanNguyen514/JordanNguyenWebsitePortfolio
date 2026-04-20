@@ -108,3 +108,16 @@ jobs:
           echo "**API Under Test:** AWS Lambda Contact Form + CloudFront Health Checks" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Full HTML report available in the **karate-report-${{ github.run_number }}** artifact." >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: karate-api-tests
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Karate API Tests"
+      workflow_id:   "karate"
+      conclusion:    ${{ needs.karate-api-tests.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "test"
+    secrets: inherit

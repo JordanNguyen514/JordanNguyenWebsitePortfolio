@@ -46,3 +46,16 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: e2e-tests
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Post-Deployment UI Tests (Cypress)"
+      workflow_id:   "cypress-e2e"
+      conclusion:    ${{ needs.e2e-tests.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "test"
+    secrets: inherit

@@ -58,3 +58,16 @@ jobs:
           echo "Thresholds: High ≥ 80% | Low ≥ 60% | Break < 50%" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Full HTML report available in the **stryker-mutation-report** artifact." >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: mutation-test
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Mutation Testing (StrykerJS)"
+      workflow_id:   "mutation"
+      conclusion:    ${{ needs.mutation-test.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit

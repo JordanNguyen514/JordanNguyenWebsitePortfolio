@@ -141,3 +141,16 @@ jobs:
           echo "- Missing security headers (CSP, X-Frame-Options)" >> $GITHUB_STEP_SUMMARY
           echo "- Cookie attributes (Secure, HttpOnly, SameSite)" >> $GITHUB_STEP_SUMMARY
           echo "- Information disclosure (server version headers)" >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: [snyk-dependency-scan, owasp-zap-scan]
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Security Scanning (Snyk + OWASP ZAP)"
+      workflow_id:   "security"
+      conclusion:    ${{ (needs.snyk-dependency-scan.result == 'success' && needs.owasp-zap-scan.result == 'success') && 'success' || 'failure' }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "security"
+    secrets: inherit

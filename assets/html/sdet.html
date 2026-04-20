@@ -1,6 +1,7 @@
 ---
 layout: default
 css_file: "/assets/css/sdet.css"
+ci_dashboard: true
 ---
 
 <!-- ══════════════════════════════════════════════════════════
@@ -580,6 +581,46 @@ css_file: "/assets/css/sdet.css"
 
 </section><!-- /QA Metrics -->
 
+
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 05 — LIVE CI/CD PIPELINE STATUS
+     Real-time status fetched from S3 on every page load.
+     Updated automatically after every GitHub Actions run.
+     ══════════════════════════════════════════════════════════ -->
+<section class="sdet-section" id="ci-pipeline-section">
+  <div class="ci-section-header">
+    <h2 class="sdet-section-title">
+      Live Pipeline Status
+      <span class="title-tag">SECTION 05</span>
+    </h2>
+    <div class="ci-section-meta">
+      <span id="ci-pipeline-health" class="ci-health-passing">⏳ Loading...</span>
+      <span id="ci-last-updated"></span>
+    </div>
+  </div>
+
+  <p class="sdet-section-subtitle">
+    Real-time status of all GitHub Actions workflows — fetched from S3/CloudFront
+    on every page load and updated automatically after every commit.
+  </p>
+
+  <div id="ci-dashboard-error"></div>
+  <div id="ci-dashboard-grid">
+    <!-- Cards are injected by ci-dashboard.js -->
+    <!-- Skeleton loading state -->
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">☁️</span><span class="ci-card-name">Deploy to S3</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🌲</span><span class="ci-card-name">Cypress E2E</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎭</span><span class="ci-card-name">Playwright</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot Framework</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🥋</span><span class="ci-card-name">Karate API Tests</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔦</span><span class="ci-card-name">Lighthouse CI</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🧬</span><span class="ci-card-name">Mutation Testing</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔒</span><span class="ci-card-name">Security Scanning</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">📡</span><span class="ci-card-name">API Synthetics</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+  </div>
+</section><!-- /Live CI Status -->
 
 <!-- Tab switching script -->
 <script>

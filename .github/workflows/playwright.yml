@@ -56,3 +56,15 @@ jobs:
           name: playwright-videos-${{ matrix.project }}
           path: test-results/
           retention-days: 7
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: playwright
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Playwright Cross-Browser Tests"
+      workflow_id:   "playwright"
+      conclusion:    ${{ needs.playwright.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "test"
+    secrets: inherit

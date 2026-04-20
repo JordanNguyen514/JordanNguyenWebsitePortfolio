@@ -90,3 +90,16 @@ jobs:
           echo "📁 Full HTML reports available in the **lighthouse-reports** artifact above." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🎯 **Thresholds:** Performance ≥ 80 | Accessibility ≥ 90 | Best Practices ≥ 90" >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: lighthouse
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Lighthouse Performance Audit"
+      workflow_id:   "lighthouse"
+      conclusion:    ${{ needs.lighthouse.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit

@@ -46,3 +46,17 @@ jobs:
           aws cloudfront create-invalidation \
             --distribution-id ${{ secrets.DISTRIBUTION_ID }} \
             --paths "/*.html" "/assets/css/*" "/assets/js/*" "/assets/html/*" "/"
+
+  # ── Report deployment status to CI dashboard ───────────────────────────────
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: deploy
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Deploy to S3"
+      workflow_id:   "deploy"
+      conclusion:    ${{ needs.deploy.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "deploy"
+    secrets: inherit

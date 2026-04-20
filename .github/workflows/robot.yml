@@ -155,3 +155,16 @@ jobs:
           echo "**Excluded tags:** ${{ github.event.inputs.exclude_tags || 'api' }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Full HTML report available in the **robot-results-${{ matrix.suite }}** artifact." >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: robot-tests
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Robot Framework Tests"
+      workflow_id:   "robot"
+      conclusion:    ${{ needs.robot-tests.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "test"
+    secrets: inherit

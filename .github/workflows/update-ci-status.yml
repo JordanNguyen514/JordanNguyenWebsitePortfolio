@@ -1,0 +1,118 @@
+name: Update CI Dashboard Status
+
+# ============================================================
+#  .github/workflows/update-ci-status.yml
+#
+#  CONCEPT — How the live CI dashboard works
+#  ─────────────────────────────────────────────────────────
+#  This is a REUSABLE WORKFLOW called by every other workflow
+#  as its final step (using "uses:" syntax). It:
+#
+#  1. Receives the workflow name + conclusion (success/failure)
+#  2. Downloads the current status JSON from S3
+#  3. Updates the entry for this workflow
+#  4. Re-uploads the JSON to S3
+#
+#  The website's JS reads from the same CloudFront URL on
+#  every page load — no GitHub API calls, no rate limits,
+#  no tokens exposed in the browser.
+#
+#  S3 path: s3://<bucket>/ci-status/dashboard.json
+#  CDN URL: https://d2kmkdebgfkxyh.cloudfront.net/ci-status/dashboard.json
+#
+#  IMPORTANT: The JSON file must NOT be excluded in deploy.yml.
+#  Add "ci-status/*" to the --exclude flags if needed.
+# ============================================================
+
+on:
+  workflow_call:
+    inputs:
+      workflow_name:
+        description: 'Human-readable workflow name (shown in dashboard)'
+        required: true
+        type: string
+      workflow_id:
+        description: 'Unique key for this workflow (no spaces, e.g. deploy)'
+        required: true
+        type: string
+      conclusion:
+        description: 'Outcome: success | failure | cancelled | skipped'
+        required: true
+        type: string
+      run_url:
+        description: 'Direct URL to this specific workflow run'
+        required: true
+        type: string
+      category:
+        description: 'Dashboard category: deploy | test | quality | security'
+        required: false
+        type: string
+        default: 'test'
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ca-central-1
+
+      - name: Update CI Dashboard JSON in S3
+        run: |
+          BUCKET="${{ secrets.AWS_S3_BUCKET }}"
+          KEY="ci-status/dashboard.json"
+          TMPFILE="/tmp/dashboard.json"
+
+          # Download existing JSON — create empty structure if it doesn't exist yet
+          aws s3 cp "s3://$BUCKET/$KEY" "$TMPFILE" 2>/dev/null || echo '{"workflows":{},"lastUpdated":""}' > "$TMPFILE"
+
+          # Build the updated entry for this workflow
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          CONCLUSION="${{ inputs.conclusion }}"
+          WORKFLOW_ID="${{ inputs.workflow_id }}"
+          WORKFLOW_NAME="${{ inputs.workflow_name }}"
+          RUN_URL="${{ inputs.run_url }}"
+          CATEGORY="${{ inputs.category }}"
+          RUN_NUMBER="${{ github.run_number }}"
+          COMMIT_SHA="${{ github.sha }}"
+          SHORT_SHA="${COMMIT_SHA:0:7}"
+
+          # Use Python to safely update the JSON without jq dependency issues
+          python3 << PYEOF
+          import json, sys
+
+          with open("$TMPFILE") as f:
+              data = json.load(f)
+
+          if "workflows" not in data:
+              data["workflows"] = {}
+
+          data["workflows"]["$WORKFLOW_ID"] = {
+              "name":       "$WORKFLOW_NAME",
+              "id":         "$WORKFLOW_ID",
+              "category":   "$CATEGORY",
+              "conclusion": "$CONCLUSION",
+              "runNumber":  $RUN_NUMBER,
+              "runUrl":     "$RUN_URL",
+              "commitSha":  "$SHORT_SHA",
+              "updatedAt":  "$TIMESTAMP"
+          }
+
+          data["lastUpdated"] = "$TIMESTAMP"
+
+          with open("$TMPFILE", "w") as f:
+              json.dump(data, f, indent=2)
+
+          print(f"Updated workflow: $WORKFLOW_ID → $CONCLUSION")
+          PYEOF
+
+          # Upload back to S3 with short cache TTL so the site always gets fresh data
+          aws s3 cp "$TMPFILE" "s3://$BUCKET/$KEY" \
+            --content-type "application/json" \
+            --cache-control "no-cache, no-store, must-revalidate" \
+            --metadata "updated=$TIMESTAMP"
+
+          echo "✅ CI status dashboard updated at s3://$BUCKET/$KEY"

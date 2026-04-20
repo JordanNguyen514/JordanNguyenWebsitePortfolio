@@ -1,0 +1,200 @@
+/* ============================================================
+   assets/css/ci-dashboard.css
+   Styles for the live GitHub Actions CI/CD status dashboard.
+   ============================================================ */
+
+/* ── Section wrapper ─────────────────────────────────────── */
+#ci-pipeline-section {
+  padding: 60px 5%;
+  background: #0a0a0a;
+  border-top: 1px solid #1e1e1e;
+}
+
+.ci-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.ci-section-header h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+}
+
+.ci-section-header h2 span.title-tag {
+  font-size: 0.75rem;
+  color: #007bff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.ci-section-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#ci-pipeline-health {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.ci-health-passing {
+  background: rgba(0, 230, 118, 0.12);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.ci-health-failing {
+  background: rgba(244, 67, 54, 0.12);
+  color: #f44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+#ci-last-updated {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
+#ci-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+.ci-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.ci-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* ── Status colour variants ───────────────────────────────── */
+.ci-passing  { border-left: 3px solid #00e676; }
+.ci-failing  { border-left: 3px solid #f44336; }
+.ci-cancelled{ border-left: 3px solid #ff9100; }
+.ci-skipped  { border-left: 3px solid #555;    }
+.ci-unknown  { border-left: 3px solid #333;    }
+
+.ci-passing:hover  { border-color: #00e676; }
+.ci-failing:hover  { border-color: #f44336; }
+.ci-cancelled:hover{ border-color: #ff9100; }
+
+/* ── Card header ──────────────────────────────────────────── */
+.ci-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ci-card-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.ci-card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ccc;
+  line-height: 1.3;
+}
+
+/* ── Status badge ─────────────────────────────────────────── */
+.ci-card-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ci-status-icon {
+  font-size: 1rem;
+}
+
+.ci-status-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ci-passing  .ci-status-badge { color: #00e676; }
+.ci-failing  .ci-status-badge { color: #f44336; }
+.ci-cancelled .ci-status-badge{ color: #ff9100; }
+.ci-skipped  .ci-status-badge { color: #666;    }
+.ci-unknown  .ci-status-badge { color: #444;    }
+
+/* ── Meta row ─────────────────────────────────────────────── */
+.ci-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ci-run-number {
+  font-size: 0.72rem;
+  color: #444;
+  font-family: 'Courier New', monospace;
+}
+
+.ci-commit {
+  font-size: 0.72rem;
+  color: #007bff;
+  font-family: 'Courier New', monospace;
+  background: rgba(0,123,255,0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.ci-updated {
+  font-size: 0.72rem;
+  color: #444;
+  margin-left: auto;
+}
+
+/* ── Error state ──────────────────────────────────────────── */
+#ci-dashboard-error {
+  display: none;
+  background: rgba(244, 67, 54, 0.08);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  #ci-dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .ci-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

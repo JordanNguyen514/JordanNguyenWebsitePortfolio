@@ -83,3 +83,16 @@ jobs:
           echo "| Contact Form API | ${{ steps.check_contact_api.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Response time (homepage): ${{ steps.check_site.outputs.response_time }}s" >> $GITHUB_STEP_SUMMARY
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: synthetic-checks
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "API Monitoring & Synthetics"
+      workflow_id:   "synthetics"
+      conclusion:    ${{ needs.synthetic-checks.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit
