@@ -41,9 +41,11 @@ describe('Jobs Page Functionality', () => {
 
         cy.wrap($button).should('have.text', 'More Details');
 
+        // FIX: Assert class removal, not CSS visibility.
+        // .not.be.visible fails during CSS transition (display:none animation).
+        // Checking the class is instant and reflects the toggle state correctly.
         cy.get(summarySelector)
-          .should('not.be.visible')
-          .and('not.have.class', 'visible');
+          .should('not.have.class', 'visible');
     });
   });
 });

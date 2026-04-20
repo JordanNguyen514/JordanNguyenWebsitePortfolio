@@ -61,12 +61,26 @@ describe('Visual Regression — Applitools Eyes', () => {
   });
 
   afterEach(() => {
-    // ── FIX: Only call eyesClose if eyesOpen actually succeeded ────────
-    // If eyesOpen threw, the Eyes instance is not open.
-    // Calling eyesClose on a non-open instance causes "Eyes not opened" error,
-    // which overrides the real error and makes debugging harder.
+    // Only call eyesClose if eyesOpen actually succeeded.
+    // If eyesOpen threw, calling eyesClose on a non-open instance causes a
+    // cascading "Eyes not opened" error that hides the real failure.
     if (eyesOpened) {
       cy.eyesClose();
+      eyesOpened = false;
+    }
+  });
+
+  // FIX: afterAll batch finalisation.
+  // Applitools collects all test results into a batch and closes it
+  // in an internal afterAll hook. If that hook runs before our tests
+  // have finished, or if no tests opened Eyes, it throws an "after all
+  // hook failed" error. Explicitly calling eyesGetAllTestResults()
+  // here finalises the batch cleanly and prevents the hook crash.
+  after(() => {
+    // eyesGetAllTestResults is only available after npx eyes-setup.
+    // Guard against it being undefined if Applitools is not configured.
+    if (typeof cy.eyesGetAllTestResults === 'function') {
+      cy.eyesGetAllTestResults();
     }
   });
 

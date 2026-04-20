@@ -32,11 +32,21 @@ Open Browser Session
         ${options}=    Evaluate
         ...    sys.modules['selenium.webdriver'].ChromeOptions()
         ...    sys
-        Call Method    ${options}    add_argument    --headless=new
-        Call Method    ${options}    add_argument    --no-sandbox
-        Call Method    ${options}    add_argument    --disable-dev-shm-usage
-        Call Method    ${options}    add_argument    --disable-gpu
-        Call Method    ${options}    add_argument    --window-size\=1280,800
+        # FIX: Assign each flag to a variable before calling Call Method.
+        # Robot Framework parses arguments containing '=' as named (keyword)
+        # arguments — e.g. --headless=new is interpreted as named arg
+        # '--headless' with value 'new', causing TypeError at runtime.
+        # Using a variable forces positional string passing.
+        ${arg_headless}=    Set Variable    --headless=new
+        ${arg_sandbox}=     Set Variable    --no-sandbox
+        ${arg_shm}=         Set Variable    --disable-dev-shm-usage
+        ${arg_gpu}=         Set Variable    --disable-gpu
+        ${arg_size}=        Set Variable    --window-size=1280,800
+        Call Method    ${options}    add_argument    ${arg_headless}
+        Call Method    ${options}    add_argument    ${arg_sandbox}
+        Call Method    ${options}    add_argument    ${arg_shm}
+        Call Method    ${options}    add_argument    ${arg_gpu}
+        Call Method    ${options}    add_argument    ${arg_size}
         Create WebDriver    Chrome    options=${options}
     ELSE
         Open Browser    ${url}    ${BROWSER}
