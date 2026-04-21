@@ -1,0 +1,77 @@
+{
+  "snapshotSource": "cloudfront",
+  "snapshotCapturedAt": "2026-04-21T00:53:22Z",
+  "workflows": {
+    "deploy": {
+      "name": "Deploy to S3",
+      "id": "deploy",
+      "category": "deploy",
+      "conclusion": "success",
+      "runNumber": 28,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698111619",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:49:13Z"
+    },
+    "security": {
+      "name": "Security Scanning (Snyk + OWASP ZAP)",
+      "id": "security",
+      "category": "security",
+      "conclusion": "failure",
+      "runNumber": 16,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698111637",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:50:11Z"
+    },
+    "robot": {
+      "name": "Robot Framework Tests",
+      "id": "robot",
+      "category": "test",
+      "conclusion": "failure",
+      "runNumber": 6,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698124534",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:50:16Z"
+    },
+    "karate": {
+      "name": "Karate API Tests",
+      "id": "karate",
+      "category": "test",
+      "conclusion": "failure",
+      "runNumber": 5,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698124521",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:50:49Z"
+    },
+    "playwright": {
+      "name": "Playwright Cross-Browser Tests",
+      "id": "playwright",
+      "category": "test",
+      "conclusion": "success",
+      "runNumber": 15,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698124607",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:51:32Z"
+    },
+    "cypress-e2e": {
+      "name": "Post-Deployment UI Tests (Cypress)",
+      "id": "cypress-e2e",
+      "category": "test",
+      "conclusion": "failure",
+      "runNumber": 22,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698124522",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:51:36Z"
+    },
+    "lighthouse": {
+      "name": "Lighthouse Performance Audit",
+      "id": "lighthouse",
+      "category": "quality",
+      "conclusion": "success",
+      "runNumber": 18,
+      "runUrl": "https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/runs/24698124557",
+      "commitSha": "64f8593",
+      "updatedAt": "2026-04-21T00:53:22Z"
+    }
+  },
+  "lastUpdated": "2026-04-21T00:53:22Z"
+}

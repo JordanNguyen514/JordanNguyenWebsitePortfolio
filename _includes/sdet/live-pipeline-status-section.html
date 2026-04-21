@@ -1,0 +1,37 @@
+<section
+  class="sdet-section{% if include.section_class %} {{ include.section_class }}{% endif %}"
+  id="{{ include.section_id | default: 'ci-pipeline-section' }}"
+  data-dashboard-url="{{ '/ci-status/dashboard.json' | relative_url }}"
+  data-dashboard-fallback-url="{{ '/assets/data/ci-dashboard-local.json' | relative_url }}"
+>
+  <div class="ci-section-header">
+    <h2 class="sdet-section-title">
+      {{ include.title | default: "Live Pipeline Status" }}
+      {% if include.title_tag %}
+        <span class="title-tag">{{ include.title_tag }}</span>
+      {% endif %}
+    </h2>
+    <div class="ci-section-meta">
+      <span id="ci-pipeline-health" class="ci-health-passing">⏳ Loading...</span>
+      <span id="ci-last-updated"></span>
+    </div>
+  </div>
+
+  <p class="sdet-section-subtitle">
+    {{ include.subtitle | default: "Real-time status of all GitHub Actions workflows, fetched from S3/CloudFront on every page load and updated automatically after every commit." }}
+  </p>
+
+  <div id="ci-dashboard-note" class="ci-dashboard-note" hidden></div>
+  <div id="ci-dashboard-error"></div>
+  <div id="ci-dashboard-grid">
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">☁️</span><span class="ci-card-name">Deploy to S3</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🌲</span><span class="ci-card-name">Cypress E2E</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎭</span><span class="ci-card-name">Playwright</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot Framework</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🥋</span><span class="ci-card-name">Karate API Tests</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔦</span><span class="ci-card-name">Lighthouse CI</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🧬</span><span class="ci-card-name">Mutation Testing</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔒</span><span class="ci-card-name">Security Scanning</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">📡</span><span class="ci-card-name">API Synthetics</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+  </div>
+</section>

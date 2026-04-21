@@ -1,8 +1,10 @@
 name: API Monitoring & Synthetics
 
 on:
-  schedule:
-    - cron: '0 0 1 * *'
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
@@ -32,23 +34,25 @@ jobs:
           fi
           echo "✅ PASS: CloudFront is up (${TIME}s)"
 
-      # ── Check 2: Contact Form API ─────────────────────────────
-      - name: 📬 Check — Contact Form API (POST)
-        id: check_contact_api
+      # ── Check 2: Email Form API ─────────────────────────────────────────────
+      - name: 📧 Check - Email Form API (POST)
+        id: check_email_api
         run: |
-          echo "Checking: Contact Form Lambda"
+          echo "Checking: Email Form Lambda"
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 10 \
             -X POST \
             -H "Content-Type: application/json" \
             -H "x-synthetic-monitor: true" \
-            -d '{"firstName":"Synthetic","lastName":"Monitor","email":"monitor@test.com","message":"Health check","type":"O"}' \
-            "https://mwtufj8xia.execute-api.ca-central-1.amazonaws.com/prod")
+            -d '{"senderName": "Synthetic Monitor", "senderEmail": "monitor@test.com", "subject": "Health Check", "message": "Automated verification from CI/CD"}' \
+            "https://88vzig52sl.execute-api.ca-central-1.amazonaws.com/prod/send")
+          
           echo "Status: $HTTP_CODE"
-          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "400" ]; then
-            echo "✅ PASS: Contact API is reachable (HTTP $HTTP_CODE)"
+          # Only accept 200 OK as success
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ PASS: Email API is reachable (HTTP $HTTP_CODE)"
           else
-            echo "❌ FAIL: Contact API returned HTTP $HTTP_CODE"
+            echo "❌ FAIL: Email API returned HTTP $HTTP_CODE"
             exit 1
           fi
 
@@ -80,7 +84,7 @@ jobs:
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| CloudFront CDN | ${{ steps.check_site.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Contact Form API | ${{ steps.check_contact_api.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Email Form API | ${{ steps.check_email_api.outcome == 'success' && '✅ Up' || '❌ Down' }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Response time (homepage): ${{ steps.check_site.outputs.response_time }}s" >> $GITHUB_STEP_SUMMARY
 

@@ -19,7 +19,7 @@ Test Teardown     Run Keyword If Test Failed    Capture Page Screenshot
 
 *** Test Cases ***
 
-SDET Page Displays All Four Section Headings
+SDET Page Displays Core Section Headings
     [Tags]    sdet    smoke
     Navigate To Page    ${SDET_URL}
     Element Should Be Visible    css:.sdet-hero h1
@@ -27,7 +27,7 @@ SDET Page Displays All Four Section Headings
     Page Should Contain    Skills Matrix
     Page Should Contain    Test Automation Showcase
     Page Should Contain    CI/CD Pipeline
-    Page Should Contain    QA Metrics Dashboard
+    Page Should Contain    Quality Dashboards
 
 Skills Matrix Displays All Six Skill Categories
     [Tags]    sdet    skills-matrix
@@ -86,13 +86,21 @@ CI/CD Pipeline Diagram Renders All Eight Stages
 QA Metrics Dashboard Shows All Five Stat Cards
     [Documentation]    The five metric cards should display numeric values.
     [Tags]    sdet    metrics
-    Navigate To Page    ${SDET_URL}
+    Navigate To Page    ${QA_METRICS_URL}
     Scroll To Element    css:.metrics-grid
     Page Should Contain    Total Automated Tests
     Page Should Contain    Overall Pass Rate
     Page Should Contain    Defects Reported
     Page Should Contain    Avg. Suite Runtime
     Page Should Contain    CI/CD Pipeline Runs
+
+Live Pipeline Status Page Loads Dashboard Grid
+    [Documentation]    The dedicated live pipeline page should render the CI card grid.
+    [Tags]    sdet    ci-dashboard
+    Navigate To Page    ${LIVE_PIPELINE_URL}
+    Scroll To Element    css:#ci-dashboard-grid
+    Page Should Contain    Live Pipeline Status
+    Page Should Contain Element    css:#ci-dashboard-grid
 
 Certifications Page Shows Three Badges
     [Tags]    certifications    content

@@ -1,7 +1,6 @@
 ---
 layout: default
 css_file: "/assets/css/sdet.css"
-ci_dashboard: true
 ---
 
 <!-- ══════════════════════════════════════════════════════════
@@ -450,6 +449,7 @@ ci_dashboard: true
 <!-- ══════════════════════════════════════════════════════════
      SECTION 4 — QA METRICS DASHBOARD
      ══════════════════════════════════════════════════════════ -->
+{% comment %}
 <section class="sdet-section">
   <h2 class="sdet-section-title">
     QA Metrics Dashboard
@@ -621,6 +621,46 @@ ci_dashboard: true
     <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">📡</span><span class="ci-card-name">API Synthetics</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
   </div>
 </section><!-- /Live CI Status -->
+{% endcomment %}
+
+<section class="sdet-section">
+  <h2 class="sdet-section-title">
+    Quality Dashboards
+    <span class="title-tag">NEW</span>
+  </h2>
+  <p class="sdet-section-subtitle">
+    The deeper operational dashboards now live on dedicated pages so the SDET showcase stays focused on skills,
+    automation design, and delivery flow.
+  </p>
+
+  <div class="dashboard-link-grid">
+    <a
+      class="dashboard-link-card"
+      href="{{ '/assets/html/qa-metrics.html' | relative_url }}"
+      data-testid="sdet-qa-metrics-link"
+      data-event-category="SDET"
+      data-event-action="Click_QA_Metrics_Dashboard"
+    >
+      <span class="dashboard-link-kicker">Dashboard</span>
+      <h3>QA Metrics Dashboard</h3>
+      <p>Review automation coverage, pass rate, defect mix, runtime efficiency, and test distribution in one focused view.</p>
+      <span class="dashboard-link-cta">Open metrics view</span>
+    </a>
+
+    <a
+      class="dashboard-link-card"
+      href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+      data-testid="sdet-live-pipeline-link"
+      data-event-category="SDET"
+      data-event-action="Click_Live_Pipeline_Status"
+    >
+      <span class="dashboard-link-kicker">Live View</span>
+      <h3>Live Pipeline Status</h3>
+      <p>Track the latest GitHub Actions runs for deployment, browser automation, API checks, performance audits, and security scans.</p>
+      <span class="dashboard-link-cta">Open pipeline view</span>
+    </a>
+  </div>
+</section>
 
 <!-- Tab switching script -->
 <script>

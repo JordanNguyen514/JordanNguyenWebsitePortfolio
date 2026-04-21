@@ -42,6 +42,16 @@ Contact Dropdown Opens And Shows All Links
     Element Should Be Visible By TestId    nav-submissions
     Close Dropdown
 
+Dashboards Dropdown Opens And Shows All Links
+    [Documentation]    Clicking Dashboards reveals QA Metrics Dashboard
+    ...                and Live Pipeline Status.
+    [Tags]    navigation    dropdown
+    Navigate To Page    ${HOME_URL}
+    Open Dashboards Dropdown
+    Element Should Be Visible By TestId    nav-qa-metrics
+    Element Should Be Visible By TestId    nav-live-pipeline
+    Close Dropdown
+
 Home Link Navigates To Homepage
     [Tags]    navigation    routing
     Navigate To Page    ${JOBS_URL}
@@ -86,6 +96,22 @@ Contact Dropdown Form Link Routes Correctly
     Open Contact Dropdown
     Wait For Element And Click    css:[data-testid="nav-contact-form"]
     Location Should Contain    /assets/html/contacting.html
+
+Dashboards Dropdown QA Metrics Link Routes Correctly
+    [Tags]    navigation    routing    dashboards
+    Navigate To Page    ${HOME_URL}
+    Open Dashboards Dropdown
+    Wait For Element And Click    css:[data-testid="nav-qa-metrics"]
+    Location Should Contain    /assets/html/qa-metrics.html
+    Page Should Contain    QA Metrics Dashboard
+
+Dashboards Dropdown Live Pipeline Link Routes Correctly
+    [Tags]    navigation    routing    dashboards
+    Navigate To Page    ${HOME_URL}
+    Open Dashboards Dropdown
+    Wait For Element And Click    css:[data-testid="nav-live-pipeline"]
+    Location Should Contain    /assets/html/live-pipeline-status.html
+    Page Should Contain    Live Pipeline Status
 
 Career Portfolio Buttons Navigate Correctly
     [Documentation]    The homepage Career Portfolio buttons (Jobs, Internships,

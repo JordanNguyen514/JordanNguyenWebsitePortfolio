@@ -14,8 +14,12 @@ on:
     paths:
       - '__tests__/**'
       - 'stryker.config.mjs'
-  schedule:
-    - cron: '0 6 * * 0'  # Every Sunday 6am UTC
+
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types:
+      - completed
+      
   workflow_dispatch:
 
 jobs:

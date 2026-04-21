@@ -79,6 +79,18 @@ describe('Portfolio Website Smoke Test', () => {
     cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });
 
+  it('should open the "Dashboards" dropdown and show its links', () => {
+    cy.get('[data-testid="nav-dashboards-btn"]')
+      .closest('.nav-dropdown')
+      .invoke('addClass', 'open');
+
+    cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
+    cy.get('[data-event-action="Click_QA_Metrics_Dashboard"]').should('be.visible').and('contain', 'QA Metrics Dashboard');
+    cy.get('[data-event-action="Click_Live_Pipeline_Status"]').should('be.visible').and('contain', 'Live Pipeline Status');
+
+    cy.get('.nav-dropdown').invoke('removeClass', 'open');
+  });
+
   it('should display the live clock in the navigation bar', () => {
     cy.get('#time').should('exist').and('not.be.empty');
   });

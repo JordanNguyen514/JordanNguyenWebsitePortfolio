@@ -74,6 +74,10 @@ Open Contact Dropdown
     Execute Javascript    document.querySelector('[data-testid="nav-contact-btn"]').closest('.nav-dropdown').classList.add('open')
     Wait Until Element Is Visible    css:.nav-dropdown.open .dropdown-menu    timeout=${SHORT_WAIT}
 
+Open Dashboards Dropdown
+    Execute Javascript    document.querySelector('[data-testid="nav-dashboards-btn"]').closest('.nav-dropdown').classList.add('open')
+    Wait Until Element Is Visible    css:.nav-dropdown.open .dropdown-menu    timeout=${SHORT_WAIT}
+
 Close Dropdown
     Execute Javascript    document.querySelectorAll('.nav-dropdown').forEach(el => el.classList.remove('open'))
 

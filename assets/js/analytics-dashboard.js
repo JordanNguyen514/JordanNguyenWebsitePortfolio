@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Click_OtherInterests_Button': 'Other Interests Button',
         'Click_Home': 'Home (Top Nav)',
         'Click_Jobs': 'Jobs (Top Nav)',
+        'Click_QA_Metrics_Dashboard': 'QA Metrics Dashboard',
+        'Click_Live_Pipeline_Status': 'Live Pipeline Status',
         'Click_ViewSubmissions': 'Submissions (Top Nav)',
         'Click_View_Analytics_Dashboard': 'View Dashboard Button',
         'Click_Home_Button': 'Home (Top Nav Button)'

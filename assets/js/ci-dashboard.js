@@ -5,70 +5,70 @@
  *  Fetches the live CI status JSON written to S3/CloudFront
  *  by each GitHub Actions workflow and renders the dashboard.
  *
- *  Data source: /ci-status/dashboard.json (same CloudFront domain)
- *  Updated:     Automatically after each workflow run completes
- *
- *  CONCEPT — Why serve from S3/CloudFront instead of GitHub API?
- *  ──────────────────────────────────────────────────────────────
- *  GitHub API:       60 req/hour unauthenticated, requires CORS
- *                    proxy or exposing a token in browser code
- *  S3/CloudFront:    No rate limit, same domain (no CORS),
- *                    token never leaves GitHub Actions
- *  This pattern is standard in production observability:
- *  write metrics at the source, read from a controlled endpoint.
+ *  Production data source: /ci-status/dashboard.json
+ *  Local fallback:         /assets/data/ci-dashboard-local.json
+ *  Updated:                Automatically after each workflow run completes
  * ============================================================
  */
 
 (function () {
   'use strict';
 
-  const DASHBOARD_URL = '/ci-status/dashboard.json';
-  const REFRESH_MS    = 30000; // re-fetch every 30s while page is open
+  const DEFAULT_DASHBOARD_URL = '/ci-status/dashboard.json';
+  const DEFAULT_FALLBACK_URL = '/assets/data/ci-dashboard-local.json';
+  const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '::1']);
+  const REFRESH_MS = 30000; // re-fetch every 30s while page is open
 
-  // ── Workflow display configuration ───────────────────────────────────────
-  // Ordered intentionally: deploy first (gate), then tests, then quality/security
+  // Ordered intentionally: deploy first (gate), then tests, then quality/security.
   const WORKFLOW_CONFIG = {
-    'deploy':      { label: 'Deploy to S3',              icon: '☁️',  category: 'deploy'   },
-    'cypress-e2e': { label: 'Cypress E2E',                icon: '🌲',  category: 'test'     },
-    'playwright':  { label: 'Playwright (Cross-Browser)', icon: '🎭',  category: 'test'     },
-    'robot':       { label: 'Robot Framework',            icon: '🤖',  category: 'test'     },
-    'karate':      { label: 'Karate API Tests',           icon: '🥋',  category: 'test'     },
-    'lighthouse':  { label: 'Lighthouse CI',              icon: '🔦',  category: 'quality'  },
-    'mutation':    { label: 'Mutation Testing',           icon: '🧬',  category: 'quality'  },
-    'security':    { label: 'Security (Snyk + OWASP)',    icon: '🔒',  category: 'security' },
-    'synthetics':  { label: 'API Synthetics',             icon: '📡',  category: 'quality'  },
+    deploy: { label: 'Deploy to S3', icon: '☁️', category: 'deploy' },
+    'cypress-e2e': { label: 'Cypress E2E', icon: '🌲', category: 'test' },
+    playwright: { label: 'Playwright (Cross-Browser)', icon: '🎭', category: 'test' },
+    robot: { label: 'Robot Framework', icon: '🤖', category: 'test' },
+    karate: { label: 'Karate API Tests', icon: '🥋', category: 'test' },
+    lighthouse: { label: 'Lighthouse CI', icon: '🔦', category: 'quality' },
+    mutation: { label: 'Mutation Testing', icon: '🧬', category: 'quality' },
+    security: { label: 'Security (Snyk + OWASP)', icon: '🔒', category: 'security' },
+    synthetics: { label: 'API Synthetics', icon: '📡', category: 'quality' },
   };
 
-  // ── Status display helpers ────────────────────────────────────────────────
   const STATUS = {
-    success:   { badge: 'passing', cssClass: 'ci-passing', icon: '✅' },
-    failure:   { badge: 'failing', cssClass: 'ci-failing', icon: '❌' },
+    success: { badge: 'passing', cssClass: 'ci-passing', icon: '✅' },
+    failure: { badge: 'failing', cssClass: 'ci-failing', icon: '❌' },
     cancelled: { badge: 'cancelled', cssClass: 'ci-cancelled', icon: '⚠️' },
-    skipped:   { badge: 'skipped', cssClass: 'ci-skipped', icon: '⏭️' },
-    unknown:   { badge: 'unknown', cssClass: 'ci-unknown', icon: '⏳' },
+    skipped: { badge: 'skipped', cssClass: 'ci-skipped', icon: '⏭️' },
+    unknown: { badge: 'unknown', cssClass: 'ci-unknown', icon: '⏳' },
   };
 
   function getStatus(conclusion) {
     return STATUS[conclusion] || STATUS.unknown;
   }
 
+  function isLocalPreviewHost() {
+    return LOCAL_HOSTS.has(window.location.hostname);
+  }
+
+  function withCacheBust(url) {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}t=${Date.now()}`;
+  }
+
   function timeAgo(isoString) {
     if (!isoString) return 'never';
     const diff = (Date.now() - new Date(isoString).getTime()) / 1000;
-    if (diff < 60)   return 'just now';
+    if (diff < 60) return 'just now';
     if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
     if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
     return `${Math.floor(diff / 86400)}d ago`;
   }
 
-  // ── Render functions ──────────────────────────────────────────────────────
   function renderCard(id, workflowData) {
     const config = WORKFLOW_CONFIG[id] || { label: id, icon: '⚙️', category: 'other' };
     const st = getStatus(workflowData ? workflowData.conclusion : null);
     const updated = workflowData ? timeAgo(workflowData.updatedAt) : '—';
-    const runUrl  = workflowData ? workflowData.runUrl : '#';
-    const runNum  = workflowData ? `#${workflowData.runNumber}` : '';
-    const commit  = workflowData ? workflowData.commitSha : '';
+    const runUrl = workflowData ? workflowData.runUrl : '#';
+    const runNum = workflowData ? `#${workflowData.runNumber}` : '';
+    const commit = workflowData ? workflowData.commitSha : '';
 
     return `
       <a href="${runUrl}" target="_blank" rel="noopener" class="ci-card ${st.cssClass}" data-workflow="${id}">
@@ -97,33 +97,43 @@
     if (errorEl) errorEl.style.display = 'none';
 
     const workflows = data.workflows || {};
-
-    // Render in defined order, fill with "unknown" for any not yet run
-    const cards = Object.keys(WORKFLOW_CONFIG).map(id => {
-      return renderCard(id, workflows[id] || null);
-    }).join('');
-
+    const cards = Object.keys(WORKFLOW_CONFIG).map(id => renderCard(id, workflows[id] || null)).join('');
     container.innerHTML = cards;
 
     if (lastUpdatedEl && data.lastUpdated) {
       lastUpdatedEl.textContent = `Last updated: ${timeAgo(data.lastUpdated)}`;
     }
 
-    // Update the overall pipeline health indicator
     const allWorkflows = Object.values(workflows);
     if (allWorkflows.length > 0) {
-      const failCount = allWorkflows.filter(w => w.conclusion === 'failure').length;
+      const failCount = allWorkflows.filter(workflow => workflow.conclusion === 'failure').length;
       const healthEl = document.getElementById('ci-pipeline-health');
       if (healthEl) {
         if (failCount === 0) {
           healthEl.textContent = '✅ All pipelines passing';
-          healthEl.className   = 'ci-health-passing';
+          healthEl.className = 'ci-health-passing';
         } else {
           healthEl.textContent = `❌ ${failCount} pipeline${failCount > 1 ? 's' : ''} failing`;
-          healthEl.className   = 'ci-health-failing';
+          healthEl.className = 'ci-health-failing';
         }
       }
     }
+  }
+
+  function hideNote() {
+    const noteEl = document.getElementById('ci-dashboard-note');
+    if (!noteEl) return;
+    noteEl.hidden = true;
+    noteEl.textContent = '';
+    noteEl.className = 'ci-dashboard-note';
+  }
+
+  function showNote(message, tone) {
+    const noteEl = document.getElementById('ci-dashboard-note');
+    if (!noteEl) return;
+    noteEl.hidden = false;
+    noteEl.textContent = message;
+    noteEl.className = `ci-dashboard-note ci-dashboard-note-${tone || 'info'}`;
   }
 
   function showError(message) {
@@ -136,37 +146,74 @@
     if (container) container.innerHTML = '';
   }
 
-  // ── Fetch and refresh ─────────────────────────────────────────────────────
-  async function fetchAndRender() {
+  async function fetchDashboard(url) {
+    return fetch(withCacheBust(url));
+  }
+
+  async function loadDashboardData(section) {
+    const primaryUrl = section.dataset.dashboardUrl || DEFAULT_DASHBOARD_URL;
+    const fallbackUrl = section.dataset.dashboardFallbackUrl || DEFAULT_FALLBACK_URL;
+
     try {
-      // Cache-bust with timestamp so CloudFront no-cache header is honoured
-      const res = await fetch(`${DASHBOARD_URL}?t=${Date.now()}`);
-      if (!res.ok) {
-        // 404 means no workflow has run yet and written the JSON
-        if (res.status === 404) {
-          showError('No CI data yet — push a commit to trigger the first pipeline run.');
-        } else {
-          showError(`Failed to load CI status (HTTP ${res.status}).`);
-        }
+      const primaryRes = await fetchDashboard(primaryUrl);
+      if (primaryRes.ok) {
+        return { data: await primaryRes.json(), source: 'live' };
+      }
+
+      if (!isLocalPreviewHost() || !fallbackUrl) {
+        return {
+          error: primaryRes.status === 404
+            ? 'No CI data yet — push a commit to trigger the first pipeline run.'
+            : `Failed to load CI status (HTTP ${primaryRes.status}).`,
+        };
+      }
+    } catch (err) {
+      if (!isLocalPreviewHost() || !fallbackUrl) {
+        throw err;
+      }
+    }
+
+    const fallbackRes = await fetchDashboard(fallbackUrl);
+    if (!fallbackRes.ok) {
+      return { error: `Unable to load the local CI snapshot (HTTP ${fallbackRes.status}).` };
+    }
+
+    return {
+      data: await fallbackRes.json(),
+      source: 'local-snapshot',
+    };
+  }
+
+  async function fetchAndRender(section) {
+    try {
+      const result = await loadDashboardData(section);
+      if (result.error) {
+        hideNote();
+        showError(result.error);
         return;
       }
-      const data = await res.json();
-      renderDashboard(data);
+
+      renderDashboard(result.data);
+      if (result.source === 'local-snapshot') {
+        showNote(
+          'Showing the checked-in local snapshot because the live /ci-status/dashboard.json file is not served by the local preview.',
+          'info'
+        );
+      } else {
+        hideNote();
+      }
     } catch (err) {
-      // Network error or JSON parse failure
+      hideNote();
       showError('Unable to load CI status. Check your network connection.');
       console.warn('[ci-dashboard]', err);
     }
   }
 
-  // ── Initialise ────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('ci-pipeline-section');
-    if (!section) return; // Not on a page with the dashboard
+    if (!section) return;
 
-    fetchAndRender();
-    // Auto-refresh while page is open
-    setInterval(fetchAndRender, REFRESH_MS);
+    fetchAndRender(section);
+    setInterval(() => fetchAndRender(section), REFRESH_MS);
   });
-
 })();

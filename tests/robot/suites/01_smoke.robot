@@ -42,11 +42,12 @@ Homepage Loads And Displays Hero Content
     Page Should Contain                My Notable Skills
 
 Navigation Bar Is Present
-    [Documentation]    The sticky nav bar should be visible with Home, Browse, and Contact.
+    [Documentation]    The sticky nav bar should be visible with Home, Browse, Contact, and Dashboards.
     [Tags]    smoke    navigation    critical
     Element Should Be Visible By TestId    nav-home
     Element Should Be Visible              css:[data-testid="nav-browse-btn"]
     Element Should Be Visible              css:[data-testid="nav-contact-btn"]
+    Element Should Be Visible              css:[data-testid="nav-dashboards-btn"]
 
 Live Clock Runs In Navigation Bar
     [Documentation]    The #time element should be present and contain a time value.
@@ -90,14 +91,29 @@ Certifications Page Loads
     Page Should Contain    ISTQB Certified Tester
 
 SDET Showcase Page Loads
-    [Documentation]    The SDET showcase should display all four sections.
+    [Documentation]    The SDET showcase should display the core sections and dashboard links.
     [Tags]    smoke    navigation    critical
     Navigate To Page    ${SDET_URL}
     Element Should Be Visible    css:.sdet-hero h1
     Page Should Contain          SDET Showcase
     Page Should Contain          Skills Matrix
     Page Should Contain          Test Automation Showcase
-    Page Should Contain          QA Metrics Dashboard
+    Page Should Contain          Quality Dashboards
+
+QA Metrics Dashboard Page Loads
+    [Documentation]    The dedicated QA metrics page should render the stat cards and charts.
+    [Tags]    smoke    navigation
+    Navigate To Page    ${QA_METRICS_URL}
+    Page Should Contain Heading    QA Metrics Dashboard
+    Page Should Contain Element    css:.metrics-grid
+    Page Should Contain Element    css:.donut-row
+
+Live Pipeline Status Page Loads
+    [Documentation]    The dedicated live pipeline page should render the dashboard container.
+    [Tags]    smoke    navigation
+    Navigate To Page    ${LIVE_PIPELINE_URL}
+    Page Should Contain Heading    Live Pipeline Status
+    Page Should Contain Element    css:#ci-dashboard-grid
 
 Contact Page Loads And Form Is Present
     [Documentation]    The contact form should be visible and contain input fields.

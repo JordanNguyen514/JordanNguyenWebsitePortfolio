@@ -187,6 +187,19 @@
   margin-bottom: 20px;
 }
 
+.ci-dashboard-note {
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.ci-dashboard-note-info {
+  background: rgba(0, 123, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.22);
+  color: #8cc8ff;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 600px) {
   #ci-dashboard-grid {

@@ -1,0 +1,118 @@
+<section class="sdet-section{% if include.section_class %} {{ include.section_class }}{% endif %}"{% if include.section_id %} id="{{ include.section_id }}"{% endif %}>
+  <h2 class="sdet-section-title">
+    {{ include.title | default: "QA Metrics Dashboard" }}
+    {% if include.title_tag %}
+      <span class="title-tag">{{ include.title_tag }}</span>
+    {% endif %}
+  </h2>
+  <p class="sdet-section-subtitle">
+    {{ include.subtitle | default: "Aggregate metrics across test suites, defect tracking, and automation health, reflecting real SDET KPIs." }}
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card blue">
+      <span class="metric-icon">🧪</span>
+      <span class="metric-value" id="m-total">142</span>
+      <span class="metric-label">Total Automated Tests</span>
+      <span class="metric-trend up">↑ +18 this quarter</span>
+    </div>
+
+    <div class="metric-card green">
+      <span class="metric-icon">✅</span>
+      <span class="metric-value" id="m-pass">97<span style="font-size:1.2rem">%</span></span>
+      <span class="metric-label">Overall Pass Rate</span>
+      <span class="metric-trend up">↑ +3% vs last quarter</span>
+    </div>
+
+    <div class="metric-card orange">
+      <span class="metric-icon">🐛</span>
+      <span class="metric-value" id="m-defects">214</span>
+      <span class="metric-label">Defects Reported</span>
+      <span class="metric-trend down">↓ 82% closed</span>
+    </div>
+
+    <div class="metric-card cyan">
+      <span class="metric-icon">⚡</span>
+      <span class="metric-value" id="m-runtime">4.2<span style="font-size:1.2rem">m</span></span>
+      <span class="metric-label">Avg. Suite Runtime</span>
+      <span class="metric-trend up">↓ 1.3m faster</span>
+    </div>
+
+    <div class="metric-card purple">
+      <span class="metric-icon">🔁</span>
+      <span class="metric-value" id="m-pipelines">58</span>
+      <span class="metric-label">CI/CD Pipeline Runs</span>
+      <span class="metric-trend up">↑ This month</span>
+    </div>
+  </div>
+
+  <div class="donut-row">
+    <div class="donut-card">
+      <div class="donut-chart">
+        <svg viewBox="0 0 120 120" width="140" height="140">
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#00d4ff" stroke-width="18"
+            stroke-dasharray="147 136" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#007bff" stroke-width="18"
+            stroke-dasharray="88 195" stroke-dashoffset="-147" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#00e676" stroke-width="18"
+            stroke-dasharray="48 235" stroke-dashoffset="-235" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="36" fill="#1a1a1a"/>
+          <text x="60" y="56" text-anchor="middle" fill="#ffffff" font-size="13" font-family="Segoe UI" font-weight="600">142</text>
+          <text x="60" y="70" text-anchor="middle" fill="#aaa" font-size="8" font-family="Segoe UI">tests</text>
+        </svg>
+      </div>
+      <div class="donut-legend">
+        <h3>Test Suite Breakdown</h3>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#00d4ff"></span>E2E Tests</span>
+          <span class="legend-val">74 (52%)</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#007bff"></span>Functional</span>
+          <span class="legend-val">44 (31%)</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#00e676"></span>Smoke</span>
+          <span class="legend-val">24 (17%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="donut-card">
+      <div class="donut-chart">
+        <svg viewBox="0 0 120 120" width="140" height="140">
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#f38ba8" stroke-width="18"
+            stroke-dasharray="23 260" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#ff9100" stroke-width="18"
+            stroke-dasharray="62 221" stroke-dashoffset="-23" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#007bff" stroke-width="18"
+            stroke-dasharray="133 150" stroke-dashoffset="-85" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#00e676" stroke-width="18"
+            stroke-dasharray="65 218" stroke-dashoffset="-218" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="36" fill="#1a1a1a"/>
+          <text x="60" y="56" text-anchor="middle" fill="#ffffff" font-size="13" font-family="Segoe UI" font-weight="600">214</text>
+          <text x="60" y="70" text-anchor="middle" fill="#aaa" font-size="8" font-family="Segoe UI">defects</text>
+        </svg>
+      </div>
+      <div class="donut-legend">
+        <h3>Defect Severity</h3>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#f38ba8"></span>Critical</span>
+          <span class="legend-val">17 (8%)</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#ff9100"></span>Major</span>
+          <span class="legend-val">47 (22%)</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#007bff"></span>Minor</span>
+          <span class="legend-val">101 (47%)</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label"><span class="legend-swatch" style="background:#00e676"></span>Enhancement</span>
+          <span class="legend-val">49 (23%)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

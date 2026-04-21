@@ -20,6 +20,8 @@ ${INTERNSHIPS_URL}      ${BASE_URL}/assets/html/internships.html
 ${CERTIFICATIONS_URL}   ${BASE_URL}/assets/html/certifications.html
 ${ACADEMIC_URL}         ${BASE_URL}/assets/html/academic.html
 ${SDET_URL}             ${BASE_URL}/assets/html/sdet.html
+${QA_METRICS_URL}       ${BASE_URL}/assets/html/qa-metrics.html
+${LIVE_PIPELINE_URL}    ${BASE_URL}/assets/html/live-pipeline-status.html
 ${CONTACT_URL}          ${BASE_URL}/assets/html/contacting.html
 ${EMAIL_URL}            ${BASE_URL}/assets/html/emailing.html
 

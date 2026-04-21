@@ -29,6 +29,7 @@ test.describe('Cross-Browser Smoke Tests', () => {
     await expect(page.locator('.dropdown-menu').first()).toBeVisible();
     await expect(page.locator('[data-event-action="Click_Jobs"]')).toBeVisible();
     await expect(page.locator('[data-event-action="Click_Certifications"]')).toBeVisible();
+    await expect(page.locator('[data-testid="nav-dashboards-btn"]')).toBeVisible();
   });
 
   test('Jobs page loads and shows work timeline', async ({ page }) => {
@@ -38,17 +39,31 @@ test.describe('Cross-Browser Smoke Tests', () => {
     await expect(page.locator('#nationalbank-card')).toContainText('SDET');
   });
 
-  test('SDET Showcase page renders all four sections', async ({ page }) => {
+  test('SDET Showcase page renders the core sections and dashboard links', async ({ page }) => {
     await page.goto(`${BASE_URL}/assets/html/sdet.html`);
     await expect(page.locator('.sdet-hero h1')).toContainText('SDET Showcase');
 
-    // FIX: Use role-based heading selectors to avoid strict mode violation.
-    // locator('text=CI/CD Pipeline') matched 3 elements (description paragraph,
-    // section heading, and metric label). getByRole scopes to headings only.
     await expect(page.getByRole('heading', { name: /Skills Matrix/i }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: /Test Automation Showcase/i }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: /CI\/CD Pipeline/i }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Quality Dashboards/i }).first()).toBeVisible();
+    await expect(page.locator('[data-testid="sdet-qa-metrics-link"]')).toBeVisible();
+    await expect(page.locator('[data-testid="sdet-live-pipeline-link"]')).toBeVisible();
+  });
+
+  test('QA Metrics Dashboard page loads', async ({ page }) => {
+    await page.goto(`${BASE_URL}/assets/html/qa-metrics.html`);
+    await expect(page.locator('.sdet-hero h1')).toContainText('QA Metrics Dashboard');
     await expect(page.getByRole('heading', { name: /QA Metrics Dashboard/i }).first()).toBeVisible();
+    await expect(page.locator('.metrics-grid')).toBeVisible();
+    await expect(page.locator('.donut-row')).toBeVisible();
+  });
+
+  test('Live Pipeline Status page loads', async ({ page }) => {
+    await page.goto(`${BASE_URL}/assets/html/live-pipeline-status.html`);
+    await expect(page.locator('.sdet-hero h1')).toContainText('Live Pipeline Status');
+    await expect(page.locator('#ci-dashboard-grid')).toBeVisible();
+    await expect(page.locator('[data-workflow="deploy"]')).toBeVisible();
   });
 
 });

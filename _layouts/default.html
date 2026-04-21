@@ -100,6 +100,22 @@
         </div>
       </div>
 
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn"
+                data-testid="nav-dashboards-btn"> Dashboards
+        </button>
+        <div class="dropdown-menu">
+          <a href="{{ '/assets/html/qa-metrics.html' | relative_url }}"
+             data-testid="nav-qa-metrics"
+             data-event-category="TopNav"
+             data-event-action="Click_QA_Metrics_Dashboard">QA Metrics Dashboard</a>
+          <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+             data-testid="nav-live-pipeline"
+             data-event-category="TopNav"
+             data-event-action="Click_Live_Pipeline_Status">Live Pipeline Status</a>
+        </div>
+      </div>
+
       <a id="time" aria-label="Current time"></a>
 
     </div>
