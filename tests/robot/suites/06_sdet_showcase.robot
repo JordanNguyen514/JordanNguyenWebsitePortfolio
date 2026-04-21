@@ -85,22 +85,30 @@ CI/CD Pipeline Diagram Renders All Eight Stages
 
 QA Metrics Dashboard Shows All Five Stat Cards
     [Documentation]    The five metric cards should display numeric values.
+    ...                Verifies the QA Metrics dedicated page renders all cards.
     [Tags]    sdet    metrics
     Navigate To Page    ${QA_METRICS_URL}
-    Scroll To Element    css:.metrics-grid
+    Wait Until Page Contains Element    css:.metrics-grid    timeout=${TIMEOUT}
     Page Should Contain    Total Automated Tests
     Page Should Contain    Overall Pass Rate
     Page Should Contain    Defects Reported
     Page Should Contain    Avg. Suite Runtime
     Page Should Contain    CI/CD Pipeline Runs
+    # Verify at least one stat card has a non-empty value
+    Page Should Contain Element    css:#m-total
+    Page Should Contain Element    css:#m-pass
 
 Live Pipeline Status Page Loads Dashboard Grid
     [Documentation]    The dedicated live pipeline page should render the CI card grid.
+    ...                Cards may show "loading..." or live data depending on S3 status.
     [Tags]    sdet    ci-dashboard
     Navigate To Page    ${LIVE_PIPELINE_URL}
-    Scroll To Element    css:#ci-dashboard-grid
+    # Wait for the grid to be present — JS populates it asynchronously
+    Wait Until Page Contains Element    css:#ci-dashboard-grid    timeout=${TIMEOUT}
     Page Should Contain    Live Pipeline Status
     Page Should Contain Element    css:#ci-dashboard-grid
+    # Grid should contain at least one card (either loading skeletons or live data)
+    Page Should Contain Element    css:.ci-card
 
 Certifications Page Shows Three Badges
     [Tags]    certifications    content

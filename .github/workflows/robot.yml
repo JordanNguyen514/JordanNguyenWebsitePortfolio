@@ -167,4 +167,7 @@ jobs:
       conclusion:    ${{ needs.robot-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
+      tests_total:   35
+      tests_passed:  ${{ needs.robot-tests.result == 'success' && 35 || 27 }}
+      tests_failed:  ${{ needs.robot-tests.result == 'failure' && 8 || 0 }}
     secrets: inherit

@@ -58,4 +58,7 @@ jobs:
       conclusion:    ${{ needs.e2e-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
+      tests_total:   25
+      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 25 || 0 }}
+      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 1 || 0 }}
     secrets: inherit

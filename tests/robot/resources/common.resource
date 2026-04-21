@@ -57,7 +57,14 @@ Open Browser Session
     Set Selenium Implicit Wait    0s
 
 Close Browser Session
-    Run Keyword If Test Failed    Capture Page Screenshot
+    # FIX: "Run Keyword If Test Failed" is only valid inside test teardown,
+    # NOT in suite teardown. When Close Browser Session is called as Suite
+    # Teardown it throws "can only be used in test teardown".
+    # Solution: use "Run Keyword If" with the built-in TEST STATUS variable,
+    # which is accessible in all contexts including suite teardown.
+    ${test_failed}=    Run Keyword And Return Status
+    ...    Should Be Equal    ${TEST STATUS}    FAIL
+    Run Keyword If    ${test_failed}    Capture Page Screenshot
     Close Browser
 
 Navigate To Page

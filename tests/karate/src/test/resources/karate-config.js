@@ -22,7 +22,9 @@ function fn() {
   var config = {
     // ── Site URLs ──────────────────────────────────────────
     baseUrl:        'https://d2kmkdebgfkxyh.cloudfront.net',
-    contactApiUrl:  'https://yx8x3by1x5.execute-api.ca-central-1.amazonaws.com/prod/submit',
+    // contactApiUrl removed — API Gateway decommissioned.
+    // Tests now use the email form Lambda which is the active endpoint.
+    emailApiUrl: 'https://88vzig52sl.execute-api.ca-central-1.amazonaws.com/prod/send',
 
     // ── Default request headers ────────────────────────────
     defaultHeaders: {
@@ -31,13 +33,11 @@ function fn() {
     },
 
     // ── Test data ──────────────────────────────────────────
-    validContact: {
-      firstName: 'Karate',
-      lastName:  'Test',
-      email:     'karate@test.com',
-      number:    '5141234567',
-      Purpose:   'P',
-      Message:   'Automated API test from Karate Framework.'
+    validEmail: {
+      senderName:  'Karate Test',
+      senderEmail: 'karate@test.com',
+      subject:     'Automated Karate API Test',
+      message:     'This is an automated API test from the Karate Framework suite.'
     }
   };
 

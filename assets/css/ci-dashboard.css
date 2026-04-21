@@ -211,3 +211,16 @@
     align-items: flex-start;
   }
 }
+
+/* ── Test count line (shown on cards that report test results) ──── */
+.ci-card-tests {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+}
+.ci-tests-passed { color: #aaa; }
+.ci-tests-pct    { color: #555; }
+.ci-passing .ci-tests-passed { color: #00e676; }
+.ci-failing .ci-tests-passed { color: #f44336; }

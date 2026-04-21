@@ -52,12 +52,12 @@ public class KarateRunner {
     }
 
     /**
-     * Runs only the contact API tests.
-     * Trigger with: mvn test -Dtest="KarateRunner#runContactApi"
+     * Runs only the email API tests.
+     * Trigger with: mvn test -Dtest="KarateRunner#runEmailApi"
      */
     @Karate.Test
-    Karate runContactApi() {
-        return Karate.run("classpath:karate/api/contact-api.feature");
+    Karate runEmailApi() {
+        return Karate.run("classpath:karate/api/email-api.feature");
     }
 }
 
