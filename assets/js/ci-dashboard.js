@@ -66,10 +66,19 @@
 
     var testLine = '';
     if (wf && wf.testsTotal > 0) {
-      var pct = Math.round((wf.testsPassed / wf.testsTotal) * 100);
-      testLine = '<div class="ci-card-tests"><span class="ci-tests-passed">' +
-        wf.testsPassed + '/' + wf.testsTotal + '</span>' +
-        '<span class="ci-tests-pct"> (' + pct + '%)</span></div>';
+      var conclusion = wf.conclusion;
+      var passed  = wf.testsPassed || 0;
+      var total   = wf.testsTotal;
+      // When a suite partially fails, passed=0 because GitHub job result is
+      // 'failure' even if most tests pass. Show total + conclusion instead.
+      if (conclusion === 'success') {
+        testLine = '<div class="ci-card-tests">' +
+          '<span class="ci-tests-passed">' + total + ' passing</span></div>';
+      } else if (conclusion === 'failure') {
+        testLine = '<div class="ci-card-tests">' +
+          '<span class="ci-tests-passed">' + total + ' tests</span>' +
+          '<span class="ci-tests-pct"> — check run</span></div>';
+      }
     }
 
     return '<a href="' + url + '" target="_blank" rel="noopener" ' +

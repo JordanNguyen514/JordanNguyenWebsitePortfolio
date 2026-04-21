@@ -81,3 +81,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ── Mobile hamburger menu ─────────────────────────────────────────────────
+// Toggles .nav-open on .topnav (shows/hides nav-links panel)
+// Toggles .mobile-open on each .nav-dropdown (expands sub-menus)
+(function () {
+  let hamburger = document.getElementById('navHamburger');
+  let topnav    = document.querySelector('.topnav');
+  if (!hamburger || !topnav) return;
+
+  // Toggle the full nav panel
+  hamburger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    topnav.classList.toggle('nav-open');
+  });
+
+  // Toggle individual dropdown sub-menus inside mobile panel
+  let dropdownBtns = document.querySelectorAll('.nav-links .nav-dropdown-btn');
+  dropdownBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      let parent = btn.closest('.nav-dropdown');
+      if (parent) parent.classList.toggle('mobile-open');
+    });
+  });
+
+  // Close nav when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!topnav.contains(e.target)) {
+      topnav.classList.remove('nav-open');
+    }
+  });
+
+  // Close nav after navigating to a link
+  let navLinks = document.querySelectorAll('.nav-links a');
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      topnav.classList.remove('nav-open');
+    });
+  });
+})();

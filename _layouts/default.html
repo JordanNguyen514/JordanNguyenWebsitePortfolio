@@ -42,6 +42,14 @@
   <body>
     <div class="topnav">
 
+      <!-- Hamburger — visible only on mobile, toggles .nav-open class -->
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" data-testid="nav-hamburger">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Nav links — hidden on mobile until hamburger is clicked -->
+      <div class="nav-links" id="navLinks">
+
       <a href="{{ '/' | relative_url }}"
          data-testid="nav-home"
          data-event-category="TopNav"
@@ -115,6 +123,8 @@
              data-event-action="Click_Live_Pipeline_Status">Live Pipeline Status</a>
         </div>
       </div>
+
+      </div><!-- /nav-links -->
 
       <a id="time" aria-label="Current time"></a>
 

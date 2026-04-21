@@ -119,27 +119,136 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Mobile Responsiveness --- */
+/* --- Mobile Responsiveness — Hamburger Menu --- */
+
+/* Hamburger icon — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto; /* push to far right */
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--nav-text, #e0e0e0);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+/* X animation when open */
+.topnav.nav-open .nav-hamburger span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.topnav.nav-open .nav-hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.topnav.nav-open .nav-hamburger span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
 @media screen and (max-width: 768px) {
+  /* Keep topnav as a single horizontal bar */
   .topnav {
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
-  
-  .topnav a, .nav-dropdown, .nav-dropdown-btn {
-    width: 100%;
-    text-align: center;
+    flex-direction: row;
+    height: 56px;
+    padding: 0 16px;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
 
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    background-color: #f1f1f1;
+  /* Show hamburger on mobile */
+  .nav-hamburger {
+    display: flex;
   }
-  
-  #time, #visitorCounter {
-    margin: 10px 0;
+
+  /* Hide #time clock on mobile — saves space */
+  #time {
+    display: none;
+  }
+
+  /* Nav links panel — hidden off-screen by default */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 56px;           /* exactly below the nav bar */
+    left: 0;
+    right: 0;
+    background: var(--nav-bg, #1a1a1a);
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    z-index: 999;
+    /* Slide animation */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  /* Open state — triggered by JS adding .nav-open to .topnav */
+  .topnav.nav-open .nav-links {
+    max-height: 600px;
+  }
+
+  /* Nav items inside the panel */
+  .nav-links > a,
+  .nav-links .nav-dropdown {
+    width: 100%;
+  }
+
+  .nav-links > a {
+    padding: 12px 24px;
+    display: block;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .nav-links .nav-dropdown-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-links .nav-dropdown-btn::after {
+    content: '›';
+    font-size: 1rem;
+    opacity: 0.5;
+  }
+
+  /* Dropdown menus inside mobile panel — static, no absolute */
+  .nav-links .dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    background: rgba(255,255,255,0.04);
+    border-radius: 0;
+    min-width: auto;
+  }
+
+  /* Show dropdown when parent has .mobile-open */
+  .nav-links .nav-dropdown.mobile-open .dropdown-menu {
+    display: block;
+  }
+
+  .nav-links .dropdown-menu a {
+    padding: 10px 40px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
   }
 }
 
