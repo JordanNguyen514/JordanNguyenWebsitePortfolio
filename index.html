@@ -1,5 +1,6 @@
 ---
 layout: default
+ci_dashboard: true
 ---
 <section class="hero-section">
   <div class="welcome-tab">
@@ -20,18 +21,11 @@ layout: default
       <a href="{{ '/assets/html/jobs.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Jobs_Button">Jobs</a>
       <a href="{{ '/assets/html/internships.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Internships_Button">Internships</a>
       <a href="{{ '/assets/html/certifications.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Certifications_Button">Certifications</a>
+      <a href="{{ '/assets/html/academic.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Academics_Button">Academics</a>
       <a href="{{ '/assets/html/sdet.html' | relative_url }}" class="portfolio-btn" style="background:linear-gradient(135deg,#007bff,#00d4ff);box-shadow:0 4px 20px rgba(0,212,255,0.35);" data-event-category="Content" data-event-action="Click_SDET_Showcase_Button">🧪 SDET Showcase</a>
     </div>
 </div>
 
-<section class="academics-section">
-  <div class="academics-content">
-    <span class="academics-title">Academics</span>
-    <a href="{{ '/assets/html/academic.html' | relative_url }}" class="academics-btn" data-event-category="Content" data-event-action="Click_Academics_Button">
-      Go to Academics Page
-    </a>
-  </div>
-</section>
 
 <section class="skills-section">
   <div class="skills-container">
@@ -110,17 +104,54 @@ layout: default
   </div>
 </section>
 
-<section class="analytics-section">
-    <h1 class="section-title">Website Analytics (AWS Kinesis/Lambda)</h1>
-    <p class="section-description">A real-time demonstration of user interaction tracking built using AWS services.</p>
-    
-    <div class="analytics-dashboard-placeholder">
-        <p>Dashboard data loading...</p>
+<section class="dashboards-preview-section" id="ci-pipeline-section"
+  data-dashboard-url="/ci-status/dashboard.json"
+  data-dashboard-fallback-url="/assets/data/ci-dashboard-local.json">
+  <div class="dashboards-preview-header">
+    <h1 class="section-title">Quality &amp; Pipeline Status</h1>
+    <p class="section-description">Live CI/CD pipeline health and QA metrics — updated automatically after every deployment.</p>
+  </div>
+
+  <!-- Mini pipeline health indicator (populated by ci-dashboard.js) -->
+  <div class="dashboards-health-row">
+    <span id="ci-pipeline-health" class="ci-health-passing">⏳ Loading pipeline status...</span>
+    <span id="ci-last-updated" class="dashboards-last-updated"></span>
+  </div>
+
+  <!-- Mini pipeline grid (ci-dashboard.js populates #ci-dashboard-grid) -->
+  <div id="ci-dashboard-grid" class="dashboards-mini-grid">
+    <!-- Skeleton cards shown while JS loads -->
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">☁️</span><span class="ci-card-name">Deploy</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🌲</span><span class="ci-card-name">Cypress E2E</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🥋</span><span class="ci-card-name">Karate API</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔒</span><span class="ci-card-name">Security</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+  </div>
+
+  <!-- QA metric summary strip (populated by ci-dashboard.js) -->
+  <div class="dashboards-metrics-strip">
+    <div class="dash-metric">
+      <span class="dash-metric-val" id="m-total">—</span>
+      <span class="dash-metric-label">Total Tests</span>
     </div>
-    
-    <a href="https://ca-central-1.quicksight.aws.amazon.com/sn/account/nguj2026/dashboards/9998681f-fc67-44d4-af32-5979f8502d1f/views/fa678be1-b161-4662-9f59-545a1d4ae0ed" class="analytics-btn" data-event-category="Content" data-event-action="Click_View_Analytics_Dashboard">
-        View Live Dashboard (External Link)
+    <div class="dash-metric">
+      <span class="dash-metric-val" id="m-pass">—</span>
+      <span class="dash-metric-label">Pass Rate</span>
+    </div>
+    <div class="dash-metric">
+      <span class="dash-metric-val" id="m-pipelines">—</span>
+      <span class="dash-metric-label">Pipeline Runs</span>
+    </div>
+  </div>
+
+  <div class="dashboards-preview-links">
+    <a href="{{ '/assets/html/qa-metrics.html' | relative_url }}" class="dash-link-btn">
+      📊 QA Metrics Dashboard
     </a>
+    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}" class="dash-link-btn dash-link-btn-secondary">
+      🔴 Live Pipeline Status
+    </a>
+  </div>
 </section>
 
 <section class="social-contact-section">

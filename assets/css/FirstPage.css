@@ -517,3 +517,141 @@
 
 .sdet-info h3 { font-size: 1.2rem; margin: 15px 0 5px; color: #3498db; }
 .sdet-info p { font-size: 0.9rem; color: #bdc3c7; line-height: 1.4; }
+
+/* ── Mobile: career portfolio horizontal scroll ────────────────────────── */
+@media screen and (max-width: 768px) {
+  .career-portfolio-section {
+    padding: 30px 0;
+  }
+  .portfolio-links {
+    flex-wrap: nowrap;          /* keep all buttons on one row */
+    overflow-x: auto;           /* allow horizontal scroll */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 10px 16px 16px;   /* side padding so first/last cards aren't clipped */
+    gap: 10px;
+    /* hide scrollbar on Webkit but keep functionality */
+    scrollbar-width: none;
+  }
+  .portfolio-links::-webkit-scrollbar { display: none; }
+  .portfolio-btn {
+    flex-shrink: 0;             /* prevent buttons from squishing */
+    scroll-snap-align: start;
+    min-width: 120px;
+    padding: 14px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ── Dashboards Preview Section (replaces analytics) ───────────────────── */
+.dashboards-preview-section {
+  padding: 50px 5%;
+  background: #060e1f;
+  text-align: center;
+}
+
+.dashboards-preview-header .section-title {
+  color: #00d4ff;
+}
+
+.dashboards-health-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 16px 0 20px;
+  flex-wrap: wrap;
+}
+
+.dashboards-last-updated {
+  font-size: 0.78rem;
+  color: #555;
+}
+
+/* Mini pipeline grid on homepage — compact version of the full dashboard */
+.dashboards-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+}
+
+.dashboards-mini-grid .ci-card {
+  padding: 12px 14px;
+}
+
+/* Metric strip */
+.dashboards-metrics-strip {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.dash-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dash-metric-val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.dash-metric-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Link buttons */
+.dashboards-preview-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.dash-link-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dash-link-btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.dash-link-btn-secondary {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.dash-link-btn-secondary:hover {
+  background: rgba(0,123,255,0.1);
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 768px) {
+  .dashboards-mini-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  .dashboards-metrics-strip {
+    gap: 20px;
+  }
+}

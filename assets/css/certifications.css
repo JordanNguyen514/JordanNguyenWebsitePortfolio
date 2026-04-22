@@ -69,3 +69,11 @@
 .certification-details {
     margin-top: auto; /* Pushes the details section down to align bottom text */
 }
+
+.cert-name {
+  font-size: 0.95rem;
+  color: #00aaff;
+  margin: 0 0 10px;
+  font-weight: 600;
+  text-align: center;
+}

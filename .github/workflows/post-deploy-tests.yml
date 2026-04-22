@@ -25,13 +25,21 @@ jobs:
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           APPLITOOLS_BATCH_ID: "run-${{ github.run_id }}"
         with:
-          # Setting install to true (default) fixes the 'Permission Denied' issue
           install: true
           browser: chrome
           config: baseUrl=https://d2kmkdebgfkxyh.cloudfront.net/
-          # Ensures CloudFront is serving the site before starting tests
           wait-on: 'https://d2kmkdebgfkxyh.cloudfront.net/'
-          wait-on-timeout: 120 
+          wait-on-timeout: 120
+          # Exclude visual_regression — requires Applitools API key and
+          # committed Linux baseline PNGs; not suitable for every deploy run.
+          spec: >-
+            cypress/e2e/autoHeal_demo.cy.js,
+            cypress/e2e/contact_form_spec.cy.js,
+            cypress/e2e/email_form_spec.cy.js,
+            cypress/e2e/internships_page_spec.cy.js,
+            cypress/e2e/jobs_page_spec.cy.js,
+            cypress/e2e/smoke.cy.js,
+            cypress/e2e/submissions_navigation_spec.cy.js
 
       - name: Upload Test Evidence
         if: failure()
@@ -58,9 +66,9 @@ jobs:
       conclusion:    ${{ needs.e2e-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
-      # 22 = total runnable Cypress tests (visual_regression skips in CI
-      #       when APPLITOOLS_API_KEY is not set — those 6 are excluded)
-      tests_total:   22
-      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 22 || 0 }}
-      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 22 || 0 }}
+      # 16 = Cypress tests excluding visual_regression (Applitools)
+      
+      tests_total:   16
+      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 16 || 0 }}
+      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 16 || 0 }}
     secrets: inherit

@@ -26,6 +26,14 @@ body {
   z-index: 1000;
 }
 
+/* --- Desktop: nav-links is a flex row (hamburger hidden) --- */
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1; /* take available width so #time stays at far right */
+}
+
 /* --- Navigation Links & Buttons --- */
 .topnav a, .nav-dropdown-btn {
   color: var(--nav-text);
