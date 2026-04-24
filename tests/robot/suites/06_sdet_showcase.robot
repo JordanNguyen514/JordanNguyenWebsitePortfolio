@@ -83,18 +83,18 @@ CI/CD Pipeline Diagram Renders All Eight Stages
     Page Should Contain    Cypress E2E
     Page Should Contain    Artifacts
 
-QA Metrics Dashboard Shows All Five Stat Cards
-    [Documentation]    The five metric cards should display numeric values.
-    ...                Verifies the QA Metrics dedicated page renders all cards.
+QA Metrics Dashboard Shows All Four Stat Cards
+    [Documentation]    The four metric stat cards should be visible.
+    ...                "Defects Reported" was removed — it held inaccurate data.
+    ...                Remaining cards: Total Tests, Pass Rate, Runtime, Pipeline Runs.
     [Tags]    sdet    metrics
     Navigate To Page    ${QA_METRICS_URL}
     Wait Until Page Contains Element    css:.metrics-grid    timeout=${TIMEOUT}
     Page Should Contain    Total Automated Tests
     Page Should Contain    Overall Pass Rate
-    Page Should Contain    Defects Reported
     Page Should Contain    Avg. Suite Runtime
     Page Should Contain    CI/CD Pipeline Runs
-    # Verify at least one stat card has a non-empty value
+    # Verify stat card elements are present (values populated by ci-dashboard.js)
     Page Should Contain Element    css:#m-total
     Page Should Contain Element    css:#m-pass
 

@@ -37,7 +37,11 @@ jobs:
           # Excluding them here prevents --delete from wiping them on every deploy.
           aws s3 sync ./_site s3://${{ secrets.AWS_S3_BUCKET }} \
             --delete \
-            --exclude "assets/img/*"
+            --exclude "assets/img/*" \
+            --exclude "ci-status/*"
+          # ↑ CRITICAL: ci-status/dashboard.json lives in S3 but NOT in _site.
+          # Without this exclude, --delete removes it on every deploy, causing
+          # the live pipeline status page to show nothing after each push.
 
       - name: Invalidate CloudFront (non-image assets only)
         run: |
