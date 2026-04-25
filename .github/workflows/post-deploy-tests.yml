@@ -55,6 +55,14 @@ jobs:
           name: cypress-videos
           path: cypress/videos
 
+      - name: Upload Mochawesome results
+        if: always()                          # ← critical: runs even on test failure
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-results               # ← must match CYPRESS_RESULTS_DIR logic
+          path: cypress/results               # ← wherever you configure mochawesome output
+          retention-days: 7
+
   update-ci-status:
     name: Update CI Dashboard
     needs: e2e-tests

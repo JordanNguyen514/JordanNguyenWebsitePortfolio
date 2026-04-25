@@ -1,0 +1,154 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║            Flaky Test Detector — GitHub Actions Workflow          ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Triggers:                                                        ║
+# ║    • After "Post-Deployment UI Tests" completes (pass OR fail)    ║
+# ║    • Manually, with optional parameter overrides                  ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Persistence strategy (free tier, no external storage):           ║
+# ║    Each run downloads the latest "flaky-history" artifact,        ║
+# ║    updates it with new results, then re-uploads it.               ║
+# ║    GitHub retains artifacts for 90 days by default.               ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Required secrets:                                                ║
+# ║    GITHUB_TOKEN — auto-injected by GitHub Actions                 ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: 🎲 Flaky Test Detector
+
+on:
+  # Run after every Cypress execution — pass OR fail
+  # (we need both outcomes to detect flakiness)
+  workflow_run:
+    workflows: ["Post-Deployment UI Tests"]
+    types: [completed]
+
+  # Manual trigger for debugging or history reset
+  workflow_dispatch:
+    inputs:
+      flaky_threshold:
+        description: "Flip rate to flag as flaky (0.0–1.0)"
+        required: false
+        default: "0.2"
+      history_window:
+        description: "Rolling window size (number of runs)"
+        required: false
+        default: "30"
+      reset_history:
+        description: "Wipe history and start fresh"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents:      read
+  actions:       write   # download + upload artifacts
+  pull-requests: write   # post PR comments
+
+# One detector run at a time to avoid history write conflicts
+concurrency:
+  group: flaky-detector-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    name: 🎲 Detect flaky tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      GITHUB_TOKEN:        ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY:   ${{ github.repository }}
+      GITHUB_RUN_ID:       ${{ github.run_id }}
+      GITHUB_SHA:          ${{ github.event.workflow_run.head_sha || github.sha }}
+      GITHUB_REF_NAME:     ${{ github.event.workflow_run.head_branch || github.ref_name }}
+      PR_NUMBER:           ${{ github.event.workflow_run.pull_requests[0].number || '' }}
+      CYPRESS_RESULTS_DIR: cypress/results
+      FLAKY_THRESHOLD:     ${{ github.event.inputs.flaky_threshold || '0.2' }}
+      HISTORY_WINDOW:      ${{ github.event.inputs.history_window  || '30'  }}
+      PYTHONUNBUFFERED:    "1"
+
+    steps:
+      # ── Checkout at the tested commit ─────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref:         ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 1
+
+      # ── Download Cypress Mochawesome results from the upstream run ─────────
+      - name: Download Cypress results artifact
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          # "cypress-results" is the mochawesome JSON artifact name.
+          # If your post-deploy-tests.yml only uploads "cypress-screenshots"
+          # (on failure), add a separate upload-artifact step there that
+          # always uploads the Mochawesome JSON — see note in README.
+          name:         cypress-results
+          path:         cypress/results
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id:       ${{ github.event.workflow_run.id }}
+        continue-on-error: true   # No results on first run or skipped jobs — that's OK
+
+      # ── Optionally wipe history (manual dispatch only) ─────────────────────
+      - name: Reset history (if requested)
+        if: github.event.inputs.reset_history == 'true'
+        run: |
+          echo "⚠️  History reset requested — skipping history download in script."
+          echo "RESET_HISTORY=true" >> $GITHUB_ENV
+
+      # ── Python setup ───────────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # ── Run detector ───────────────────────────────────────────────────────
+      - name: Run flaky test detector
+        id: detector
+        run: python agents/flaky_test_detector.py
+        continue-on-error: true
+
+      # ── Upload updated history (the key to free-tier persistence) ──────────
+      - name: Upload updated flaky history
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            flaky-history
+          path:            flaky-history.json
+          # 90 days = enough to cover your rolling window of 30 runs
+          # even if you deploy less than once per 3 days
+          retention-days:  90
+          overwrite:       true   # Always keep only the latest history
+
+      # ── Upload human-readable report ───────────────────────────────────────
+      - name: Upload flaky test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            flaky-test-report-${{ github.run_id }}
+          path:            flaky-test-report.md
+          retention-days:  30
+
+      # ── Append report to job summary ───────────────────────────────────────
+      - name: Write report to job summary
+        if: always()
+        run: |
+          if [ -f flaky-test-report.md ]; then
+            cat flaky-test-report.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ── Surface flaky failures as a workflow warning ───────────────────────
+      # Flakiness is informational — not a hard blocker by default.
+      # update-ci-status picks up this run's conclusion automatically via
+      # its own workflow_run trigger — no extra step required here.
+      - name: Propagate result
+        if: steps.detector.outcome == 'failure'
+        run: |
+          echo "::warning::Flaky tests detected — see the report artifact for details."

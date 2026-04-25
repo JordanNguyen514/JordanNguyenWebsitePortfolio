@@ -5,6 +5,13 @@ const { defineConfig } = require('cypress');
 
 // 2. Wrap the entire config once with the Applitools plugin
 module.exports = require('@applitools/eyes-cypress')(defineConfig({
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/results',   // NOTE: correct property name is 'reportDir'
+    overwrite: false,
+    html: false,
+    json: true,
+  },
   e2e: {
     // Consolidated your settings here
     baseUrl: 'http://localhost:8080',
