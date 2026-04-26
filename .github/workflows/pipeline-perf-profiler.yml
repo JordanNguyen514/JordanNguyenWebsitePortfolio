@@ -82,7 +82,8 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install requests
+        # --break-system-packages required on Ubuntu 24 (externally managed env)
+        run: pip install requests --break-system-packages
 
       - name: Run profiler
         id: profiler

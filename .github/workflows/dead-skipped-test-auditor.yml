@@ -85,7 +85,7 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests --break-system-packages
 
       - name: Run auditor
         id: auditor

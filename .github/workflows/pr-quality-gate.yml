@@ -87,7 +87,7 @@ jobs:
           cache: pip
 
       - name: Install Python dependencies
-        run: pip install requests
+        run: pip install requests --break-system-packages
 
       - name: Run PR quality gate
         id: gate

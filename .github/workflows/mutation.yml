@@ -34,6 +34,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
+          # ⚠️  PINNED AT NODE 20 — DO NOT UPGRADE TO 24
+          # StrykerJS 8.x depends on commander@11 which drops esm.mjs
+          # in Node 24's ESM loader, causing ERR_MODULE_NOT_FOUND at startup.
+          # Upgrade only after @stryker-mutator/core >= 9.x is released.
           node-version: '20'
           cache: 'npm'
 

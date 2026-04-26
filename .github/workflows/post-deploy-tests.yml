@@ -32,14 +32,9 @@ jobs:
           wait-on-timeout: 120
           # Exclude visual_regression — requires Applitools API key and
           # committed Linux baseline PNGs; not suitable for every deploy run.
-          spec: >-
-            cypress/e2e/autoHeal_demo.cy.js,
-            cypress/e2e/contact_form_spec.cy.js,
-            cypress/e2e/email_form_spec.cy.js,
-            cypress/e2e/internships_page_spec.cy.js,
-            cypress/e2e/jobs_page_spec.cy.js,
-            cypress/e2e/smoke.cy.js,
-            cypress/e2e/submissions_navigation_spec.cy.js
+          # Use a glob to avoid comma+whitespace parsing issues in Cypress 15.
+          # Excludes visual_regression (requires Applitools key + Linux baselines).
+          spec: "cypress/e2e/!(visual_regression).cy.js"
 
       - name: Upload Test Evidence
         if: failure()
@@ -55,7 +50,7 @@ jobs:
           name: cypress-videos
           path: cypress/videos
 
-      # Required by the Flaky Test Detector agent
+      # Required by the Flaky Test Detector agent — always upload JSON results
       - name: Upload Mochawesome results
         if: always()
         uses: actions/upload-artifact@v4
@@ -75,8 +70,8 @@ jobs:
       conclusion:    ${{ needs.e2e-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
-      # 20 = total it() blocks across all 7 specs (excl. visual_regression):
-      # smoke(8) + autoHeal(5) + contact(1) + email(2) + internships(1) + jobs(1) + submissions(2)
+      # 20 = total it() blocks across 7 specs (visual_regression excluded):
+      # smoke(8) + autoHeal(5) + email(2) + submissions(2) + contact(1) + internships(1) + jobs(1)
       tests_total:   20
       tests_passed:  ${{ needs.e2e-tests.result == 'success' && 20 || 0 }}
       tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 20 || 0 }}
