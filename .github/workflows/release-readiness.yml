@@ -1,0 +1,134 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║         Release Readiness Checklist — GitHub Actions             ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Triggers:                                                        ║
+# ║    • After "Deploy to S3" completes successfully                  ║
+# ║    • Manually with optional release tag override                  ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Critical (NO-GO): Post-Deploy UI Tests · Playwright ·           ║
+# ║                    Security Scanning · API Synthetics             ║
+# ║  Advisory (warn):  Lighthouse · StrykerJS · Robot · Karate       ║
+# ║  Quality gates:    release-blocker issues · branch protection ·   ║
+# ║                    test debt · open PRs · commit freshness        ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Outputs:                                                         ║
+# ║    • release-readiness-report.md  — full checklist artifact       ║
+# ║    • release-body.md              — ready-to-paste GitHub Release  ║
+# ║    • GitHub job summary                                           ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: 🚀 Release Readiness Checklist
+
+on:
+  workflow_run:
+    workflows: ["Deploy to S3"]
+    types: [completed]
+
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag (e.g. v2025.01.15) — defaults to today's date"
+        required: false
+      force_go:
+        description: "Override NO-GO and mark as GO anyway (use with caution)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: read
+  actions:  read
+  issues:   read
+
+concurrency:
+  group: release-readiness-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  # Only run after a successful deploy, not a failed one
+  gate:
+    name: Gate — deploy must have succeeded
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.gate.outputs.should_run }}
+    steps:
+      - name: Evaluate trigger
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          CONCLUSION="${{ github.event.workflow_run.conclusion }}"
+          if [ "$CONCLUSION" = "success" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "Deploy concluded with '$CONCLUSION' — skipping release check."
+          fi
+
+  checklist:
+    name: 🚀 Release readiness check
+    needs: gate
+    if: needs.gate.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      GITHUB_SHA:        ${{ github.event.workflow_run.head_sha || github.sha }}
+      GITHUB_REF_NAME:   ${{ github.event.workflow_run.head_branch || github.ref_name }}
+      RELEASE_TAG:       ${{ github.event.inputs.release_tag || '' }}
+      PYTHONUNBUFFERED:  "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref:         ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run release readiness checklist
+        id: checklist
+        run: python agents/release_readiness_checklist.py
+        continue-on-error: true
+
+      - name: Upload readiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            release-readiness-${{ github.run_id }}
+          path: |
+            release-readiness-report.md
+            release-body.md
+          retention-days:  90
+
+      - name: Write report to job summary
+        if: always()
+        run: |
+          [ -f release-readiness-report.md ] && \
+            cat release-readiness-report.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Enforce GO decision
+        if: steps.checklist.outcome == 'failure' && github.event.inputs.force_go != 'true'
+        run: |
+          echo "::error::Release readiness check failed — blockers detected."
+          echo "::error::Review the report artifact, fix blockers, then re-run."
+          exit 1
+
+      - name: Force GO override notice
+        if: steps.checklist.outcome == 'failure' && github.event.inputs.force_go == 'true'
+        run: |
+          echo "::warning::Release readiness FAILED but force_go=true was set."
+          echo "::warning::This release has known issues. Proceed at your own risk."
