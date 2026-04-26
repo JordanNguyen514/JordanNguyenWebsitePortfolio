@@ -152,3 +152,16 @@ jobs:
         if: steps.detector.outcome == 'failure'
         run: |
           echo "::warning::Flaky tests detected — see the report artifact for details."
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: detect
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Flaky Test Detector"
+      workflow_id:   "flaky-detector"
+      conclusion:    ${{ needs.detect.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit

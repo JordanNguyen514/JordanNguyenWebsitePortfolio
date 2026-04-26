@@ -1,0 +1,129 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║       Dead & Skipped Test Auditor — GitHub Actions Workflow       ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Triggers:                                                        ║
+# ║    • Every pull_request (opened, sync, reopened)                  ║
+# ║    • Every push to master                                         ║
+# ║    • Manually via workflow_dispatch                                ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Frameworks scanned:                                              ║
+# ║    Cypress · Jest · Playwright · Robot Framework · Karate         ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Cost: 100% free tier — pure static analysis, no external calls   ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: 🔍 Dead & Skipped Test Auditor
+
+on:
+  pull_request:
+    branches: [master]
+    # Only re-run when test files or the auditor itself change
+    paths:
+      - "cypress/e2e/**"
+      - "tests/**"
+      - "playwright/**"
+      - "**/*.robot"
+      - "**/*.feature"
+      - "agents/dead_skipped_test_auditor.py"
+      - ".github/workflows/dead-skipped-test-auditor.yml"
+
+  push:
+    branches: [master]
+    paths:
+      - "cypress/e2e/**"
+      - "tests/**"
+      - "playwright/**"
+      - "**/*.robot"
+      - "**/*.feature"
+
+  workflow_dispatch:
+    inputs:
+      skip_threshold:
+        description: "Max skipped tests allowed (0 = block on any skip)"
+        required: false
+        default: "0"
+      only_threshold:
+        description: "Max .only tests allowed (0 = block on any .only)"
+        required: false
+        default: "0"
+
+permissions:
+  contents:      read
+  pull-requests: write   # post PR comments
+
+# Cancel in-progress runs on the same PR to avoid noisy duplicate comments
+concurrency:
+  group: dead-skip-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: 🔍 Audit skipped & dead tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      GITHUB_SHA:        ${{ github.sha }}
+      GITHUB_REF_NAME:   ${{ github.ref_name }}
+      PR_NUMBER:         ${{ github.event.pull_request.number || '' }}
+      SKIP_THRESHOLD:    ${{ github.event.inputs.skip_threshold || '0' }}
+      ONLY_THRESHOLD:    ${{ github.event.inputs.only_threshold || '0' }}
+      PYTHONUNBUFFERED:  "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run auditor
+        id: auditor
+        run: python agents/dead_skipped_test_auditor.py
+        continue-on-error: true
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            dead-skipped-report-${{ github.run_id }}
+          path:            dead-skipped-test-report.md
+          retention-days:  30
+
+      - name: Write report to job summary
+        if: always()
+        run: |
+          if [ -f dead-skipped-test-report.md ]; then
+            cat dead-skipped-test-report.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # Hard fail if thresholds exceeded
+      - name: Enforce thresholds
+        if: steps.auditor.outcome == 'failure'
+        run: |
+          echo "::error::Dead & Skipped Test Audit failed — skips or .only tests exceed threshold."
+          echo "::error::Fix or remove skipped/only tests before merging."
+          exit 1
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: audit
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Dead & Skipped Test Auditor"
+      workflow_id:   "dead-skip-auditor"
+      conclusion:    ${{ needs.audit.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit

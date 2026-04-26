@@ -38,11 +38,10 @@ Homepage Loads And Displays Hero Content
     [Tags]    smoke    homepage    critical
     Element Should Be Visible          css:#hero-title
     # FIX: CSS text-transform:uppercase renders "JORDAN NGUYEN" in the browser.
-    # Selenium's Get Text returns the rendered text, so we normalise to lowercase
-    # before asserting — resilient to future CSS changes.
+    # Get Text returns the rendered text; Should Contain with ignore_case=${True}
+    # handles this without needing to import the String library.
     ${hero_text}=    Get Text           css:#hero-title
-    ${hero_lower}=   Convert To Lower Case    ${hero_text}
-    Should Contain   ${hero_lower}      jordan nguyen
+    Should Contain                     ${hero_text}    Jordan Nguyen    ignore_case=${True}
     Page Should Contain                Career Portfolio
     Page Should Contain                My Notable Skills
 

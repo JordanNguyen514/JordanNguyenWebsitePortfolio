@@ -132,3 +132,16 @@ jobs:
         run: |
           echo "::warning::Release readiness FAILED but force_go=true was set."
           echo "::warning::This release has known issues. Proceed at your own risk."
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: checklist
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Release Readiness Checklist"
+      workflow_id:   "release-readiness"
+      conclusion:    ${{ needs.checklist.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "deploy"
+    secrets: inherit

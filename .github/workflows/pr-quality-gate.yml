@@ -1,0 +1,128 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║            PR Quality Gate — GitHub Actions Workflow              ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Triggers: every PR open/sync/reopen against master              ║
+# ║  Checks: Jest coverage · skipped tests · conventional commits    ║
+# ║  Output: upserted PR comment + job summary + artifact            ║
+# ║  Cost: free tier — runs in ~2 min, no external services          ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: 🚦 PR Quality Gate
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+  workflow_dispatch:
+    inputs:
+      coverage_lines:
+        description: "Min line coverage % (default 70)"
+        default: "70"
+      coverage_functions:
+        description: "Min function coverage % (default 70)"
+        default: "70"
+      coverage_branches:
+        description: "Min branch coverage % (default 60)"
+        default: "60"
+      enforce_commits:
+        description: "Enforce conventional commits"
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+
+permissions:
+  contents:      read
+  pull-requests: write
+
+# Cancel superseded runs on the same PR — only latest push matters
+concurrency:
+  group: pr-quality-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: 🚦 Quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      GITHUB_TOKEN:        ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY:   ${{ github.repository }}
+      GITHUB_SHA:          ${{ github.sha }}
+      GITHUB_REF_NAME:     ${{ github.head_ref || github.ref_name }}
+      PR_NUMBER:           ${{ github.event.pull_request.number || '' }}
+      COVERAGE_LINES:      ${{ github.event.inputs.coverage_lines     || '70' }}
+      COVERAGE_FUNCTIONS:  ${{ github.event.inputs.coverage_functions || '70' }}
+      COVERAGE_BRANCHES:   ${{ github.event.inputs.coverage_branches  || '60' }}
+      SKIP_THRESHOLD:      "0"
+      ONLY_THRESHOLD:      "0"
+      ENFORCE_COMMITS:     ${{ github.event.inputs.enforce_commits || 'true' }}
+      PYTHONUNBUFFERED:    "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # full history needed for commit message checks
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      # Run Jest with coverage so lcov.info is available for the gate
+      - name: Run Jest with coverage
+        run: npm run test:unit:coverage
+        continue-on-error: true   # gate script handles missing lcov gracefully
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Run PR quality gate
+        id: gate
+        run: python agents/pr_quality_gate.py
+        continue-on-error: true
+
+      - name: Upload gate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            pr-quality-gate-${{ github.run_id }}
+          path:            pr-quality-gate-report.md
+          retention-days:  14
+
+      - name: Write report to job summary
+        if: always()
+        run: |
+          [ -f pr-quality-gate-report.md ] && cat pr-quality-gate-report.md >> $GITHUB_STEP_SUMMARY
+
+      # Hard block on gate failure
+      - name: Enforce gate
+        if: steps.gate.outcome == 'failure'
+        run: |
+          echo "::error::PR Quality Gate failed. Fix coverage, skipped tests, or commit messages before merging."
+          exit 1
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: gate
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "PR Quality Gate"
+      workflow_id:   "pr-quality-gate"
+      conclusion:    ${{ needs.gate.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit

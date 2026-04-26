@@ -55,12 +55,13 @@ jobs:
           name: cypress-videos
           path: cypress/videos
 
+      # Required by the Flaky Test Detector agent
       - name: Upload Mochawesome results
-        if: always()                          # ← critical: runs even on test failure
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-results               # ← must match CYPRESS_RESULTS_DIR logic
-          path: cypress/results               # ← wherever you configure mochawesome output
+          name: cypress-results
+          path: cypress/results
           retention-days: 7
 
   update-ci-status:
@@ -74,9 +75,9 @@ jobs:
       conclusion:    ${{ needs.e2e-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
-      # 16 = Cypress tests excluding visual_regression (Applitools)
-      
-      tests_total:   16
-      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 16 || 0 }}
-      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 16 || 0 }}
+      # 20 = total it() blocks across all 7 specs (excl. visual_regression):
+      # smoke(8) + autoHeal(5) + contact(1) + email(2) + internships(1) + jobs(1) + submissions(2)
+      tests_total:   20
+      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 20 || 0 }}
+      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 20 || 0 }}
     secrets: inherit

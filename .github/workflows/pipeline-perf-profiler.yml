@@ -1,0 +1,134 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║       Pipeline Performance Profiler — GitHub Actions Workflow     ║
+# ╠══════════════════════════════════════════════════════════════════╣
+# ║  Triggers: after any workflow completes (configurable list)       ║
+# ║  Persistence: GHA artifact rolling history (free tier)           ║
+# ║  Output: job summary · PR comment · Markdown artifact            ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: ⏱️ Pipeline Performance Profiler
+
+on:
+  # Profile every major workflow in the repo
+  workflow_run:
+    workflows:
+      - "Post-Deployment UI Tests"
+      - "🚦 PR Quality Gate"
+      - "🔍 Dead & Skipped Test Auditor"
+      - "🎲 Flaky Test Detector"
+      - "deploy"
+      - "Lighthouse CI"
+      - "Security Scans"
+      - "Playwright Tests"
+      - "Robot Framework Tests"
+      - "Karate API Tests"
+      - "Mutation Testing"
+    types: [completed]
+
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Workflow run ID to profile (leave blank to profile this run)"
+        required: false
+      regression_threshold:
+        description: "% slowdown to flag as regression (default 25)"
+        default: "25"
+      fail_on_regression:
+        description: "Fail the workflow if regressions are found"
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents:      read
+  actions:       write   # artifact r/w
+  pull-requests: write
+
+concurrency:
+  group: pipeline-profiler-${{ github.event.workflow_run.id || github.run_id }}
+  cancel-in-progress: false   # never cancel — history writes must complete
+
+jobs:
+  profile:
+    name: ⏱️ Profile pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      GITHUB_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY:     ${{ github.repository }}
+      GITHUB_RUN_ID:         ${{ github.run_id }}
+      # The run being profiled — either from workflow_run trigger or manual input
+      TRIGGERING_RUN_ID:     ${{ github.event.workflow_run.id || github.event.inputs.run_id || github.run_id }}
+      TRIGGERING_WORKFLOW:   ${{ github.event.workflow_run.name || 'Manual dispatch' }}
+      PR_NUMBER:             ${{ github.event.workflow_run.pull_requests[0].number || '' }}
+      REGRESSION_THRESHOLD:  ${{ github.event.inputs.regression_threshold || '25' }}
+      FAIL_ON_REGRESSION:    ${{ github.event.inputs.fail_on_regression || 'false' }}
+      MIN_RUNS_FOR_BASELINE: "3"
+      TOP_N_STEPS:           "10"
+      PYTHONUNBUFFERED:      "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref:         ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run profiler
+        id: profiler
+        run: python agents/pipeline_perf_profiler.py
+        continue-on-error: true
+
+      # ── Persist rolling history ────────────────────────────────────────────
+      - name: Upload updated perf history
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            pipeline-perf-history
+          path:            pipeline-perf-history.json
+          retention-days:  90
+          overwrite:       true
+
+      # ── Upload human-readable report ───────────────────────────────────────
+      - name: Upload perf report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:            pipeline-perf-report-${{ github.run_id }}
+          path:            pipeline-perf-report.md
+          retention-days:  30
+
+      - name: Write report to job summary
+        if: always()
+        run: |
+          [ -f pipeline-perf-report.md ] && cat pipeline-perf-report.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Propagate regression failure
+        if: steps.profiler.outcome == 'failure'
+        run: |
+          echo "::warning::Pipeline regressions detected — see the perf report artifact."
+          # Only hard-fail if FAIL_ON_REGRESSION=true (set in profiler script)
+          exit ${{ github.event.inputs.fail_on_regression == 'true' && '1' || '0' }}
+
+  update-ci-status:
+    name: Update CI Dashboard
+    needs: profile
+    if: always()
+    uses: ./.github/workflows/update-ci-status.yml
+    with:
+      workflow_name: "Pipeline Performance Profiler"
+      workflow_id:   "pipeline-profiler"
+      conclusion:    ${{ needs.profile.result }}
+      run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      category:      "quality"
+    secrets: inherit
