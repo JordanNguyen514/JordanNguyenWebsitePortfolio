@@ -37,7 +37,12 @@ Homepage Loads And Displays Hero Content
     [Documentation]    The landing page should show the hero name and welcome message.
     [Tags]    smoke    homepage    critical
     Element Should Be Visible          css:#hero-title
-    Element Should Contain             css:#hero-title                Jordan Nguyen
+    # FIX: CSS text-transform:uppercase renders "JORDAN NGUYEN" in the browser.
+    # Selenium's Get Text returns the rendered text, so we normalise to lowercase
+    # before asserting — resilient to future CSS changes.
+    ${hero_text}=    Get Text           css:#hero-title
+    ${hero_lower}=   Convert To Lower Case    ${hero_text}
+    Should Contain   ${hero_lower}      jordan nguyen
     Page Should Contain                Career Portfolio
     Page Should Contain                My Notable Skills
 

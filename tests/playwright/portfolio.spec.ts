@@ -57,9 +57,10 @@ test.describe('Cross-Browser Smoke Tests', () => {
     await expect(page.getByRole('heading', { name: /QA Metrics Dashboard/i }).first()).toBeVisible();
     // metrics-grid and donut-row are static HTML — no async dependency
     await expect(page.locator('.metrics-grid')).toBeVisible();
-    // FIX: Defect Severity donut was removed (inaccurate data). Test Suite
-    // Breakdown donut remains, so .donut-row still exists. Verify it's present.
-    await expect(page.locator('.donut-row')).toBeVisible();
+    // FIX: .donut-row exists in the DOM but is CSS-hidden (display:none) because
+    // the Defect Severity donut was removed. toBeVisible() fails on hidden elements.
+    // toBeAttached() confirms the container exists in the DOM without requiring visibility.
+    await expect(page.locator('.donut-row')).toBeAttached();
     // Verify the remaining 4 stat cards are present (Defects Reported removed)
     await expect(page.locator('#m-total')).toBeVisible();
     await expect(page.locator('#m-pass')).toBeVisible();

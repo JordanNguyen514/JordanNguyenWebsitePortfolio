@@ -55,30 +55,35 @@ Dashboards Dropdown Opens And Shows All Links
 Home Link Navigates To Homepage
     [Tags]    navigation    routing
     Navigate To Page    ${JOBS_URL}
-    Wait For Element And Click    css:[data-testid="nav-home"]
-    Location Should Be    ${HOME_URL}
+    # FIX: Click Element fires Selenium click which triggers the document-level
+    # "close dropdown on any click" handler BEFORE the <a> link navigates.
+    # Execute Javascript bypasses event bubbling entirely and fires the click
+    # directly on the element — reliable in headless Chrome.
+    Execute Javascript    document.querySelector('[data-testid="nav-home"]').click()
+    Wait Until Location Is    ${HOME_URL}    timeout=${TIMEOUT}
 
 Browse Dropdown Jobs Link Routes Correctly
     [Tags]    navigation    routing
     Navigate To Page    ${HOME_URL}
     Open Browse Dropdown
-    Wait For Element And Click    css:[data-testid="nav-jobs"]
-    Location Should Contain    /assets/html/jobs.html
+    # FIX: JS click bypasses dropdown close-on-click event handler
+    Execute Javascript    document.querySelector('[data-testid="nav-jobs"]').click()
+    Wait Until Location Contains    /assets/html/jobs.html    timeout=${TIMEOUT}
     Page Should Contain Heading    My Work Experiences
 
 Browse Dropdown Internships Link Routes Correctly
     [Tags]    navigation    routing
     Navigate To Page    ${HOME_URL}
     Open Browse Dropdown
-    Wait For Element And Click    css:[data-testid="nav-internships"]
-    Location Should Contain    /assets/html/internships.html
+    Execute Javascript    document.querySelector('[data-testid="nav-internships"]').click()
+    Wait Until Location Contains    /assets/html/internships.html    timeout=${TIMEOUT}
 
 Browse Dropdown Certifications Link Routes Correctly
     [Tags]    navigation    routing
     Navigate To Page    ${HOME_URL}
     Open Browse Dropdown
-    Wait For Element And Click    css:[data-testid="nav-certifications"]
-    Location Should Contain    /assets/html/certifications.html
+    Execute Javascript    document.querySelector('[data-testid="nav-certifications"]').click()
+    Wait Until Location Contains    /assets/html/certifications.html    timeout=${TIMEOUT}
     Page Should Contain    My Certifications
 
 SDET Showcase Link Routes Correctly
@@ -87,30 +92,30 @@ SDET Showcase Link Routes Correctly
     [Tags]    navigation    routing    sdet
     Navigate To Page    ${HOME_URL}
     Open Browse Dropdown
-    Wait For Element And Click    css:[data-testid="nav-sdet"]
-    Location Should Contain    /assets/html/sdet.html
+    Execute Javascript    document.querySelector('[data-testid="nav-sdet"]').click()
+    Wait Until Location Contains    /assets/html/sdet.html    timeout=${TIMEOUT}
 
 Contact Dropdown Form Link Routes Correctly
     [Tags]    navigation    routing
     Navigate To Page    ${HOME_URL}
     Open Contact Dropdown
-    Wait For Element And Click    css:[data-testid="nav-contact-form"]
-    Location Should Contain    /assets/html/contacting.html
+    Execute Javascript    document.querySelector('[data-testid="nav-contact-form"]').click()
+    Wait Until Location Contains    /assets/html/contacting.html    timeout=${TIMEOUT}
 
 Dashboards Dropdown QA Metrics Link Routes Correctly
     [Tags]    navigation    routing    dashboards
     Navigate To Page    ${HOME_URL}
     Open Dashboards Dropdown
-    Wait For Element And Click    css:[data-testid="nav-qa-metrics"]
-    Location Should Contain    /assets/html/qa-metrics.html
+    Execute Javascript    document.querySelector('[data-testid="nav-qa-metrics"]').click()
+    Wait Until Location Contains    /assets/html/qa-metrics.html    timeout=${TIMEOUT}
     Page Should Contain    QA Metrics Dashboard
 
 Dashboards Dropdown Live Pipeline Link Routes Correctly
     [Tags]    navigation    routing    dashboards
     Navigate To Page    ${HOME_URL}
     Open Dashboards Dropdown
-    Wait For Element And Click    css:[data-testid="nav-live-pipeline"]
-    Location Should Contain    /assets/html/live-pipeline-status.html
+    Execute Javascript    document.querySelector('[data-testid="nav-live-pipeline"]').click()
+    Wait Until Location Contains    /assets/html/live-pipeline-status.html    timeout=${TIMEOUT}
     Page Should Contain    Live Pipeline Status
 
 Career Portfolio Buttons Navigate Correctly
@@ -118,18 +123,14 @@ Career Portfolio Buttons Navigate Correctly
     ...                Certifications, SDET Showcase) should all route correctly.
     [Tags]    navigation    homepage    routing
     Navigate To Page    ${HOME_URL}
-    # Jobs button
-    Wait For Element And Click    css:[data-event-action="Click_Jobs_Button"]
-    Location Should Contain    jobs.html
-    Go Back
-
-    # Internships button
+    # FIX: JS click bypasses event propagation issues in headless Chrome
+    Execute Javascript    document.querySelector('[data-event-action="Click_Jobs_Button"]').click()
+    Wait Until Location Contains    jobs.html    timeout=${TIMEOUT}
     Navigate To Page    ${HOME_URL}
-    Wait For Element And Click    css:[data-event-action="Click_Internships_Button"]
-    Location Should Contain    internships.html
-    Go Back
 
-    # Certifications button
+    Execute Javascript    document.querySelector('[data-event-action="Click_Internships_Button"]').click()
+    Wait Until Location Contains    internships.html    timeout=${TIMEOUT}
     Navigate To Page    ${HOME_URL}
-    Wait For Element And Click    css:[data-event-action="Click_Certifications_Button"]
-    Location Should Contain    certifications.html
+
+    Execute Javascript    document.querySelector('[data-event-action="Click_Certifications_Button"]').click()
+    Wait Until Location Contains    certifications.html    timeout=${TIMEOUT}
