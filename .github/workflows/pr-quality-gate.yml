@@ -107,6 +107,28 @@ jobs:
         run: |
           [ -f pr-quality-gate-report.md ] && cat pr-quality-gate-report.md >> $GITHUB_STEP_SUMMARY
 
+      # ── Publish report to S3/CloudFront (publicly readable) ──────────────────
+      # URL: https://d2kmkdebgfkxyh.cloudfront.net/ci-reports/pr-quality-gate-latest.md
+      - name: Publish report to CloudFront
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION:    ca-central-1
+        run: |
+          BUCKET="${{ secrets.AWS_S3_BUCKET }}"
+          if [ -f "pr-quality-gate-report.md" ]; then
+            aws s3 cp pr-quality-gate-report.md \
+              "s3://$BUCKET/ci-reports/pr-quality-gate-latest.md" \
+              --content-type "text/plain; charset=utf-8" \
+              --cache-control "no-cache, no-store, must-revalidate"
+            aws cloudfront create-invalidation \
+              --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+              --paths "/ci-reports/pr-quality-gate-latest.md" \
+              --query 'Invalidation.Id' --output text 2>/dev/null || true
+            echo "📊 https://d2kmkdebgfkxyh.cloudfront.net/ci-reports/pr-quality-gate-latest.md"
+          fi
+
       # Hard block on gate failure
       - name: Enforce gate
         if: steps.gate.outcome == 'failure'
