@@ -2,36 +2,41 @@
 
 describe('Contact Form Functionality', () => {
 
-    // Visit the home page before each test to start navigation from the top
     beforeEach(() => {
-        cy.visit('/'); 
+        cy.visit('/');
         cy.get('img[alt="Contact Form Link"]').click({ force: true });
         cy.url().should('include', '/contacting.html');
         cy.get('.ContactForm').should('be.visible');
     });
 
     it('should navigate to the contact page, submit the form, and show a success message', () => {
-        
-        // 2. Fill out all the form fields
+
+        // FIX: Intercept the Lambda POST before filling the form.
+        // In CI, Lambda cold-starts routinely exceed the 10s timeout causing
+        // flaky failures. cy.intercept() stubs the network call so the UI
+        // response logic is tested deterministically without a live backend.
+        // The Lambda itself is covered by the Karate API tests.
+        cy.intercept('POST', '**/prod/contact', {
+            statusCode: 200,
+            body: { message: 'Message sent successfully!' },
+        }).as('contactApi');
+
         cy.get('#firstName').type('JordanTest');
         cy.get('#lastName').type('NguyenTest');
-        
-        // Select a radio button for 'Professional'
-        cy.get('input[type="radio"][value="P"]').check(); 
-        
+        cy.get('input[type="radio"][value="P"]').check();
         cy.get('#email').type('test@example.com');
         cy.get('#number').type('1234567890');
         cy.get('#Message').type('This is a test message for the Cypress E2E test.');
 
-        // 3. Submit the form
         cy.get('.SubBtn').click();
 
-        // 4. Check for the success message (requires the formResponse div in HTML)
-        cy.get('#formResponse', { timeout: 10000 }) // Give it time for the API call to complete
-          .should('be.visible')
-          .and('contain', 'Message sent successfully!'); // Updated message based on your Lambda response
+        // Wait for the intercepted request — no timeout risk
+        cy.wait('@contactApi');
 
-        // Optionally verify form fields are cleared after submission
+        cy.get('#formResponse', { timeout: 10000 })
+          .should('be.visible')
+          .and('contain', 'Message sent successfully!');
+
         cy.get('#firstName').should('be.empty');
     });
 });

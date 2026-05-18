@@ -1,0 +1,69 @@
+{% comment %}
+   _includes/sdet/status-badge.html
+   Drop this include anywhere you want the animated "Currently at..." badge.
+   Data is fetched from /assets/data/status.json — update that file to change
+   the status without touching HTML.
+   Usage: add this include from a Jekyll page when the status badge is needed.
+{% endcomment %}
+<div id="status-badge-container" class="status-badge-wrap" aria-live="polite">
+  <a href="{{ '/assets/html/recruiter.html' | relative_url }}" class="status-badge-link" aria-label="Currently at Deloitte Montreal - View recruiter profile">
+    <span class="sb-dot"></span>
+    <span id="sb-text" class="sb-text">Loading...</span>
+    <span class="sb-arrow">→</span>
+  </a>
+</div>
+
+<script>
+(function() {
+  const STATUS_URL = '/assets/data/status.json';
+  const el = document.getElementById('sb-text');
+  if (!el) return;
+
+  fetch(STATUS_URL + '?v=' + Date.now())
+    .then(r => r.json())
+    .then(d => {
+      el.textContent = d.label || 'Currently available';
+      const dot = document.querySelector('.sb-dot');
+      if (dot && d.available === false) {
+        dot.style.background = '#ff9800';
+        dot.style.boxShadow  = '0 0 6px #ff9800';
+      }
+    })
+    .catch(() => {
+      el.textContent = 'Currently at Deloitte Montréal';
+    });
+})();
+</script>
+
+<style>
+.status-badge-wrap { display: inline-block; margin-bottom: 20px; }
+
+.status-badge-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0, 230, 118, 0.08);
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  border-radius: 99px; padding: 7px 16px;
+  text-decoration: none; transition: all 0.2s;
+  color: #00e676;
+}
+.status-badge-link:hover {
+  background: rgba(0, 230, 118, 0.14);
+  border-color: rgba(0, 230, 118, 0.5);
+}
+
+.sb-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 0 6px #00e676;
+  animation: sb-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes sb-pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.5; transform:scale(1.3); }
+}
+
+.sb-text  { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
+.sb-arrow { font-size: 12px; opacity: 0.6; }
+</style>

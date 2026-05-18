@@ -1,0 +1,187 @@
+---
+layout: default
+title: "QA Case Studies | Jordan Nguyen"
+description: "Real QA engineering case studies — problems solved, tools built, and lessons learned on client and personal projects."
+css_file: "/assets/css/blog.css"
+---
+
+<section class="blog-hero">
+  <div class="blog-inner">
+    <p class="blog-eyebrow">Field Notes</p>
+    <h1 class="blog-title">QA Case Studies</h1>
+    <p class="blog-sub">Real problems. Real solutions. Lessons from building quality systems in production environments.</p>
+  </div>
+</section>
+
+<section class="blog-main">
+  <div class="blog-inner">
+    <div class="blog-grid">
+
+      <!-- ── Case Study 1 ──────────────────────────────────── -->
+      <article class="blog-card" id="flaky-tests">
+        <div class="bc-meta">
+          <span class="bc-tag automation">Test Automation</span>
+          <span class="bc-tag cicd">CI / CD</span>
+          <span class="bc-read">6 min read</span>
+        </div>
+        <h2 class="bc-title">From 0% to 95% flaky test visibility — without a paid observability platform</h2>
+        <p class="bc-summary">Flaky tests silently erode CI trust. I built a cross-run history tracker using GitHub Actions artifacts as free key-value storage — no database, no external service. Here's exactly how it works.</p>
+
+        <details class="bc-body">
+          <summary>Read the case study</summary>
+
+          <h3>The problem</h3>
+          <p>The Cypress E2E suite had 7 spec files and ~20 tests. On any given push, 2–3 tests would fail seemingly at random, then pass on a re-run. Engineers stopped trusting the pipeline. When CI is a coin flip, teams either add retry logic that masks real failures, or they ignore failures entirely. Both outcomes are worse than having no CI at all.</p>
+          <p>The root cause was multi-layered: some tests made live Lambda API calls with no timeout buffer, some depended on CSS selectors that changed with deployments, and one test was asserting on text that CSS <code>text-transform: uppercase</code> was silently transforming at render time.</p>
+
+          <h3>The constraint</h3>
+          <p>No paid observability tools (DataDog, Sentry, TestRail). Everything had to run on the GitHub Actions free tier with zero external services.</p>
+
+          <h3>The solution</h3>
+          <p>I built a <strong>Flaky Test Detector agent</strong> that runs after every Cypress CI execution. The key insight: GitHub Actions artifact storage is effectively a free, persistent key-value store. Each run:</p>
+          <ol>
+            <li>Downloads the latest <code>flaky-history</code> artifact (a JSON file tracking every test's pass/fail across the last 30 runs)</li>
+            <li>Merges the current run's Mochawesome JSON results into the history</li>
+            <li>Computes a <em>flip rate</em> per test — the fraction of consecutive run-pairs where the outcome changed</li>
+            <li>Flags tests with a flip rate ≥ 20% and posts a PR comment with a sparkline: <code>🟩🟥🟩🟥🟩</code></li>
+            <li>Re-uploads the updated history as <code>overwrite: true</code> for the next run to consume</li>
+          </ol>
+          <p>The Lambda timeout tests were fixed with <code>cy.intercept()</code> stubs. The CSS text-assertion was fixed with <code>Should Contain ... ignore_case=${True}</code> in Robot Framework and a case-insensitive check in Cypress. The selector brittleness was fixed by migrating to <code>data-testid</code> attributes.</p>
+
+          <h3>Result</h3>
+          <p>After 10 runs the baseline stabilized. Flaky test rate: <strong>0%</strong>. Pipeline trust restored. Total cost: <strong>$0</strong>. The agent itself runs in under 15 seconds.</p>
+
+          <div class="bc-tech-used">
+            <span class="bc-tech">Python</span>
+            <span class="bc-tech">GitHub Actions</span>
+            <span class="bc-tech">Cypress</span>
+            <span class="bc-tech">Mochawesome</span>
+            <span class="bc-tech">cy.intercept()</span>
+          </div>
+        </details>
+      </article>
+
+      <!-- ── Case Study 2 ──────────────────────────────────── -->
+      <article class="blog-card" id="quality-gate">
+        <div class="bc-meta">
+          <span class="bc-tag cicd">CI / CD</span>
+          <span class="bc-tag practices">QA Practices</span>
+          <span class="bc-read">4 min read</span>
+        </div>
+        <h2 class="bc-title">Blocking bad merges before review — a PR quality gate with zero paid tooling</h2>
+        <p class="bc-summary">SonarQube costs money. But the three things it actually enforces — coverage thresholds, test debt, and commit hygiene — can be replicated in 200 lines of Python. Here's the implementation.</p>
+
+        <details class="bc-body">
+          <summary>Read the case study</summary>
+
+          <h3>The problem</h3>
+          <p>PRs were merging with skipped tests (<code>.skip</code>, <code>xit</code>), dropping coverage, and non-descriptive commit messages like "fix" or "update". These are small things individually, but they compound — a codebase with 40 skipped tests and no coverage enforcement is a codebase you can't refactor safely.</p>
+
+          <h3>The approach</h3>
+          <p>A single Python script runs on every <code>pull_request</code> event and performs three static checks:</p>
+          <ol>
+            <li><strong>Coverage</strong> — parses <code>coverage/lcov.info</code> (generated by Jest) and compares lines/functions/branches against configurable thresholds</li>
+            <li><strong>Test debt</strong> — scans all <code>.cy.js</code>, <code>.test.js</code>, <code>.spec.ts</code>, <code>.robot</code>, and <code>.feature</code> files for skip/only/ignore markers across all 5 frameworks</li>
+            <li><strong>Conventional commits</strong> — fetches the PR's commit list via the GitHub API and validates each against the Conventional Commits 1.0 regex</li>
+          </ol>
+          <p>The result is posted as a single PR comment that <em>updates in place</em> on each push (using an HTML marker to find and PATCH the existing comment) — no comment spam.</p>
+
+          <h3>The key design decision</h3>
+          <p>Regressions are hard-blocked. New <code>.only</code> tests are a hard block (they silently filter your entire test suite in CI, producing false-green builds). Coverage drops are configurable. Commit messages are hard-blocked on master but can be bypassed with a dispatch input for hotfixes.</p>
+
+          <div class="bc-tech-used">
+            <span class="bc-tech">Python</span>
+            <span class="bc-tech">GitHub Actions</span>
+            <span class="bc-tech">lcov</span>
+            <span class="bc-tech">GitHub REST API</span>
+            <span class="bc-tech">Conventional Commits</span>
+          </div>
+        </details>
+      </article>
+
+      <!-- ── Case Study 3 ──────────────────────────────────── -->
+      <article class="blog-card" id="agentic-ci">
+        <div class="bc-meta">
+          <span class="bc-tag ai">AI / Agents</span>
+          <span class="bc-tag cicd">CI / CD</span>
+          <span class="bc-read">7 min read</span>
+        </div>
+        <h2 class="bc-title">An AI agent that reads Cypress failures, classifies root causes, and opens auto-fix PRs</h2>
+        <p class="bc-summary">Using Claude's tool-use API to build a fully agentic CI failure analyst — one that reads test logs, fetches source files, classifies errors, and opens a GitHub PR with the patch. No human in the loop for deterministic fixes.</p>
+
+        <details class="bc-body">
+          <summary>Read the case study</summary>
+
+          <h3>The premise</h3>
+          <p>Most CI failures have deterministic root causes: a stale selector, a wrong assertion value, a missing <code>.should()</code> chain. These don't require human judgment to fix — they require pattern recognition and a git commit. That's an agent's job.</p>
+
+          <h3>The architecture</h3>
+          <p>The agent runs as a Python script inside a GitHub Actions runner. When a Cypress run fails, it:</p>
+          <ol>
+            <li>Parses the Mochawesome JSON to extract all <code>AssertionError</code> and <code>CypressError</code> failures</li>
+            <li>For each failure, runs an agentic Claude loop with three tools: <code>read_test_file</code> (fetches the spec from GitHub API), <code>classify_failure</code> (determines error type, root cause, patchability, confidence), and <code>generate_patch</code> (produces exact string-replace diff)</li>
+            <li>Bundles all generated patches into a single branch and opens one auto-fix PR</li>
+            <li>Posts a rich comment on the triggering PR with the classification and patch diff</li>
+          </ol>
+
+          <h3>The safety model</h3>
+          <p>The agent only sets <code>patchable=true</code> for deterministic fixes: stale CSS selectors, wrong assertion values, typos in expected text. It explicitly refuses to patch timing issues, network dependencies, and environment differences — those require human investigation.</p>
+
+          <h3>What this means for QA consulting</h3>
+          <p>In a client engagement, this pattern means junior engineers spend less time triaging "why did CI fail again?" and more time writing tests. The agent handles the mechanical debugging loop. Senior engineers review the auto-fix PR in 30 seconds instead of spending 20 minutes on root cause analysis.</p>
+
+          <div class="bc-tech-used">
+            <span class="bc-tech">Python</span>
+            <span class="bc-tech">Claude API (Tool Use)</span>
+            <span class="bc-tech">GitHub Actions</span>
+            <span class="bc-tech">Cypress</span>
+            <span class="bc-tech">Mochawesome</span>
+            <span class="bc-tech">GitHub REST API</span>
+          </div>
+        </details>
+      </article>
+
+      <!-- ── Case Study 4 ──────────────────────────────────── -->
+      <article class="blog-card" id="test-pyramid">
+        <div class="bc-meta">
+          <span class="bc-tag practices">QA Practices</span>
+          <span class="bc-tag automation">Test Automation</span>
+          <span class="bc-read">5 min read</span>
+        </div>
+        <h2 class="bc-title">Building a full testing pyramid for a static portfolio site — why and how</h2>
+        <p class="bc-summary">A portfolio site doesn't "need" mutation testing or contract tests. But building the full pyramid was the point — proving I know when and how to apply each layer, not just that I can write Cypress tests.</p>
+
+        <details class="bc-body">
+          <summary>Read the case study</summary>
+
+          <h3>The intentional over-engineering</h3>
+          <p>This site is a Jekyll static site with 8 HTML pages, a contact form backed by Lambda, and no database. A reasonable QA strategy would be: Cypress for E2E, done. Instead I built all seven layers of the testing pyramid. Here's why each one exists and what it proves.</p>
+
+          <ul>
+            <li><strong>Jest unit tests</strong> — validates the pure business logic functions (form validation, data transforms) in isolation. Caught 2 edge cases that Cypress would have missed.</li>
+            <li><strong>Pact contract tests</strong> — verifies the Lambda API's request/response schema hasn't silently changed between deployments. The consumer test runs client-side; the provider verification runs against the live Lambda.</li>
+            <li><strong>StrykerJS mutation tests</strong> — kills mutants in the unit test suite to verify the tests are actually detecting logic errors (not just running and passing).</li>
+            <li><strong>Karate API tests</strong> — health checks and payload validation for the Lambda endpoints, independent of the UI. Catches infrastructure issues that Cypress can't distinguish from test failures.</li>
+            <li><strong>Robot Framework BDD</strong> — 6 suites written in Given/When/Then style. Demonstrates the ability to write tests that non-technical stakeholders can read and validate.</li>
+            <li><strong>Playwright cross-browser</strong> — runs the full E2E suite against Chromium, Firefox, WebKit, and mobile Chrome. Caught 2 CSS layout issues that only appeared in Firefox.</li>
+            <li><strong>Lighthouse CI</strong> — enforces performance, accessibility, and SEO thresholds. Caught a missing <code>aria-label</code> and a font-loading performance regression.</li>
+          </ul>
+
+          <h3>The real lesson</h3>
+          <p>The value isn't having all 7 layers on a portfolio site. The value is knowing what each layer catches that the others don't — and being able to have that conversation with a client who wants to know where to invest their testing budget.</p>
+
+          <div class="bc-tech-used">
+            <span class="bc-tech">Cypress</span>
+            <span class="bc-tech">Jest + Pact</span>
+            <span class="bc-tech">StrykerJS</span>
+            <span class="bc-tech">Karate</span>
+            <span class="bc-tech">Robot Framework</span>
+            <span class="bc-tech">Playwright</span>
+            <span class="bc-tech">Lighthouse CI</span>
+          </div>
+        </details>
+      </article>
+
+    </div>
+  </div>
+</section>

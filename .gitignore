@@ -10,9 +10,16 @@ node_modules
 coverage
 /package/
 
+# CV PDF — served from S3/CloudFront only, not stored in git
+# To remove if already committed: git rm --cached CV_English_JordanNguyen.PDF
+CV_English_JordanNguyen.PDF
+*.PDF
+*.pdf
+
 # Cypress artifacts
 cypress/screenshots/
 cypress/videos/
+cypress/results/
 
 # Images — stored in S3/CloudFront
 assets/img/
@@ -31,8 +38,12 @@ playwright-report/
 config/tests/playwright/snapshots/portfolio.spec.ts-snapshots
 test-results/
 .env
+
 # Robot Framework output
 tests/robot/results/
 
 # Karate API test output
 tests/karate/target/
+
+#Python Scripts for AWS
+scripts/

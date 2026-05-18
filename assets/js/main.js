@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Toggles .nav-open on .topnav (shows/hides nav-links panel)
 // Toggles .mobile-open on each .nav-dropdown (expands sub-menus)
 (function () {
-  let hamburger = document.getElementById('navHamburger');
-  let topnav    = document.querySelector('.topnav');
+  const hamburger = document.getElementById('navHamburger');
+  const topnav    = document.querySelector('.topnav');
   if (!hamburger || !topnav) return;
 
   // Toggle the full nav panel
@@ -97,11 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Toggle individual dropdown sub-menus inside mobile panel
-  let dropdownBtns = document.querySelectorAll('.nav-links .nav-dropdown-btn');
+  const dropdownBtns = document.querySelectorAll('.nav-links .nav-dropdown-btn');
   dropdownBtns.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
-      let parent = btn.closest('.nav-dropdown');
+      const parent = btn.closest('.nav-dropdown');
       if (parent) parent.classList.toggle('mobile-open');
     });
   });
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Close nav after navigating to a link
-  let navLinks = document.querySelectorAll('.nav-links a');
+  const navLinks = document.querySelectorAll('.nav-links a');
   navLinks.forEach(function (link) {
     link.addEventListener('click', function () {
       topnav.classList.remove('nav-open');

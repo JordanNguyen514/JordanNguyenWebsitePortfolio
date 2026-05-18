@@ -1,0 +1,315 @@
+---
+layout: default
+title: "Skills Proficiency | Jordan Nguyen"
+description: "Interactive skills radar chart showing Jordan Nguyen's QA engineering proficiency across tools, languages, and practices."
+css_file: "/assets/css/skills-radar.css"
+---
+
+<section class="radar-hero">
+  <div class="radar-inner">
+    <h1 class="radar-title">Skills Proficiency</h1>
+    <p class="radar-subtitle">Click a category to focus the radar. Hover or focus any point for detail.</p>
+  </div>
+</section>
+
+<section class="radar-main">
+  <div class="radar-inner">
+    <div class="radar-layout">
+      <div class="radar-tabs" role="tablist" aria-label="Skill categories">
+        <button class="rtab active" data-cat="all" role="tab" aria-selected="true">All Skills</button>
+        <button class="rtab" data-cat="automation" role="tab" aria-selected="false">Test Automation</button>
+        <button class="rtab" data-cat="cicd" role="tab" aria-selected="false">CI / CD &amp; Cloud</button>
+        <button class="rtab" data-cat="languages" role="tab" aria-selected="false">Languages</button>
+        <button class="rtab" data-cat="practices" role="tab" aria-selected="false">QA Practices</button>
+      </div>
+
+      <div class="radar-body">
+        <div class="radar-chart-wrap">
+          <svg id="radar-svg" viewBox="0 0 500 500" aria-label="Skills radar chart" role="img"></svg>
+          <div id="radar-tooltip" class="radar-tooltip" aria-live="polite"></div>
+        </div>
+
+        <div class="radar-legend-wrap">
+          <div class="legend-level-guide">
+            <h3>Proficiency levels</h3>
+            <ul>
+              <li><span class="legend-dot" style="background:#00d4ff"></span><strong>Expert</strong> - Daily production use, lead delivery teams</li>
+              <li><span class="legend-dot" style="background:#007bff"></span><strong>Proficient</strong> - Regular use, autonomous on client projects</li>
+              <li><span class="legend-dot" style="background:#444"></span><strong>Familiar</strong> - Used on projects, comfortable picking up</li>
+            </ul>
+          </div>
+          <div id="skill-detail" class="skill-detail-card" aria-live="polite">
+            <p class="skill-detail-hint">Hover a point on the radar to see details</p>
+          </div>
+          <div id="skills-list" class="skills-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const SKILLS = [
+  { name: "Cypress", score: 95, cat: "automation", note: "Lead E2E suite architect; CI/CD integration, Mochawesome reporting, visual regression" },
+  { name: "Selenium / Java", score: 90, cat: "automation", note: "5+ yrs; Page Object Model, grid execution, medical device validation projects" },
+  { name: "Robot Framework", score: 80, cat: "automation", note: "6-suite BDD portfolio; SeleniumLibrary, multi-environment CI matrix" },
+  { name: "Playwright", score: 75, cat: "automation", note: "Cross-browser coverage; visual snapshot testing, trace viewer" },
+  { name: "Karate", score: 70, cat: "automation", note: "API contract and health-check suites; Maven runner, CI integration" },
+  { name: "Jest", score: 72, cat: "automation", note: "Unit and contract testing; mutation testing with StrykerJS" },
+  { name: "Pact / Contract", score: 68, cat: "automation", note: "Consumer-driven contract tests; provider verification in CI" },
+  { name: "GitHub Actions", score: 92, cat: "cicd", note: "11-workflow CI/CD pipeline; reusable workflows, matrix builds, artifact persistence" },
+  { name: "AWS S3 + CloudFront", score: 85, cat: "cicd", note: "Static hosting, invalidation, CI artifact publishing to CDN" },
+  { name: "AWS Lambda", score: 75, cat: "cicd", note: "Serverless API for contact and email forms; Python runtime" },
+  { name: "Lighthouse CI", score: 78, cat: "cicd", note: "Automated performance, accessibility, and SEO gating with custom thresholds" },
+  { name: "Snyk + OWASP ZAP", score: 72, cat: "cicd", note: "Dependency scanning and DAST security gate in pipeline" },
+  { name: "StrykerJS", score: 70, cat: "cicd", note: "Mutation testing for JavaScript with threshold enforcement in CI" },
+  { name: "Java", score: 88, cat: "languages", note: "Primary language; OOP, design patterns, Selenium and Karate frameworks" },
+  { name: "JavaScript", score: 85, cat: "languages", note: "Node.js, Cypress, async patterns, DOM manipulation" },
+  { name: "Python", score: 75, cat: "languages", note: "CI agents, AWS Lambda, API workflows" },
+  { name: "SQL", score: 72, cat: "languages", note: "Test data management and database validation in test suites" },
+  { name: "TypeScript", score: 65, cat: "languages", note: "Playwright test suites and type-safe config files" },
+  { name: "BDD / Gherkin", score: 90, cat: "practices", note: "Feature file authoring, stakeholder collaboration, Robot and Karate" },
+  { name: "Shift-Left Testing", score: 88, cat: "practices", note: "PR quality gates, static analysis, early defect detection strategy" },
+  { name: "Agile / Scrum", score: 85, cat: "practices", note: "QA in sprint ceremonies, estimation, and definition of done" },
+  { name: "Test Strategy", score: 83, cat: "practices", note: "Test plans, coverage models, risk-based testing, traceability" },
+  { name: "Performance Testing", score: 72, cat: "practices", note: "Lighthouse CI, JMeter basics, Core Web Vitals monitoring" },
+  { name: "Security Testing", score: 68, cat: "practices", note: "DAST with ZAP, SAST with Snyk, OWASP Top 10 awareness" },
+];
+
+const CATEGORY_COLORS = {
+  automation: "#00d4ff",
+  cicd: "#007bff",
+  languages: "#a78bfa",
+  practices: "#00e676",
+};
+
+const CATEGORY_LABELS = {
+  automation: "Test Automation",
+  cicd: "CI / CD & Cloud",
+  languages: "Languages",
+  practices: "QA Practices",
+};
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+let currentCat = "all";
+
+function svgNode(tag, attrs = {}, text = "") {
+  const node = document.createElementNS(SVG_NS, tag);
+  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+  if (text) node.textContent = text;
+  return node;
+}
+
+function getSkills(cat) {
+  return cat === "all" ? SKILLS : SKILLS.filter(skill => skill.cat === cat);
+}
+
+function scoreToLevel(score) {
+  if (score >= 85) return "Expert";
+  if (score >= 70) return "Proficient";
+  return "Familiar";
+}
+
+function drawRadar(cat) {
+  const skills = getSkills(cat);
+  const svg = document.getElementById("radar-svg");
+  if (!svg || skills.length < 3) return;
+
+  svg.replaceChildren();
+
+  const W = 500;
+  const H = 500;
+  const cx = W / 2;
+  const cy = H / 2;
+  const R = 185;
+  const levels = 5;
+  const angleSlice = (Math.PI * 2) / skills.length;
+  const group = svgNode("g", { transform: `translate(${cx},${cy})` });
+  svg.appendChild(group);
+
+  const pointFor = (index, radius) => {
+    const angle = angleSlice * index - Math.PI / 2;
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius, angle];
+  };
+
+  const colorFor = skill => cat === "all" ? CATEGORY_COLORS[skill.cat] : (CATEGORY_COLORS[cat] || "#007bff");
+
+  for (let level = 1; level <= levels; level++) {
+    const radius = (R / levels) * level;
+    const points = skills.map((_, index) => {
+      const [x, y] = pointFor(index, radius);
+      return `${x},${y}`;
+    }).join(" ");
+
+    group.appendChild(svgNode("polygon", {
+      points,
+      fill: "none",
+      stroke: "#2a2a2a",
+      "stroke-width": 1,
+    }));
+  }
+
+  skills.forEach((_, index) => {
+    const [x2, y2] = pointFor(index, R);
+    group.appendChild(svgNode("line", {
+      x1: 0,
+      y1: 0,
+      x2,
+      y2,
+      stroke: "#333",
+      "stroke-width": 1,
+    }));
+  });
+
+  const dataPoints = skills.map((skill, index) => {
+    const [x, y] = pointFor(index, (skill.score / 100) * R);
+    return [x, y];
+  });
+
+  const fillColor = cat === "all" ? "#007bff" : (CATEGORY_COLORS[cat] || "#007bff");
+  group.appendChild(svgNode("polygon", {
+    points: dataPoints.map(point => point.join(",")).join(" "),
+    fill: fillColor,
+    "fill-opacity": 0.14,
+    stroke: fillColor,
+    "stroke-width": 1.5,
+    "stroke-opacity": 0.65,
+  }));
+
+  const tooltip = document.getElementById("radar-tooltip");
+  const detailCard = document.getElementById("skill-detail");
+
+  skills.forEach((skill, index) => {
+    const [px, py] = dataPoints[index];
+    const [, , angle] = pointFor(index, R);
+    const color = colorFor(skill);
+    const level = scoreToLevel(skill.score);
+
+    const circle = svgNode("circle", {
+      cx: px,
+      cy: py,
+      r: 6,
+      fill: color,
+      stroke: "#0d0d0d",
+      "stroke-width": 2,
+      tabindex: 0,
+      role: "button",
+      "aria-label": `${skill.name}: ${skill.score} out of 100, ${level}`,
+    });
+    circle.classList.add("radar-point");
+
+    const showDetail = () => {
+      circle.setAttribute("r", "9");
+      tooltip.style.opacity = "1";
+      tooltip.innerHTML = `<strong>${skill.name}</strong><br>${skill.score}/100 - ${level}`;
+      detailCard.innerHTML = `
+        <div class="sdc-header">
+          <span class="sdc-name">${skill.name}</span>
+          <span class="sdc-level sdc-${level.toLowerCase()}">${level}</span>
+        </div>
+        <div class="sdc-bar-wrap">
+          <div class="sdc-bar" style="width:${skill.score}%; background:${color}"></div>
+        </div>
+        <p class="sdc-note">${skill.note}</p>
+        <span class="sdc-cat" style="color:${color}">${CATEGORY_LABELS[skill.cat]}</span>
+      `;
+    };
+
+    const moveTooltip = () => {
+      const rect = svg.getBoundingClientRect();
+      const svgX = (px + cx) / W * rect.width + rect.left;
+      const svgY = (py + cy) / H * rect.height + rect.top;
+      tooltip.style.left = `${svgX + 14}px`;
+      tooltip.style.top = `${svgY - 20}px`;
+    };
+
+    const hideDetail = () => {
+      circle.setAttribute("r", "6");
+      tooltip.style.opacity = "0";
+    };
+
+    circle.addEventListener("mouseenter", showDetail);
+    circle.addEventListener("mousemove", moveTooltip);
+    circle.addEventListener("mouseleave", hideDetail);
+    circle.addEventListener("focus", () => {
+      showDetail();
+      moveTooltip();
+    });
+    circle.addEventListener("blur", hideDetail);
+    group.appendChild(circle);
+
+    const labelRadius = R + 24;
+    const lx = Math.cos(angle) * labelRadius;
+    const ly = Math.sin(angle) * labelRadius;
+    const anchor = Math.abs(Math.cos(angle)) < 0.1 ? "middle" : (Math.cos(angle) < 0 ? "end" : "start");
+
+    group.appendChild(svgNode("text", {
+      x: lx,
+      y: ly,
+      dy: "0.35em",
+      "text-anchor": anchor,
+      fill: "#aaa",
+      "font-size": skills.length > 15 ? "10px" : "12px",
+    }, skill.name));
+  });
+
+  for (let level = 1; level <= levels; level++) {
+    const radius = (R / levels) * level;
+    group.appendChild(svgNode("text", {
+      x: 4,
+      y: -radius + 4,
+      fill: "#555",
+      "font-size": "10px",
+    }, `${level * 20}`));
+  }
+
+  renderSkillsList(skills);
+}
+
+function renderSkillsList(skills) {
+  const el = document.getElementById("skills-list");
+  const byCat = {};
+  skills.forEach(skill => {
+    if (!byCat[skill.cat]) byCat[skill.cat] = [];
+    byCat[skill.cat].push(skill);
+  });
+
+  el.innerHTML = Object.entries(byCat).map(([cat, items]) => `
+    <div class="sl-group">
+      <h4 style="color:${CATEGORY_COLORS[cat]}">${CATEGORY_LABELS[cat]}</h4>
+      ${items.sort((a, b) => b.score - a.score).map(skill => `
+        <div class="sl-row">
+          <span class="sl-name">${skill.name}</span>
+          <div class="sl-bar-wrap">
+            <div class="sl-bar" style="width:${skill.score}%; background:${CATEGORY_COLORS[skill.cat]}"></div>
+          </div>
+          <span class="sl-score">${skill.score}</span>
+        </div>
+      `).join("")}
+    </div>
+  `).join("");
+}
+
+document.querySelectorAll(".rtab").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".rtab").forEach(tab => {
+      tab.classList.remove("active");
+      tab.setAttribute("aria-selected", "false");
+    });
+    button.classList.add("active");
+    button.setAttribute("aria-selected", "true");
+    currentCat = button.dataset.cat;
+    drawRadar(currentCat);
+    document.getElementById("skill-detail").innerHTML =
+      '<p class="skill-detail-hint">Hover a point on the radar to see details</p>';
+  });
+});
+
+drawRadar(currentCat);
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => drawRadar(currentCat), 150);
+});
+</script>

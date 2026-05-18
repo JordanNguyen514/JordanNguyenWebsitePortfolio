@@ -2,133 +2,152 @@
 layout: default
 ci_dashboard: true
 ---
+
+{% include sdet/status-badge.html %}
+
 <section class="hero-section">
   <div class="welcome-tab">
     <span class="name-field" id="hero-title" data-testid="hero-title">Jordan Nguyen</span>
-    <span class="welcome-field">Welcome to my webpage</span>
+    <span class="welcome-field">Quality Engineering Consultant</span>
   </div>
   <div class="about-welcome">
-    <span>Navigate around this website to get to know me</span>
-    <span>You will learn all there is to know about my career interests,
-          past experiences, academic achievements,
-          and a few personal things as well. Enjoy your stay!</span>
+    <span>I build the systems that catch bugs before they reach production.</span>
+    <span>11 CI/CD workflows · 7 test frameworks · AWS-deployed · Shift-left quality practices.
+          Browse the portfolio to see how enterprise QA patterns apply at every layer of the stack.</span>
+  </div>
+  <div class="hero-cta-row">
+    <a href="{{ '/assets/html/recruiter.html' | relative_url }}"
+       class="hero-cta-primary"
+       data-event-category="Hero"
+       data-event-action="Click_RecruiterPage">
+      For Recruiters →
+    </a>
+    <a href="{{ '/assets/html/sdet.html' | relative_url }}"
+       class="hero-cta-secondary"
+       data-event-category="Hero"
+       data-event-action="Click_SDETShowcase">
+      🧪 SDET Showcase
+    </a>
   </div>
 </section>
 
 <div class="career-portfolio-section">
   <span class="career-port-title">Career Portfolio</span>
-    <div class="portfolio-links">
-      <a href="{{ '/assets/html/jobs.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Jobs_Button">Jobs</a>
-      <a href="{{ '/assets/html/internships.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Internships_Button">Internships</a>
-      <a href="{{ '/assets/html/certifications.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Certifications_Button">Certifications</a>
-      <a href="{{ '/assets/html/academic.html' | relative_url }}" class="portfolio-btn" data-event-category="Content" data-event-action="Click_Academics_Button">Academics</a>
-      <a href="{{ '/assets/html/sdet.html' | relative_url }}" class="portfolio-btn" style="background:linear-gradient(135deg,#007bff,#00d4ff);box-shadow:0 4px 20px rgba(0,212,255,0.35);" data-event-category="Content" data-event-action="Click_SDET_Showcase_Button">🧪 SDET Showcase</a>
-    </div>
+  <div class="portfolio-links">
+    <a href="{{ '/assets/html/jobs.html' | relative_url }}"
+       class="portfolio-btn"
+       data-event-category="Content"
+       data-event-action="Click_Jobs_Button">Jobs</a>
+    <a href="{{ '/assets/html/internships.html' | relative_url }}"
+       class="portfolio-btn"
+       data-event-category="Content"
+       data-event-action="Click_Internships_Button">Internships</a>
+    <a href="{{ '/assets/html/certifications.html' | relative_url }}"
+       class="portfolio-btn"
+       data-event-category="Content"
+       data-event-action="Click_Certifications_Button">Certifications</a>
+    <a href="{{ '/assets/html/academic.html' | relative_url }}"
+       class="portfolio-btn"
+       data-event-category="Content"
+       data-event-action="Click_Academics_Button">Academics</a>
+    <a href="{{ '/assets/html/sdet.html' | relative_url }}"
+       class="portfolio-btn"
+       style="background:linear-gradient(135deg,#007bff,#00d4ff);box-shadow:0 4px 20px rgba(0,212,255,0.35);"
+       data-event-category="Content"
+       data-event-action="Click_SDET_Showcase_Button">🧪 SDET Showcase</a>
+  </div>
 </div>
-
 
 <section class="skills-section">
   <div class="skills-container">
-    <h2 class="skills-title">My Notable Skills</h2>
-    <div class="skill-item">
-      <span class="skill-name">SQL</span>
-      <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 60%;" data-percent="60%"></div>
-      </div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-name">Html</span>
-      <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 60%;" data-percent="60%"></div>
-      </div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-name">JS</span>
-      <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 55%;" data-percent="55%"></div>
-      </div>
-    </div>
+    <h2 class="skills-title">Core Skills</h2>
+    <p class="skills-subtitle">
+      7 test frameworks · Java · JavaScript · Python · AWS · GitHub Actions
+    </p>
 
     <div class="skill-item">
       <span class="skill-name">Cypress</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 90%;" data-percent="90%"></div>
+        <div class="skill-progress" style="width:95%;" data-percent="95%"></div>
       </div>
     </div>
-
     <div class="skill-item">
-      <span class="skill-name">Selenium</span>
+      <span class="skill-name">Selenium / Java</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 80%;" data-percent="80%"></div>
+        <div class="skill-progress" style="width:90%;" data-percent="90%"></div>
       </div>
     </div>
-
     <div class="skill-item">
-      <span class="skill-name">Playwright</span>
+      <span class="skill-name">GitHub Actions</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 75%;" data-percent="75%"></div>
+        <div class="skill-progress" style="width:92%;" data-percent="92%"></div>
       </div>
     </div>
-
+    <div class="skill-item">
+      <span class="skill-name">Robot Framework</span>
+      <div class="skill-bar-container">
+        <div class="skill-progress" style="width:80%;" data-percent="80%"></div>
+      </div>
+    </div>
     <div class="skill-item">
       <span class="skill-name">Java</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 85%;" data-percent="85%"></div>
+        <div class="skill-progress" style="width:88%;" data-percent="88%"></div>
       </div>
     </div>
-
     <div class="skill-item">
-      <span class="skill-name">ISO13485</span>
+      <span class="skill-name">AWS (S3 · Lambda · CloudFront)</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 80%;" data-percent="80%"></div>
+        <div class="skill-progress" style="width:82%;" data-percent="82%"></div>
       </div>
     </div>
-
     <div class="skill-item">
-      <span class="skill-name">Agile</span>
+      <span class="skill-name">BDD / Gherkin</span>
       <div class="skill-bar-container">
-        <div class="skill-progress" style="width: 70%;" data-percent="70%"></div>
+        <div class="skill-progress" style="width:90%;" data-percent="90%"></div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="other-interests-section">
-  <div class="other-interests-content">
-    <span class="other-interests-title">Other Interests and Passions</span>
-      <a href="{{ '/OtherSection/index.html' | relative_url }}" class="other-interests-btn" data-event-category="Content" data-event-action="Click_OtherInterests_Button">
-        Come Find Out!
+    <div style="text-align:center;margin-top:24px;">
+      <a href="{{ '/assets/html/skills-radar.html' | relative_url }}"
+         class="portfolio-btn"
+         style="display:inline-block;padding:10px 24px;font-size:0.88rem;"
+         data-event-category="Content"
+         data-event-action="Click_SkillsRadar">
+        View full skills radar →
       </a>
+    </div>
   </div>
 </section>
 
-<section class="dashboards-preview-section" id="ci-pipeline-section"
-  data-dashboard-url="/ci-status/dashboard.json"
-  data-dashboard-fallback-url="/assets/data/ci-dashboard-local.json">
+<section class="dashboards-preview-section"
+         id="ci-pipeline-section"
+         data-dashboard-url="/ci-status/dashboard.json"
+         data-dashboard-fallback-url="/assets/data/ci-dashboard-local.json">
   <div class="dashboards-preview-header">
     <h1 class="section-title">Quality &amp; Pipeline Status</h1>
-    <p class="section-description">Live CI/CD pipeline health and QA metrics — updated automatically after every deployment.</p>
+    <p class="section-description">Live CI/CD pipeline health — updated automatically after every deployment.</p>
   </div>
 
-  <!-- Mini pipeline health indicator (populated by ci-dashboard.js) -->
   <div class="dashboards-health-row">
     <span id="ci-pipeline-health" class="ci-health-passing">⏳ Loading pipeline status...</span>
     <span id="ci-last-updated" class="dashboards-last-updated"></span>
   </div>
 
-  <!-- Mini pipeline grid (ci-dashboard.js populates #ci-dashboard-grid) -->
   <div id="ci-dashboard-grid" class="dashboards-mini-grid">
-    <!-- Skeleton cards shown while JS loads -->
     <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">☁️</span><span class="ci-card-name">Deploy</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
     <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🌲</span><span class="ci-card-name">Cypress E2E</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
-    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎭</span><span class="ci-card-name">Playwright</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot Framework</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
     <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🥋</span><span class="ci-card-name">Karate API</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔦</span><span class="ci-card-name">Lighthouse</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🧬</span><span class="ci-card-name">Mutation</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
     <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔒</span><span class="ci-card-name">Security</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">📡</span><span class="ci-card-name">API Synthetics</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎲</span><span class="ci-card-name">Flaky Detector</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🚀</span><span class="ci-card-name">Release Readiness</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
   </div>
 
-  <!-- QA metric summary strip (populated by ci-dashboard.js) -->
   <div class="dashboards-metrics-strip">
     <div class="dash-metric">
       <span class="dash-metric-val" id="m-total">—</span>
@@ -148,7 +167,8 @@ ci_dashboard: true
     <a href="{{ '/assets/html/qa-metrics.html' | relative_url }}" class="dash-link-btn">
       📊 QA Metrics Dashboard
     </a>
-    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}" class="dash-link-btn dash-link-btn-secondary">
+    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+       class="dash-link-btn dash-link-btn-secondary">
       🔴 Live Pipeline Status
     </a>
   </div>
@@ -156,34 +176,113 @@ ci_dashboard: true
 
 <section class="social-contact-section">
   <div class="content-container">
-    <h1 class="section-title">My Social Media Presence</h1>
-    <p class="section-description">I maintain an active online presence where I share my professional updates, connect with industry peers, and contribute to open-source projects. Feel free to connect via LinkedIn, check out my GitHub profile for code samples, or send me an email regarding potential opportunities.</p>
-    
+    <h1 class="section-title">Connect</h1>
+    <p class="section-description">
+      Connect on LinkedIn, explore the source code on GitHub, or reach out directly.
+      I'm always open to conversations about quality engineering, consulting opportunities,
+      and interesting technical challenges.
+    </p>
+
     <div class="icon-grid">
-      <a href="https://www.facebook.com/jordan.nguyen514" class="social-icon-link" data-event-category="Content" data-event-action="Click_Facebook_Icon"><img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/facebooklogo.png" alt="Facebook Link" width="100" height="100"></a>
-      <a href="https://www.linkedin.com/in/jordan-nguyen514" class="social-icon-link" data-event-category="Content" data-event-action="Click_LinkedIn_Icon"><img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png" alt="LinkedIn Link" width="100" height="100"></a>
-      <a href="https://www.instagram.com/jordannguyen514" class="social-icon-link" data-event-category="Content" data-event-action="Click_Instagram_Icon"><img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/Instalogo.png" alt="Instagram Logo" width="100" height="100"></a>
-      <a href="https://github.com/JordanNguyen514" class="social-icon-link" data-event-category="Content" data-event-action="Click_GitHub_Icon"><img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/github-logo.png" alt="GitHub Link" width="100" height="100"></a>
+      <a href="https://www.linkedin.com/in/jordan-nguyen514"
+         class="social-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_LinkedIn_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png"
+             alt="LinkedIn" width="100" height="100">
+      </a>
+      <a href="https://github.com/JordanNguyen514"
+         class="social-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_GitHub_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/github-logo.png"
+             alt="GitHub" width="100" height="100">
+      </a>
     </div>
-    
-    <h1 class="section-title">Lets Talk</h1>
+
+    <h1 class="section-title">Get in Touch</h1>
     <div class="icon-grid">
-      <a href="{{ '/assets/html/contacting.html' | relative_url }}" class="contact-icon-link" data-event-category="Content" data-event-action="Click_ContactForm_Icon">
-        <img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/Contacting.png" alt="Contact Form Link" width="100" height="100">
+      <a href="{{ '/assets/html/contacting.html' | relative_url }}"
+         class="contact-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_ContactForm_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/Contacting.png"
+             alt="Contact Form Link" width="100" height="100">
       </a>
-      <a href="{{ '/assets/html/emailing.html' | relative_url }}" class="contact-icon-link" data-event-category="Content" data-event-action="Click_EmailForm_Icon">
-        <img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png" alt="Email Form Link" width="100" height="100">
+      <a href="{{ '/assets/html/emailing.html' | relative_url }}"
+         class="contact-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_EmailForm_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/GmailLogo.png"
+             alt="Email Form Link" width="100" height="100">
       </a>
-      <a href="{{ '/CV_English_JordanNguyen.PDF' | relative_url }}" download class="contact-icon-link" data-event-category="Content" data-event-action="Click_CV_Icon">
-          <img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/CV.jpg" alt="Download CV" width="100" height="100">
+      <a href="{{ '/CV_English_JordanNguyen.PDF' | relative_url }}"
+         download
+         class="contact-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_CV_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/CV.jpg"
+             alt="Download CV" width="100" height="100">
       </a>
-    </div>
-    
-    <h1 class="section-title">See Submissions</h1>
-    <div class="icon-grid">
-      <a href="{{ '/assets/html/submissions.html' | relative_url }}" class="contact-icon-link" data-event-category="Content" data-event-action="Click_ViewSubmissions_Icon">
-        <img src = "{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/submissions.png" alt="View Submissions Link" width="100" height="100">
+      <a href="{{ '/assets/html/submissions.html' | relative_url }}"
+         class="contact-icon-link"
+         data-event-category="Content"
+         data-event-action="Click_ViewSubmissions_Icon">
+        <img src="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/submissions.png"
+             alt="View Submissions Link" width="100" height="100">
       </a>
     </div>
   </div>
 </section>
+
+<style>
+.hero-cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.hero-cta-primary {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(135deg,#007bff,#00d4ff);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 20px rgba(0,123,255,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,123,255,0.5);
+}
+
+.hero-cta-secondary {
+  display: inline-block;
+  padding: 12px 28px;
+  background: rgba(255,255,255,0.07);
+  color: #f0f0f0;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.hero-cta-secondary:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.skills-subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: -8px 0 24px;
+}
+</style>

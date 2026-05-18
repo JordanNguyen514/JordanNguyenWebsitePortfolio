@@ -14,7 +14,7 @@
     <meta property="og:url"         content="{{ site.url }}{{ page.url }}">
     <meta property="og:title"       content="{% if page.title %}{{ page.title }} | Jordan Nguyen — SDET{% else %}Jordan Nguyen — SDET Portfolio{% endif %}">
     <meta property="og:description" content="SDET portfolio of Jordan Nguyen — test automation, CI/CD, Cypress, Playwright, and quality engineering.">
-    <meta property="og:image"       content="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/linkedInlogo.png">
+    <meta property="og:image"       content="{{ site.cdn }}/assets/img/FirstPageImages/SocialMediaPics/github-logo.png">
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/FirstPage.css' | relative_url }}">
@@ -81,10 +81,22 @@
              data-event-category="TopNav"
              data-event-action="Click_SDET_Showcase"
              style="color:#007bff;font-weight:600;">🧪 SDET Showcase</a>
+          <a href="{{ '/assets/html/skills-radar.html' | relative_url }}"
+             data-testid="nav-skills-radar"
+             data-event-category="TopNav"
+             data-event-action="Click_Skills_Radar">📊 Skills Radar</a>
+          <a href="{{ '/assets/html/blog.html' | relative_url }}"
+             data-testid="nav-blog"
+             data-event-category="TopNav"
+             data-event-action="Click_Blog">📝 Case Studies</a>
+          <a href="{{ '/assets/html/testimonials.html' | relative_url }}"
+             data-testid="nav-testimonials"
+             data-event-category="TopNav"
+             data-event-action="Click_Testimonials">💬 Endorsements</a>
           <a href="{{ '/OtherSection/index.html' | relative_url }}"
              data-testid="nav-other"
              data-event-category="TopNav"
-             data-event-action="Click_OtherInterests">Other interests</a>
+             data-event-action="Click_OtherInterests">Other Interests</a>          
         </div>
       </div>
 
@@ -105,6 +117,11 @@
              data-testid="nav-submissions"
              data-event-category="TopNav"
              data-event-action="Click_ViewSubmissions">View Submissions</a>
+          <a href="{{ '/assets/html/recruiter.html' | relative_url }}"
+             data-testid="nav-recruiter-contact"
+             data-event-category="TopNav"
+             data-event-action="Click_Recruiter"
+             style="color:#00e676;font-weight:600;">🟢 For Recruiters</a>
         </div>
       </div>
 

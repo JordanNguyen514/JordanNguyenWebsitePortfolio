@@ -2,22 +2,25 @@ describe('Email Form Navigation and Functionality', () => {
 
     beforeEach(() => {
         cy.visit('/');
-
-        // FIX: Split chain after scrollIntoView — cypress/unsafe-to-chain-command
-        // scrollIntoView() is an action; chaining .click() directly after it is unsafe.
-        // Split into two commands so Cypress can properly retry each independently.
         cy.get('a[href="/assets/html/emailing.html"]')
           .filter(':has(img)')
           .scrollIntoView();
         cy.get('a[href="/assets/html/emailing.html"]')
           .filter(':has(img)')
           .click();
-
         cy.url().should('include', 'emailing.html');
         cy.get('#emailForm').should('be.visible');
     });
 
     it('should navigate to the email form via the icon, fill it out, and show success', () => {
+
+        // FIX: Intercept Lambda POST before typing.
+        // Lambda cold-starts in CI regularly exceed 10s causing flaky failures.
+        // The Lambda endpoint itself is tested by the Karate API suite.
+        cy.intercept('POST', '**/prod/send', {
+            statusCode: 200,
+            body: { message: 'Success! Your message has been sent.' },
+        }).as('emailApi');
 
         cy.get('#senderName').type('Cypress Automated Test');
         cy.get('#senderEmail').type('test.user@example.com');
@@ -25,6 +28,8 @@ describe('Email Form Navigation and Functionality', () => {
         cy.get('#message').type('This message is a test sent via Cypress automation script.');
 
         cy.get('#emailForm button[type="submit"]').click();
+
+        cy.wait('@emailApi');
 
         cy.get('#formResponse', { timeout: 10000 })
           .should('be.visible')
@@ -41,6 +46,8 @@ describe('Email Form Navigation and Functionality', () => {
         cy.get('#message').type('This tests error handling for invalid input.');
         cy.get('#senderEmail').type('invalid-email-no-at.com');
 
+        // No intercept here — invalid email is rejected client-side before the
+        // API call fires, so no Lambda interaction is expected.
         cy.intercept('POST', '**/prod/send').as('apiCall');
 
         cy.get('#emailForm button[type="submit"]').click();

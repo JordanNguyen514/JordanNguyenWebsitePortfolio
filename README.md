@@ -40,8 +40,8 @@ This portfolio is both a personal website and a living QA engineering showcase. 
 |---|---|
 | Site Generator | Jekyll 4.4 (Ruby) |
 | Hosting | AWS S3 + CloudFront CDN |
-| CI/CD | GitHub Actions (7 workflows) |
-| E2E Testing | Cypress 13 |
+| CI/CD | GitHub Actions (11 workflows) |
+| E2E Testing | Cypress 15 |
 | Cross-Browser Testing | Playwright 1.44 |
 | Visual Regression | Applitools Eyes + Playwright screenshots |
 | Unit Testing | Jest 29 |
@@ -71,6 +71,11 @@ JordanNguyenWebsitePortfolio/
 |       +-- security.yml                # Snyk deps + OWASP ZAP scan
 |       +-- synthetics.yml              # API health checks every 30 min
 |       +-- mutation.yml                # StrykerJS mutation tests (weekly)
+|       +-- flaky-test-detector.yml     # Cross-run flaky test tracker
+|       +-- dead-skipped-test-auditor.yml # Skipped/only test debt enforcement
+|       +-- pr-quality-gate.yml         # Coverage + commits + test debt on every PR
+|       +-- pipeline-perf-profiler.yml  # Step timing regressions across runs
+|       +-- release-readiness.yml       # Go/no-go checklist after every deploy
 |
 +-- config/                             # All tool configuration files
 |   +-- cypress.config.js

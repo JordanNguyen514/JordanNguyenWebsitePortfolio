@@ -357,93 +357,51 @@ css_file: "/assets/css/sdet.css"
 
 
 <!-- ══════════════════════════════════════════════════════════
-     SECTION 3 — CI/CD PIPELINE DIAGRAM
+     SECTION 3 — CI/CD PIPELINE
      ══════════════════════════════════════════════════════════ -->
-<section class="sdet-section">
+{% comment %}
+<section class="sdet-section" id="ci-pipeline-section" hidden
+  data-dashboard-url="/ci-status/dashboard.json"
+  data-dashboard-fallback-url="/assets/data/ci-dashboard-local.json">
   <h2 class="sdet-section-title">
     CI/CD Pipeline
     <span class="title-tag">SECTION 03</span>
   </h2>
-  <p class="sdet-section-subtitle">Automated from git push to production — every deployment triggers a full Cypress E2E suite against the live CloudFront URL.</p>
+  <p class="sdet-section-subtitle">
+    11 workflows covering the full quality stack — from deployment to mutation testing.
+    Status updates automatically after every push to master.
+  </p>
 
-  <div class="pipeline-wrapper">
-    <div class="pipeline">
+  <!-- Live status pulled from the same CloudFront dashboard JSON -->
+  <div class="dashboards-health-row" style="margin-bottom:20px;">
+    <span id="ci-pipeline-health" class="ci-health-passing">⏳ Loading pipeline status...</span>
+    <span id="ci-last-updated" class="dashboards-last-updated"></span>
+  </div>
 
-      <div class="pipeline-stage">
-        <div class="pipeline-node trigger">
-          <div class="pipeline-status pass">✓</div>
-          🔀
-        </div>
-        <div class="pipeline-label">Git Push</div>
-        <div class="pipeline-sublabel">master branch<br>GitHub</div>
-      </div>
+  <div id="ci-dashboard-grid" class="dashboards-mini-grid">
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">☁️</span><span class="ci-card-name">Deploy to S3</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🌲</span><span class="ci-card-name">Cypress E2E</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎭</span><span class="ci-card-name">Playwright</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🤖</span><span class="ci-card-name">Robot Framework</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🥋</span><span class="ci-card-name">Karate API</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔦</span><span class="ci-card-name">Lighthouse CI</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🧬</span><span class="ci-card-name">Mutation Testing</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🔒</span><span class="ci-card-name">Security Scanning</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">📡</span><span class="ci-card-name">API Synthetics</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🎲</span><span class="ci-card-name">Flaky Detector</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+    <div class="ci-card ci-unknown"><div class="ci-card-header"><span class="ci-card-icon">🚀</span><span class="ci-card-name">Release Readiness</span></div><div class="ci-card-status"><span class="ci-status-badge">loading...</span></div></div>
+  </div>
 
-      <div class="pipeline-stage">
-        <div class="pipeline-node">
-          <div class="pipeline-status pass">✓</div>
-          ⚙️
-        </div>
-        <div class="pipeline-label">GH Actions</div>
-        <div class="pipeline-sublabel">ubuntu-latest<br>deploy.yml</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node">
-          <div class="pipeline-status pass">✓</div>
-          💎
-        </div>
-        <div class="pipeline-label">Jekyll Build</div>
-        <div class="pipeline-sublabel">Ruby 3.3<br>bundle exec</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node success">
-          <div class="pipeline-status pass">✓</div>
-          ☁️
-        </div>
-        <div class="pipeline-label">Deploy → S3</div>
-        <div class="pipeline-sublabel">aws s3 sync<br>ca-central-1</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node success">
-          <div class="pipeline-status pass">✓</div>
-          🌐
-        </div>
-        <div class="pipeline-label">CloudFront</div>
-        <div class="pipeline-sublabel">CDN invalidation<br>/* paths</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node">
-          <div class="pipeline-status pass">✓</div>
-          ⚙️
-        </div>
-        <div class="pipeline-label">Post-Deploy</div>
-        <div class="pipeline-sublabel">workflow_run<br>on: completed</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node warning">
-          <div class="pipeline-status pass">✓</div>
-          🌲
-        </div>
-        <div class="pipeline-label">Cypress E2E</div>
-        <div class="pipeline-sublabel">Chrome browser<br>6 spec files</div>
-      </div>
-
-      <div class="pipeline-stage">
-        <div class="pipeline-node success">
-          <div class="pipeline-status pass">✓</div>
-          🎬
-        </div>
-        <div class="pipeline-label">Artifacts</div>
-        <div class="pipeline-sublabel">Videos saved<br>Screenshots on fail</div>
-      </div>
-
-    </div><!-- /pipeline -->
-  </div><!-- /pipeline-wrapper -->
+  <div style="text-align:center;margin-top:28px;">
+    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+       class="sdet-cta-btn"
+       data-testid="sdet-live-pipeline-link"
+       data-event-category="SDET" data-event-action="Click_Live_Pipeline">
+      🔴 View Full Live Pipeline Status →
+    </a>
+  </div>
 </section>
+{% endcomment %}
 
 
 <!-- ══════════════════════════════════════════════════════════

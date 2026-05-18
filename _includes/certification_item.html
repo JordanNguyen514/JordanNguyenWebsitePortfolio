@@ -1,6 +1,6 @@
 <!-- _includes/certification_item.html -->
 <!--
-  FIX: Jekyll's {% include %} tag does not evaluate Liquid inside parameter values.
+  FIX: Jekyll include tags do not evaluate Liquid inside parameter values.
   Passing a full URL like img_path="{{ site.cdn }}/..." breaks the parser.
   Solution: accept just the filename via `img_file`, then build the full
   CDN URL here inside the template where Liquid IS evaluated normally.

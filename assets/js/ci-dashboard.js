@@ -235,7 +235,23 @@
     if (grid) grid.innerHTML = '';
   }
 
+  async function loadFallbackData(note) {
+    var fb = await fetch(bust(FALLBACK_URL));
+    if (fb.ok) {
+      showNote(note);
+      return await fb.json();
+    }
+    return null;
+  }
+
   async function loadData() {
+    if (isLocal()) {
+      try {
+        var localData = await loadFallbackData('Local snapshot - live CI data is loaded from S3/CloudFront in production.');
+        if (localData) return localData;
+      } catch (_) {}
+    }
+
     try {
       var res = await fetch(bust(DASHBOARD_URL));
       if (res.ok) { hideNote(); return await res.json(); }
