@@ -1,20 +1,26 @@
-# ── Vendor / third-party ──────────────────────────────────
-assets/js/jquery-3.5.0.js
-
-# ── Legacy files not written with ESLint in mind ──────────
-# These existed before ESLint was added to the project.
-# Gradually remove entries here as you clean up each file.
-assets/js/tracker.js
-assets/js/analytics-dashboard.js
-assets/js/submissions.js
-assets/js/emailing.js
-assets/js/contact_form_handler.js
-assets/js/Jobs.js
-assets/js/Sport.js
-
-# ── Build output ───────────────────────────────────────────
-_site/
+# Dependencies
 node_modules/
 
-# ── Pact generated contracts ───────────────────────────────
-pact/pacts/
+# Mochawesome generated report files (auto-generated, not source code)
+cypress/results/
+cypress/videos/
+cypress/screenshots/
+
+# Playwright output
+playwright-report/
+test-results/
+
+# Build output
+_site/
+
+# Stryker / mutation reports
+reports/
+
+# Robot Framework output
+tests/robot/results/
+
+# Karate output
+tests/karate/target/
+
+# Coverage reports
+coverage/
