@@ -44,6 +44,3 @@ tests/robot/results/
 
 # Karate API test output
 tests/karate/target/
-
-#Python Scripts for AWS
-scripts/

@@ -8,6 +8,12 @@
 [![Lighthouse CI](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/lighthouse.yml)
 [![Security](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/security.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/security.yml)
 [![API Synthetics](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/synthetics.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/synthetics.yml)
+[![Mutation Testing](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/mutation.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/mutation.yml)
+[![Robot Framework](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/robot.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/robot.yml)
+[![Karate API Tests](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/karate.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/karate.yml)
+[![Flaky Test Detector](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/flaky-test-detector.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/flaky-test-detector.yml)
+[![PR Quality Gate](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/pr-quality-gate.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/pr-quality-gate.yml)
+[![Release Readiness](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/release-readiness.yml/badge.svg)](https://github.com/JordanNguyen514/JordanNguyenWebsitePortfolio/actions/workflows/release-readiness.yml)
 
 **Live site:** https://d2kmkdebgfkxyh.cloudfront.net
 
@@ -46,7 +52,7 @@ This portfolio is both a personal website and a living QA engineering showcase. 
 | Visual Regression | Applitools Eyes + Playwright screenshots |
 | Unit Testing | Jest 29 |
 | Contract Testing | Pact Foundation v12 |
-| Mutation Testing | StrykerJS 8 |
+| Mutation Testing | StrykerJS 9 |
 | Performance | Lighthouse CI |
 | Security (SAST) | Snyk |
 | Security (DAST) | OWASP ZAP Baseline |
