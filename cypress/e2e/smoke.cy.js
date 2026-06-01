@@ -8,13 +8,12 @@ describe('Portfolio Website Smoke Test', () => {
     // Check for the main hero title
     cy.get('#hero-title').should('be.visible').and('contain', 'Jordan Nguyen');
     
-    // Check for core section titles
+    // Check for core section titles in the current homepage layout
     cy.contains('.career-port-title', 'Career Portfolio').should('be.visible');
-    cy.contains('.academics-title', 'Academics').should('be.visible');
-    cy.contains('.skills-title', 'My Notable Skills').should('be.visible');
-    cy.contains('.other-interests-title', 'Other Interests and Passions').should('be.visible');
-    cy.contains('.section-title', 'Website Analytics (AWS Kinesis/Lambda)').should('be.visible');
-    cy.contains('.section-title', 'My Social Media Presence').should('be.visible');
+    cy.contains('.skills-title', 'Core Skills').should('be.visible');
+    cy.contains('.section-title', 'Quality & Pipeline Status').should('be.visible');
+    cy.contains('.section-title', 'Connect').should('be.visible');
+    cy.contains('.section-title', 'Get in Touch').should('be.visible');
   });
 
   it('should verify navigation links in the Career Portfolio section', () => {
@@ -36,6 +35,7 @@ describe('Portfolio Website Smoke Test', () => {
     
     // Check contact form, email, CV, and submissions links
     cy.get('[data-event-action="Click_ContactForm_Icon"]').should('be.visible');
+    cy.get('[data-event-action="Click_EmailForm_Icon"]').should('be.visible');
     cy.get('[data-event-action="Click_CV_Icon"]').should('be.visible');
     cy.get('[data-event-action="Click_ViewSubmissions_Icon"]').should('be.visible');
   });
@@ -74,7 +74,9 @@ describe('Portfolio Website Smoke Test', () => {
 
     cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
     cy.get('[data-event-action="Click_ContactForm"]').should('be.visible').and('contain', 'Contact Form');
+    cy.get('[data-event-action="Click_EmailForm"]').should('be.visible').and('contain', 'Email Form');
     cy.get('[data-event-action="Click_ViewSubmissions"]').should('be.visible').and('contain', 'View Submissions');
+    cy.get('[data-testid="nav-recruiter-contact"]').should('be.visible').and('contain', 'For Recruiters');
 
     cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });

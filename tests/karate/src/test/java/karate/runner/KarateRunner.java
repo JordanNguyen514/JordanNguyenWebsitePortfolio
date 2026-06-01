@@ -52,6 +52,15 @@ public class KarateRunner {
     }
 
     /**
+     * Runs static page contract checks for all public portfolio pages.
+     * Trigger with: mvn test -Dtest="KarateRunner#runStaticPages"
+     */
+    @Karate.Test
+    Karate runStaticPages() {
+        return Karate.run("classpath:karate/api/static-pages.feature");
+    }
+
+    /**
      * Runs only the email API tests.
      * Trigger with: mvn test -Dtest="KarateRunner#runEmailApi"
      */
@@ -60,4 +69,3 @@ public class KarateRunner {
         return Karate.run("classpath:karate/api/email-api.feature");
     }
 }
-
