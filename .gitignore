@@ -44,3 +44,5 @@ tests/robot/results/
 
 # Karate API test output
 tests/karate/target/
+
+# Git test
