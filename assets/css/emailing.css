@@ -1,6 +1,6 @@
 /* Styling for the page body and form container */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: #0f1c2e; /* Dark background to match your topnav theme */
     color: #ecf0f1;
     margin: 0;

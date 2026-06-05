@@ -2,15 +2,15 @@
 ---
 /* ============================================================
    SDET SHOWCASE PAGE — sdet.css
-   Palette inherited from site: --bg-dark #121212, --accent-blue #007bff
+   Palette inherited from site: --bg-dark #121212, --accent-blue #86bc25
    ============================================================ */
 
 :root {
   --bg-dark: #121212;
   --bg-card: #1a1a1a;
   --bg-card-hover: #222;
-  --accent-blue: #007bff;
-  --accent-cyan: #00d4ff;
+  --accent-blue: #86bc25;
+  --accent-cyan: #c4d600;
   --accent-green: #00e676;
   --accent-orange: #ff9100;
   --accent-purple: #7c4dff;
@@ -36,7 +36,7 @@
   font-weight: 300;
   letter-spacing: 0.15rem;
   margin: 0 0 16px;
-  text-shadow: 0 0 20px rgba(0,123,255,0.4);
+  text-shadow: 0 0 20px rgba(134,188,37,0.4);
 }
 
 .sdet-hero p {
@@ -361,7 +361,7 @@
 
 .pipeline-node:hover {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 20px rgba(0,123,255,0.3);
+  box-shadow: 0 0 20px rgba(134,188,37,0.3);
 }
 
 .pipeline-node.success  { border-color: var(--accent-green); }
@@ -418,7 +418,7 @@
 .dashboard-link-card {
   display: block;
   text-decoration: none;
-  background: linear-gradient(180deg, rgba(0, 123, 255, 0.08), rgba(26, 26, 26, 0.96));
+  background: linear-gradient(180deg, rgba(134, 188, 37, 0.08), rgba(26, 26, 26, 0.96));
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 28px;

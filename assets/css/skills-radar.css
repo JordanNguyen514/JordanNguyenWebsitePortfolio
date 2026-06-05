@@ -3,7 +3,7 @@
 /* skills-radar.css */
 :root {
   --bg: #0d0d0d; --surface: #161616;
-  --border: #2a2a2a; --blue: #007bff; --cyan: #00d4ff;
+  --border: #2a2a2a; --blue: #86bc25; --cyan: #c4d600;
   --text: #f0f0f0; --muted: #888;
 }
 
@@ -43,7 +43,7 @@
 }
 .rtab:hover { border-color: var(--blue); color: var(--text); }
 .rtab.active {
-  background: rgba(0,123,255,0.15);
+  background: rgba(134,188,37,0.15);
   border-color: var(--blue); color: var(--blue);
 }
 
@@ -63,13 +63,13 @@
 .radar-point {
   cursor: pointer;
   transition: r 0.18s ease, filter 0.18s ease;
-  filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.45));
+  filter: drop-shadow(0 0 8px rgba(134, 188, 37, 0.45));
 }
 
 .radar-point:hover,
 .radar-point:focus {
   outline: none;
-  filter: drop-shadow(0 0 14px rgba(0, 212, 255, 0.8));
+  filter: drop-shadow(0 0 14px rgba(196, 214, 0, 0.8));
 }
 
 .radar-tooltip {
@@ -106,8 +106,8 @@
   font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
   padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em;
 }
-.sdc-expert   { background: rgba(0,212,255,0.15); color: #00d4ff; }
-.sdc-proficient { background: rgba(0,123,255,0.15); color: #60aaff; }
+.sdc-expert   { background: rgba(196,214,0,0.15); color: #c4d600; }
+.sdc-proficient { background: rgba(134,188,37,0.15); color: #60aaff; }
 .sdc-familiar { background: rgba(255,255,255,0.06); color: #888; }
 
 .sdc-bar-wrap {

@@ -2,7 +2,7 @@
 body {
     background-color: #121212; /* Modern deep black background */
     color: #e0e0e0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-stack, 'Inter', system-ui, -apple-system, sans-serif);
     margin: 0;
 }
 
@@ -66,13 +66,13 @@ h1 {
 
 #login-form input:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 1px #007bff; /* Clean focus glow */
+    border-color: #86bc25;
+    box-shadow: 0 0 0 1px #86bc25; /* Clean focus glow */
 }
 
 /* Style for the button */
 #login-form button[type="submit"] {
-    background-color: #007bff; 
+    background-color: #86bc25; 
     color: white;
     border: none;
     padding: 12px 20px; 

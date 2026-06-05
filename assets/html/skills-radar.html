@@ -33,8 +33,8 @@ css_file: "/assets/css/skills-radar.css"
           <div class="legend-level-guide">
             <h3>Proficiency levels</h3>
             <ul>
-              <li><span class="legend-dot" style="background:#00d4ff"></span><strong>Expert</strong> - Daily production use, lead delivery teams</li>
-              <li><span class="legend-dot" style="background:#007bff"></span><strong>Proficient</strong> - Regular use, autonomous on client projects</li>
+              <li><span class="legend-dot" style="background:#c4d600"></span><strong>Expert</strong> - Daily production use, lead delivery teams</li>
+              <li><span class="legend-dot" style="background:#86bc25"></span><strong>Proficient</strong> - Regular use, autonomous on client projects</li>
               <li><span class="legend-dot" style="background:#444"></span><strong>Familiar</strong> - Used on projects, comfortable picking up</li>
             </ul>
           </div>
@@ -77,8 +77,8 @@ const SKILLS = [
 ];
 
 const CATEGORY_COLORS = {
-  automation: "#00d4ff",
-  cicd: "#007bff",
+  automation: "#c4d600",
+  cicd: "#86bc25",
   languages: "#a78bfa",
   practices: "#00e676",
 };
@@ -132,7 +132,7 @@ function drawRadar(cat) {
     return [Math.cos(angle) * radius, Math.sin(angle) * radius, angle];
   };
 
-  const colorFor = skill => cat === "all" ? CATEGORY_COLORS[skill.cat] : (CATEGORY_COLORS[cat] || "#007bff");
+  const colorFor = skill => cat === "all" ? CATEGORY_COLORS[skill.cat] : (CATEGORY_COLORS[cat] || "#86bc25");
 
   for (let level = 1; level <= levels; level++) {
     const radius = (R / levels) * level;
@@ -166,7 +166,7 @@ function drawRadar(cat) {
     return [x, y];
   });
 
-  const fillColor = cat === "all" ? "#007bff" : (CATEGORY_COLORS[cat] || "#007bff");
+  const fillColor = cat === "all" ? "#86bc25" : (CATEGORY_COLORS[cat] || "#86bc25");
   group.appendChild(svgNode("polygon", {
     points: dataPoints.map(point => point.join(",")).join(" "),
     fill: fillColor,

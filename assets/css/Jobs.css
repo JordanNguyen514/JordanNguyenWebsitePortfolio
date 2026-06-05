@@ -1,12 +1,11 @@
 /* New jobs.css for Vertical Timeline Layout */
 
 #jobs-portfolio {
-  padding: 40px 20px;
-  text-align: center;
-  color: #e0e0e0;
-  background: #010615;
+  padding: 60px 20px;
+  background-color: var(--bg-dark, #121212);
+  color: var(--text-light, #f0f0f0);
+  font-family: var(--font-stack, 'Inter', system-ui, -apple-system, sans-serif);
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
 }
 
 #jobs-portfolio h1 {

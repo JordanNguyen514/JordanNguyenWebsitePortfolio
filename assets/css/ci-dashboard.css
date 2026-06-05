@@ -28,7 +28,7 @@
 
 .ci-section-header h2 span.title-tag {
   font-size: 0.75rem;
-  color: #007bff;
+  color: #86bc25;
   font-weight: 600;
   letter-spacing: 1px;
   margin-left: 12px;
@@ -162,9 +162,9 @@
 
 .ci-commit {
   font-size: 0.72rem;
-  color: #007bff;
+  color: #86bc25;
   font-family: 'Courier New', monospace;
-  background: rgba(0,123,255,0.08);
+  background: rgba(134,188,37,0.08);
   padding: 1px 6px;
   border-radius: 4px;
 }
@@ -195,8 +195,8 @@
 }
 
 .ci-dashboard-note-info {
-  background: rgba(0, 123, 255, 0.08);
-  border: 1px solid rgba(0, 123, 255, 0.22);
+  background: rgba(134, 188, 37, 0.08);
+  border: 1px solid rgba(134, 188, 37, 0.22);
   color: #8cc8ff;
 }
 

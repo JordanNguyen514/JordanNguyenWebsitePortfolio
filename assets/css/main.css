@@ -2,15 +2,16 @@
 :root {
   --nav-bg: #ffffff;
   --nav-text: #333333;
-  --accent-color: #007a8a; /* Darkened teal — passes WCAG AA (5.07:1 on white) */
+  --accent-color: #86bc25; /* Darkened teal — passes WCAG AA (5.07:1 on white) */
   --hover-bg: #f8f9fa;
   --dropdown-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   --transition: all 0.3s ease;
+  --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-stack);
 }
 
 /* --- Topnav Container (Alignment fixed here) --- */

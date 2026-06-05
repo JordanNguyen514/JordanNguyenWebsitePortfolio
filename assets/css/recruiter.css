@@ -10,12 +10,12 @@
   --r-bg:       #0d0d0d;
   --r-surface:  #161616;
   --r-border:   #2a2a2a;
-  --r-blue:     #007bff;
-  --r-cyan:     #00d4ff;
+  --r-blue:     #86bc25;
+  --r-cyan:     #c4d600;
   --r-green:    #00e676;
   --r-text:     #f0f0f0;
   --r-muted:    #888;
-  --r-font:     'Segoe UI', system-ui, sans-serif;
+  --r-font:     'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* ── Hero ─────────────────────────────────────────────────── */
@@ -32,7 +32,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,123,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(134,188,37,0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -81,7 +81,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0 0 8px;
-  text-shadow: 0 0 40px rgba(0,123,255,0.3);
+  text-shadow: 0 0 40px rgba(134,188,37,0.3);
 }
 
 .recruiter-role {
@@ -122,11 +122,11 @@
 }
 
 .cta-primary {
-  background: linear-gradient(135deg, #007bff, #00d4ff);
+  background: linear-gradient(135deg, #86bc25, #c4d600);
   color: #fff;
-  box-shadow: 0 4px 20px rgba(0,123,255,0.35);
+  box-shadow: 0 4px 20px rgba(134,188,37,0.35);
 }
-.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,123,255,0.5); }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(134,188,37,0.5); }
 
 .cta-secondary {
   background: rgba(255,255,255,0.07);
@@ -138,9 +138,9 @@
 .cta-outline {
   background: transparent;
   color: var(--r-blue);
-  border: 1px solid rgba(0,123,255,0.4);
+  border: 1px solid rgba(134,188,37,0.4);
 }
-.cta-outline:hover { background: rgba(0,123,255,0.08); }
+.cta-outline:hover { background: rgba(134,188,37,0.08); }
 
 /* ── Shared section ───────────────────────────────────────── */
 .recruiter-facts,
@@ -224,8 +224,8 @@
   border: 1px solid transparent;
 }
 .stag.expert {
-  background: rgba(0,123,255,0.15);
-  border-color: rgba(0,123,255,0.35);
+  background: rgba(134,188,37,0.15);
+  border-color: rgba(134,188,37,0.35);
   color: #60aaff;
 }
 .stag.mid {
@@ -251,13 +251,13 @@
   overflow: hidden;
   transition: border-color 0.2s;
 }
-.why-card:hover { border-color: rgba(0,123,255,0.4); }
+.why-card:hover { border-color: rgba(134,188,37,0.4); }
 
 .why-num {
   display: block;
   font-size: 2.2rem;
   font-weight: 700;
-  color: rgba(0,123,255,0.15);
+  color: rgba(134,188,37,0.15);
   line-height: 1;
   margin-bottom: 10px;
   font-variant-numeric: tabular-nums;
@@ -321,7 +321,7 @@
 .footer-link-btn:hover {
   border-color: var(--r-blue);
   color: var(--r-blue);
-  background: rgba(0,123,255,0.06);
+  background: rgba(134,188,37,0.06);
 }
 
 .recruiter-footer-links p {

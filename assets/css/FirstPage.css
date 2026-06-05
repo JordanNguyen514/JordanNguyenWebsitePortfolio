@@ -2,10 +2,10 @@
 ---
 :root {
   --bg-dark: #121212; /* A true dark background */
-  --accent-blue: #007bff; /* A vibrant, sleek blue */
+  --accent-blue: #86bc25; /* A vibrant, sleek blue */
   --text-light: #ffffff; /* Pure white for high contrast */
   --text-secondary: #cccccc; /* A light gray for body text */
-  --font-stack: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* --- Hero Section Container --- */
@@ -33,7 +33,7 @@
   letter-spacing: 0.2rem; 
   margin-bottom: 15px;
   /* Add a subtle glow/shadow effect for sleekness */
-  text-shadow: 0 0 15px rgba(0, 123, 255, 0.4); 
+  text-shadow: 0 0 15px rgba(134, 188, 37, 0.4); 
 }
 
 .welcome-field {
@@ -78,7 +78,7 @@
   letter-spacing: 0.1rem;
   margin-bottom: 40px; /* Space between title and buttons */
   text-align: center;
-  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  text-shadow: 0 0 10px rgba(134, 188, 37, 0.3);
 }
 
 .portfolio-links {
@@ -98,13 +98,13 @@
   border-radius: 6px; /* Softly rounded corners */
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   font-size: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Subtle shadow for depth */
+  box-shadow: 0 4px 15px rgba(134, 188, 37, 0.3); /* Subtle shadow for depth */
 }
 
 .portfolio-btn:hover {
   background-color: #0056b3; /* Darker blue on hover */
   transform: translateY(-3px); /* Subtle lift effect */
-  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5); /* Enhanced shadow on hover */
+  box-shadow: 0 6px 20px rgba(134, 188, 37, 0.5); /* Enhanced shadow on hover */
 }
 
 
@@ -134,7 +134,7 @@
   font-weight: 300; 
   letter-spacing: 0.1rem;
   margin-bottom: 30px;
-  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  text-shadow: 0 0 10px rgba(134, 188, 37, 0.3);
 }
 
 .academics-btn {
@@ -150,13 +150,13 @@
   border-radius: 6px; 
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(134, 188, 37, 0.3);
 }
 
 .academics-btn:hover {
   background-color: #0056b3; 
   transform: translateY(-3px); /* Subtle lift effect */
-  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(134, 188, 37, 0.5);
 }
 
 .skills-section {
@@ -263,7 +263,7 @@
   font-weight: 300; 
   letter-spacing: 0.1rem;
   margin-bottom: 40px;
-  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  text-shadow: 0 0 10px rgba(134, 188, 37, 0.3);
 }
 
 .other-interests-btn {
@@ -279,13 +279,13 @@
   border-radius: 6px; 
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(134, 188, 37, 0.3);
 }
 
 .other-interests-btn:hover {
   background-color: #0056b3; 
   transform: translateY(-3px); /* Subtle lift effect */
-  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(134, 188, 37, 0.5);
 }
 
 /* --- Analytics Section Styling --- */
@@ -360,14 +360,14 @@
     border-radius: 6px;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(134, 188, 37, 0.3);
     margin-top: 30px; 
 }
 
 .analytics-btn:hover {
     background-color: #0056b3;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(134, 188, 37, 0.5);
 }
 
 .social-contact-section {
@@ -418,12 +418,12 @@
   min-height: 112px;
   border-radius: 24px;
   background:
-    radial-gradient(circle at 20% 12%, rgba(0, 212, 255, 0.34), transparent 34%),
+    radial-gradient(circle at 20% 12%, rgba(196, 214, 0, 0.34), transparent 34%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(226, 246, 255, 0.88));
-  border: 1px solid rgba(0, 212, 255, 0.56);
+  border: 1px solid rgba(196, 214, 0, 0.56);
   box-shadow:
-    0 0 22px rgba(0, 123, 255, 0.38),
-    0 0 42px rgba(0, 212, 255, 0.18),
+    0 0 22px rgba(134, 188, 37, 0.38),
+    0 0 42px rgba(196, 214, 0, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
   transform: translateY(0);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -431,10 +431,10 @@
 
 .social-icon-link:hover {
   transform: translateY(-5px) scale(1.04);
-  border-color: rgba(0, 230, 255, 0.95);
+  border-color: rgba(196, 214, 0, 0.95);
   box-shadow:
-    0 0 30px rgba(0, 123, 255, 0.62),
-    0 0 70px rgba(0, 212, 255, 0.36),
+    0 0 30px rgba(134, 188, 37, 0.62),
+    0 0 70px rgba(196, 214, 0, 0.36),
     inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
@@ -457,12 +457,12 @@
 
 .social-icon-link img {
   opacity: 1;
-  filter: saturate(1.18) contrast(1.14) drop-shadow(0 0 10px rgba(0, 123, 255, 0.42));
+  filter: saturate(1.18) contrast(1.14) drop-shadow(0 0 10px rgba(134, 188, 37, 0.42));
 }
 
 .social-icon-link:hover img {
   transform: scale(1.08);
-  filter: saturate(1.3) contrast(1.18) drop-shadow(0 0 18px rgba(0, 212, 255, 0.75));
+  filter: saturate(1.3) contrast(1.18) drop-shadow(0 0 18px rgba(196, 214, 0, 0.75));
 }
 
 /* SDET Section Styling */
@@ -607,7 +607,7 @@
 }
 
 .dashboards-preview-header .section-title {
-  color: #00d4ff;
+  color: #c4d600;
 }
 
 .dashboards-health-row {
@@ -657,7 +657,7 @@
   font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--font-stack);
 }
 
 .dash-metric-label {
@@ -679,7 +679,7 @@
   display: inline-block;
   padding: 12px 28px;
   border-radius: 8px;
-  background: #007bff;
+  background: #86bc25;
   color: #fff;
   font-size: 0.9rem;
   font-weight: 600;
@@ -694,12 +694,12 @@
 
 .dash-link-btn-secondary {
   background: transparent;
-  border: 1px solid #007bff;
-  color: #007bff;
+  border: 1px solid #86bc25;
+  color: #86bc25;
 }
 
 .dash-link-btn-secondary:hover {
-  background: rgba(0,123,255,0.1);
+  background: rgba(134,188,37,0.1);
   transform: translateY(-2px);
 }
 
