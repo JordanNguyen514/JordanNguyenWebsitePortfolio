@@ -35,7 +35,7 @@ reports/
 
 # Playwright output
 playwright-report/
-config/tests/playwright/snapshots/portfolio.spec.ts-snapshots
+tests/playwright/snapshots/
 test-results/
 .env
 

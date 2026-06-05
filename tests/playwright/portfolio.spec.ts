@@ -101,31 +101,6 @@ test.describe('Cross-Browser Smoke Tests', () => {
 // ══════════════════════════════════════════════════════════════
 test.describe('API Interception Tests', () => {
 
-  test('contact form submits and shows success on API 200', async ({ page }) => {
-    await page.route('**/execute-api.ca-central-1.amazonaws.com/prod', async route => {
-      if (route.request().method() === 'POST') {
-        await route.fulfill({
-          status: 200,
-          body: JSON.stringify({ message: 'Message sent successfully!' }),
-        });
-      } else {
-        await route.continue();
-      }
-    });
-
-    await page.goto(`${BASE_URL}/assets/html/contacting.html`);
-    await page.fill('#firstName', 'Playwright');
-    await page.fill('#lastName', 'Test');
-    await page.check('input[value="P"]');
-    await page.fill('#email', 'test@playwright.dev');
-    await page.fill('#number', '5141234567');
-    await page.fill('#Message', 'Automated Playwright test submission');
-    await page.click('.SubBtn');
-
-    await expect(page.locator('#formResponse')).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('#formResponse')).toContainText('Message sent successfully!');
-  });
-
   test('handles API failure gracefully — page still loads', async ({ page }) => {
     await page.route('**/execute-api.ca-central-1.amazonaws.com/**', async route => {
       await route.abort('failed');

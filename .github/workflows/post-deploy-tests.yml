@@ -70,9 +70,9 @@ jobs:
       conclusion:    ${{ needs.e2e-tests.result }}
       run_url:       ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       category:      "test"
-      # 20 = total it() blocks across 7 specs (visual_regression excluded):
-      # smoke(8) + autoHeal(5) + email(2) + submissions(2) + contact(1) + internships(1) + jobs(1)
-      tests_total:   20
-      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 20 || 0 }}
-      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 20 || 0 }}
+      # 17 = total it() blocks across 5 specs (visual_regression excluded):
+      # smoke(8) + autoHeal(5) + email(2) + internships(1) + jobs(1)
+      tests_total:   17
+      tests_passed:  ${{ needs.e2e-tests.result == 'success' && 17 || 0 }}
+      tests_failed:  ${{ needs.e2e-tests.result == 'failure' && 17 || 0 }}
     secrets: inherit

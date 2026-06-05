@@ -32,14 +32,12 @@ Browse Dropdown Opens And Shows All Links
     Close Dropdown
 
 Contact Dropdown Opens And Shows All Links
-    [Documentation]    Clicking Contact reveals Contact Form, Email Form,
-    ...                and View Submissions.
+    [Documentation]    Clicking Contact reveals Email Form and Recruiter.
     [Tags]    navigation    dropdown
     Navigate To Page    ${HOME_URL}
     Open Contact Dropdown
-    Element Should Be Visible By TestId    nav-contact-form
     Element Should Be Visible By TestId    nav-email-form
-    Element Should Be Visible By TestId    nav-submissions
+    Element Should Be Visible By TestId    nav-recruiter-contact
     Close Dropdown
 
 Dashboards Dropdown Opens And Shows All Links
@@ -95,12 +93,12 @@ SDET Showcase Link Routes Correctly
     Execute Javascript    document.querySelector('[data-testid="nav-sdet"]').click()
     Wait Until Location Contains    /assets/html/sdet.html    timeout=${TIMEOUT}
 
-Contact Dropdown Form Link Routes Correctly
+Email Dropdown Link Routes Correctly
     [Tags]    navigation    routing
     Navigate To Page    ${HOME_URL}
     Open Contact Dropdown
-    Execute Javascript    document.querySelector('[data-testid="nav-contact-form"]').click()
-    Wait Until Location Contains    /assets/html/contacting.html    timeout=${TIMEOUT}
+    Execute Javascript    document.querySelector('[data-testid="nav-email-form"]').click()
+    Wait Until Location Contains    /assets/html/emailing.html    timeout=${TIMEOUT}
 
 Dashboards Dropdown QA Metrics Link Routes Correctly
     [Tags]    navigation    routing    dashboards

@@ -92,23 +92,18 @@ JordanNguyenWebsitePortfolio/
 +-- tests/
 |   +-- unit/                           # Jest unit tests
 |   |   +-- portfolio.unit.test.js
-|   +-- contract/                       # Pact contract tests
-|   |   +-- consumer.contact.test.js
-|   |   +-- provider.test.js
 |   +-- playwright/                     # Playwright cross-browser specs
-|       +-- portfolio.spec.ts
-|       +-- snapshots/                  # Visual regression baselines
+|   |   +-- portfolio.spec.ts
+|   |   +-- snapshots/                  # Visual regression baselines
 |
 +-- cypress/
 |   +-- e2e/
 |   |   +-- smoke.cy.js
 |   |   +-- autoHeal_demo.cy.js         # Auto-healing selector showcase
 |   |   +-- visual_regression.cy.js     # Applitools Eyes integration
-|   |   +-- contact_form_spec.cy.js
 |   |   +-- email_form_spec.cy.js
 |   |   +-- jobs_page_spec.cy.js
 |   |   +-- internships_page_spec.cy.js
-|   |   +-- submissions_navigation_spec.cy.js
 |   +-- support/
 |       +-- autoHeal.js                 # cy.getHealed() custom command
 |       +-- commands.js
@@ -134,14 +129,11 @@ JordanNguyenWebsitePortfolio/
 |   |   +-- certifications.html
 |   |   +-- academic.html
 |   |   +-- sdet.html                   # SDET Showcase page
-|   |   +-- contacting.html
 |   |   +-- emailing.html
-|   |   +-- submissions.html
 |   +-- js/
 |       +-- main.js                     # Clock, scroll effects, back-to-top
 |       +-- tracker.js                  # AWS Kinesis event tracking
 |       +-- analytics-dashboard.js
-|       +-- contact_form_handler.js
 +-- index.html                          # Homepage
 +-- _config.yml                         # Jekyll config + CDN base URL
 +-- package.json
@@ -149,6 +141,7 @@ JordanNguyenWebsitePortfolio/
 +-- .eslintrc.js
 +-- .eslintignore
 +-- .gitignore
++-- tsconfig.json                     # TypeScript editor support for Playwright
 +-- lighthouserc.js -> config/          # Canonical location: config/
 +-- stryker.config.mjs -> config/
 ```
@@ -178,18 +171,23 @@ cd JordanNguyenWebsitePortfolio
 # 2. Install Node dependencies
 npm install
 
-# 3. Activate Husky pre-commit hooks
-npx husky init
-# Then copy .husky/pre-commit from the repo over the generated file
-
-# 4. Install Ruby gems
+# 3. Install Ruby gems
 bundle install
 
-# 5. Serve locally
-bundle exec jekyll serve --port 8080
+# 4. Activate Husky pre-commit hooks
+npx husky install
+
+# 5. Build locally
+npm run build
+
+# 6. Serve locally
+npm start
 # -> http://localhost:8080
 
-# 6. Install Playwright browsers (first time only)
+# 7. Alternative serve alias
+npm run serve
+
+# 8. Install Playwright browsers (first time only)
 npx playwright install
 ```
 
@@ -197,7 +195,7 @@ npx playwright install
 
 ## Testing
 
-All test commands use config files from the `config/` folder.
+All test commands use config files from the `config/` folder. A `tsconfig.json` file is included for editor support and validation of Playwright TypeScript tests.
 
 ### E2E Tests (Cypress)
 
@@ -212,11 +210,9 @@ npm run test:open           # Interactive Cypress UI
 | smoke.cy.js | Homepage, nav dropdowns, social links, dynamic clock |
 | autoHeal_demo.cy.js | Auto-healing selector strategies (5 fallback levels) |
 | visual_regression.cy.js | Applitools Eyes visual AI across 3 viewports |
-| contact_form_spec.cy.js | Full form -> Lambda API -> success assertion |
 | email_form_spec.cy.js | Email form submission flow |
 | jobs_page_spec.cy.js | Job card expand/collapse toggle state |
 | internships_page_spec.cy.js | Tab navigation + detail toggle |
-| submissions_navigation_spec.cy.js | Login flow + table visibility |
 
 ### Cross-Browser Tests (Playwright)
 
@@ -311,7 +307,7 @@ Two-layer approach: Snyk (SAST) scans dependencies on every push. OWASP ZAP (DAS
 
 ### API Synthetics
 
-Health checks run every 30 minutes against CloudFront and the Contact Form Lambda. GitHub alerts on failure automatically.
+Health checks run every 30 minutes against CloudFront and the Email Form Lambda. GitHub alerts on failure automatically.
 
 ### Mutation Testing
 
@@ -327,7 +323,7 @@ All services in `ca-central-1`.
 |---|---|
 | S3 | Static site + image hosting |
 | CloudFront | Global CDN, HTTPS, long-lived image cache |
-| API Gateway + Lambda | Contact form handler |
+| API Gateway + Lambda | Email form handler |
 | Kinesis + Lambda | User interaction event streaming |
 | QuickSight | Analytics dashboard |
 
@@ -374,9 +370,7 @@ git push -> master
 | Certifications | /assets/html/certifications.html | AWS and ISTQB badges |
 | Academics | /assets/html/academic.html | Academic background |
 | SDET Showcase | /assets/html/sdet.html | Skills matrix, automation showcase, CI/CD diagram, QA metrics |
-| Contact Form | /assets/html/contacting.html | Form -> API Gateway -> Lambda |
 | Email Form | /assets/html/emailing.html | Direct email form |
-| Submissions | /assets/html/submissions.html | View past form submissions |
 
 ---
 

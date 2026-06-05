@@ -137,7 +137,7 @@ describe('formatVisitorCount() — visitor counter display', () => {
 });
 
 
-describe('isValidEmail() — contact form validation', () => {
+describe('isValidEmail() — email validation', () => {
 
   test('accepts valid email formats', () => {
     expect(isValidEmail('jordan@example.com')).toBe(true);

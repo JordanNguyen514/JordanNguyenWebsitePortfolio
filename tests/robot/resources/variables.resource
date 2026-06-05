@@ -22,17 +22,9 @@ ${ACADEMIC_URL}         ${BASE_URL}/assets/html/academic.html
 ${SDET_URL}             ${BASE_URL}/assets/html/sdet.html
 ${QA_METRICS_URL}       ${BASE_URL}/assets/html/qa-metrics.html
 ${LIVE_PIPELINE_URL}    ${BASE_URL}/assets/html/live-pipeline-status.html
-${CONTACT_URL}          ${BASE_URL}/assets/html/contacting.html
 ${EMAIL_URL}            ${BASE_URL}/assets/html/emailing.html
 
 # ── Browser & timing ──────────────────────────────────────────
 ${BROWSER}              chrome
 ${TIMEOUT}              15s
 ${SHORT_WAIT}           2s
-
-# ── Test data — contact form ───────────────────────────────────
-${CONTACT_FIRST_NAME}   Robot
-${CONTACT_LAST_NAME}    Framework
-${CONTACT_EMAIL}        robot@test.com
-${CONTACT_PHONE}        5141234567
-${CONTACT_MESSAGE}      Automated Robot Framework test submission.

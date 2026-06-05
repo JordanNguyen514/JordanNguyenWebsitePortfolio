@@ -28,16 +28,14 @@ describe('Portfolio Website Smoke Test', () => {
     cy.go('back'); // Go back to index page for next potential tests
   });
 
-  it('should verify social media and contact links', () => {
+  it('should verify social media and email links', () => {
     // Check for key social links using their data attributes
     cy.get('[data-event-action="Click_LinkedIn_Icon"]').should('be.visible');
     cy.get('[data-event-action="Click_GitHub_Icon"]').should('be.visible');
     
-    // Check contact form, email, CV, and submissions links
-    cy.get('[data-event-action="Click_ContactForm_Icon"]').should('be.visible');
+    // Check email form and CV links
     cy.get('[data-event-action="Click_EmailForm_Icon"]').should('be.visible');
     cy.get('[data-event-action="Click_CV_Icon"]').should('be.visible');
-    cy.get('[data-event-action="Click_ViewSubmissions_Icon"]').should('be.visible');
   });
 
   it('should load the navigation bar and display the Home link', () => {
@@ -73,9 +71,7 @@ describe('Portfolio Website Smoke Test', () => {
       .invoke('addClass', 'open');
 
     cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
-    cy.get('[data-event-action="Click_ContactForm"]').should('be.visible').and('contain', 'Contact Form');
     cy.get('[data-event-action="Click_EmailForm"]').should('be.visible').and('contain', 'Email Form');
-    cy.get('[data-event-action="Click_ViewSubmissions"]').should('be.visible').and('contain', 'View Submissions');
     cy.get('[data-testid="nav-recruiter-contact"]').should('be.visible').and('contain', 'For Recruiters');
 
     cy.get('.nav-dropdown').invoke('removeClass', 'open');

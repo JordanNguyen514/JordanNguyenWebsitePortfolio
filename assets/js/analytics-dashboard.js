@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'Click_Jobs': 'Jobs (Top Nav)',
         'Click_QA_Metrics_Dashboard': 'QA Metrics Dashboard',
         'Click_Live_Pipeline_Status': 'Live Pipeline Status',
-        'Click_ViewSubmissions': 'Submissions (Top Nav)',
         'Click_View_Analytics_Dashboard': 'View Dashboard Button',
         'Click_Home_Button': 'Home (Top Nav Button)'
         // Add any other keys you defined in index.html here

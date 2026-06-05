@@ -26,9 +26,7 @@ Feature: Static page contracts
       | /assets/html/blog.html                  | QA Case Studies                 |
       | /assets/html/testimonials.html          | Endorsements                    |
       | /assets/html/recruiter.html             | Core Stack                      |
-      | /assets/html/contacting.html            | contactForm                     |
       | /assets/html/emailing.html              | emailForm                       |
-      | /assets/html/submissions.html           | Submitted Contact Forms         |
       | /404.html                               | Page Not Found                  |
       | /OtherSection/index.html                | My Other Interests and Passions |
       | /OtherSection/Random/index.html         | Weather API                     |

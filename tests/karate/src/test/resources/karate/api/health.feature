@@ -53,8 +53,8 @@ Feature: CloudFront Health Checks
     When  method GET
     Then  status 200
 
-  Scenario: Contact page returns HTTP 200
-    Given path '/assets/html/contacting.html'
+  Scenario: Email page returns HTTP 200
+    Given path '/assets/html/emailing.html'
     When  method GET
     Then  status 200
 

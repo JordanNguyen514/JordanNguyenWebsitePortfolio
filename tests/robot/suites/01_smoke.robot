@@ -119,13 +119,13 @@ Live Pipeline Status Page Loads
     Page Should Contain Heading    Live Pipeline Status
     Page Should Contain Element    css:#ci-dashboard-grid
 
-Contact Page Loads And Form Is Present
-    [Documentation]    The contact form should be visible and contain input fields.
+Email Page Loads And Form Is Present
+    [Documentation]    The email form should be visible and contain input fields.
     [Tags]    smoke    navigation
-    Navigate To Page    ${CONTACT_URL}
-    Element Should Be Visible    css:#contactForm
-    Element Should Be Visible    css:#firstName
-    Element Should Be Visible    css:#email
+    Navigate To Page    ${EMAIL_URL}
+    Element Should Be Visible    css:#emailForm
+    Element Should Be Visible    css:#senderName
+    Element Should Be Visible    css:#senderEmail
 
 Footer Is Present On All Pages
     [Documentation]    Verifies the footer copyright text renders on the homepage.

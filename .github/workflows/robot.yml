@@ -53,7 +53,6 @@ jobs:
           - 02_navigation
           - 03_jobs_page
           - 04_internships
-          - 05_contact_form
           - 06_sdet_showcase
 
     steps:

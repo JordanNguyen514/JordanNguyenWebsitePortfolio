@@ -105,7 +105,7 @@ jobs:
           echo "## 🥋 Karate API Tests" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Environment:** ${{ github.event.inputs.karate_env || 'prod' }}" >> $GITHUB_STEP_SUMMARY
-          echo "**API Under Test:** AWS Lambda Contact Form + CloudFront Health Checks" >> $GITHUB_STEP_SUMMARY
+          echo "**API Under Test:** AWS Lambda Email Form + CloudFront Health Checks" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Full HTML report available in the **karate-report-${{ github.run_number }}** artifact." >> $GITHUB_STEP_SUMMARY
 

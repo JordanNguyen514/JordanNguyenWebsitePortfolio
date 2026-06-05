@@ -76,7 +76,7 @@ permalink: /about/
               border-radius:8px;text-decoration:none;font-size:0.9rem;">
       📝 Case Studies
     </a>
-    <a href="{{ '/assets/html/contacting.html' | relative_url }}"
+    <a href="{{ '/assets/html/emailing.html' | relative_url }}"
        style="padding:12px 22px;border:1px solid #2a2a2a;color:#f0f0f0;
               border-radius:8px;text-decoration:none;font-size:0.9rem;">
       Get in Touch

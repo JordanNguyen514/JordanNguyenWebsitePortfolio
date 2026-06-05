@@ -72,22 +72,10 @@ const publicPages = [
     selectors: ['.recruiter-name', '.recruiter-cta-row', '.stack-group'],
   },
   {
-    name: 'Contact Form',
-    path: '/assets/html/contacting.html',
-    visibleText: ['Contact Form', 'First Name', 'Purpose of Contact'],
-    selectors: ['#contactForm', '#firstName', '#email'],
-  },
-  {
     name: 'Email Form',
     path: '/assets/html/emailing.html',
     visibleText: ['Send an Email Message', 'Your Name', 'Subject'],
     selectors: ['#emailForm', '#senderEmail', '#message'],
-  },
-  {
-    name: 'Submissions',
-    path: '/assets/html/submissions.html',
-    visibleText: ['Submitted Contact Forms', 'Please log in to view submissions'],
-    selectors: ['#login-section', '#login-form', '#username', '#password'],
   },
   {
     name: 'Other Interests',
@@ -195,9 +183,7 @@ describe('Page-specific interaction coverage', () => {
       .closest('.nav-dropdown')
       .invoke('addClass', 'open');
 
-    cy.get('[data-testid="nav-contact-form"]').should('have.attr', 'href', '/assets/html/contacting.html');
     cy.get('[data-testid="nav-email-form"]').should('have.attr', 'href', '/assets/html/emailing.html');
-    cy.get('[data-testid="nav-submissions"]').should('have.attr', 'href', '/assets/html/submissions.html');
     cy.get('[data-testid="nav-recruiter-contact"]').should('have.attr', 'href', '/assets/html/recruiter.html');
   });
 });

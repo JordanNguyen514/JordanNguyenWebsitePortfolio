@@ -146,7 +146,6 @@ css_file: "/assets/css/sdet.css"
   <!-- Tab Bar -->
   <div class="showcase-tabs" role="tablist">
     <button class="showcase-tab active" onclick="switchTab(event,'tab-smoke')"     role="tab">🔥 smoke.cy.js</button>
-    <button class="showcase-tab"        onclick="switchTab(event,'tab-contact')"   role="tab">📬 contact_form_spec</button>
     <button class="showcase-tab"        onclick="switchTab(event,'tab-jobs')"      role="tab">💼 jobs_page_spec</button>
     <button class="showcase-tab"        onclick="switchTab(event,'tab-selenium')"  role="tab">🌐 Selenium (Java)</button>
     <button class="showcase-tab"        onclick="switchTab(event,'tab-playwright')" role="tab">🎭 Playwright</button>
@@ -186,38 +185,6 @@ css_file: "/assets/css/sdet.css"
     </div>
   </div>
 
-  <!-- Panel: Contact Form -->
-  <div id="tab-contact" class="showcase-code-panel">
-    <pre class="code-block"><span class="tok-fn">describe</span>(<span class="tok-string">'Contact Form Functionality'</span>, () <span class="tok-operator">=></span> {
-
-  <span class="tok-fn">beforeEach</span>(() <span class="tok-operator">=></span> {
-    cy.<span class="tok-fn">visit</span>(<span class="tok-string">'/'</span>);
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'img[alt="Contact Form Link"]'</span>).<span class="tok-fn">click</span>({ force: <span class="tok-param">true</span> });
-    cy.<span class="tok-fn">url</span>().<span class="tok-fn">should</span>(<span class="tok-string">'include'</span>, <span class="tok-string">'/contacting.html'</span>);
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'.ContactForm'</span>).<span class="tok-fn">should</span>(<span class="tok-string">'be.visible'</span>);
-  });
-
-  <span class="tok-fn">it</span>(<span class="tok-string">'submits the form and shows a success message'</span>, () <span class="tok-operator">=></span> {
-    <span class="tok-comment">// Fill all required fields</span>
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#firstName'</span>).<span class="tok-fn">type</span>(<span class="tok-string">'JordanTest'</span>);
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#lastName'</span>).<span class="tok-fn">type</span>(<span class="tok-string">'NguyenTest'</span>);
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'input[type="radio"][value="P"]'</span>).<span class="tok-fn">check</span>();
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#email'</span>).<span class="tok-fn">type</span>(<span class="tok-string">'test@example.com'</span>);
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#Message'</span>).<span class="tok-fn">type</span>(<span class="tok-string">'Cypress E2E automated test message.'</span>);
-
-    <span class="tok-comment">// Submit and assert response from AWS Lambda backend</span>
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'.SubBtn'</span>).<span class="tok-fn">click</span>();
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#formResponse'</span>, { timeout: <span class="tok-num">10000</span> })
-      .<span class="tok-fn">should</span>(<span class="tok-string">'be.visible'</span>)
-      .<span class="tok-fn">and</span>(<span class="tok-string">'contain'</span>, <span class="tok-string">'Message sent successfully!'</span>);
-
-    <span class="tok-comment">// Confirm form fields are reset post-submit</span>
-    cy.<span class="tok-fn">get</span>(<span class="tok-string">'#firstName'</span>).<span class="tok-fn">should</span>(<span class="tok-string">'be.empty'</span>);
-  });
-});</pre>
-    <div class="showcase-meta">
-      <span class="showcase-badge"><span class="badge-dot"></span>End-to-end — hits real AWS Lambda</span>
-      <span class="showcase-badge">🔗 API Gateway integration verified</span>
       <span class="showcase-badge">✅ Post-submit state assertion</span>
     </div>
   </div>
