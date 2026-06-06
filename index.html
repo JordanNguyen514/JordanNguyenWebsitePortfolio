@@ -38,14 +38,10 @@ ci_dashboard: true
 <div class="career-portfolio-section">
   <span class="career-port-title">Career Portfolio</span>
   <div class="portfolio-links">
-    <a href="{{ '/assets/html/jobs.html' | relative_url }}"
+    <a href="{{ '/assets/html/work-experience.html' | relative_url }}"
        class="portfolio-btn"
        data-event-category="Content"
-       data-event-action="Click_Jobs_Button">Jobs</a>
-    <a href="{{ '/assets/html/internships.html' | relative_url }}"
-       class="portfolio-btn"
-       data-event-category="Content"
-       data-event-action="Click_Internships_Button">Internships</a>
+       data-event-action="Click_Experience_Button">Experience</a>
     <a href="{{ '/assets/html/certifications.html' | relative_url }}"
        class="portfolio-btn"
        data-event-category="Content"
@@ -113,11 +109,11 @@ ci_dashboard: true
     </div>
 
     <div style="text-align:center;margin-top:24px;">
-      <a href="{{ '/assets/html/skills-radar.html' | relative_url }}"
+      <a href="{{ '/assets/html/sdet.html' | relative_url }}"
          class="portfolio-btn"
          style="display:inline-block;padding:10px 24px;font-size:0.88rem;"
          data-event-category="Content"
-         data-event-action="Click_SkillsRadar">
+         data-event-action="Click_SDET_Showcase_Button">
         View full skills radar →
       </a>
     </div>
@@ -129,8 +125,8 @@ ci_dashboard: true
          data-dashboard-url="/ci-status/dashboard.json"
          data-dashboard-fallback-url="/assets/data/ci-dashboard-local.json">
   <div class="dashboards-preview-header">
-    <h1 class="section-title">Quality &amp; Pipeline Status</h1>
-    <p class="section-description">Live CI/CD pipeline health — updated automatically after every deployment.</p>
+    <h1 class="section-title">Quality &amp; Pipeline Dashboard</h1>
+    <p class="section-description">Live CI/CD pipeline health and QA metrics together in one operational dashboard.</p>
   </div>
 
   <div class="dashboards-health-row">
@@ -168,12 +164,8 @@ ci_dashboard: true
   </div>
 
   <div class="dashboards-preview-links">
-    <a href="{{ '/assets/html/qa-metrics.html' | relative_url }}" class="dash-link-btn">
-      📊 QA Metrics Dashboard
-    </a>
-    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
-       class="dash-link-btn dash-link-btn-secondary">
-      🔴 Live Pipeline Status
+    <a href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}" class="dash-link-btn">
+      📊 Quality Dashboard
     </a>
   </div>
 </section>

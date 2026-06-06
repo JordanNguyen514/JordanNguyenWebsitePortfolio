@@ -70,18 +70,21 @@ Close Browser Session
 Navigate To Page
     [Arguments]    ${url}
     Go To    ${url}
-    Wait Until Page Contains Element    css:body    timeout=${TIMEOUT}
+    Wait Until Element Is Visible    css:[data-testid="nav-home"]    timeout=${TIMEOUT}
 
 Open Browse Dropdown
     [Documentation]    Uses JS to show dropdown — CSS :hover doesn't fire on click() in headless Chrome.
+    Wait Until Element Is Visible    css:[data-testid="nav-browse-btn"]    timeout=${TIMEOUT}
     Execute Javascript    document.querySelector('[data-testid="nav-browse-btn"]').closest('.nav-dropdown').classList.add('open')
     Wait Until Element Is Visible    css:.nav-dropdown.open .dropdown-menu    timeout=${SHORT_WAIT}
 
 Open Contact Dropdown
+    Wait Until Element Is Visible    css:[data-testid="nav-contact-btn"]    timeout=${TIMEOUT}
     Execute Javascript    document.querySelector('[data-testid="nav-contact-btn"]').closest('.nav-dropdown').classList.add('open')
     Wait Until Element Is Visible    css:.nav-dropdown.open .dropdown-menu    timeout=${SHORT_WAIT}
 
 Open Dashboards Dropdown
+    Wait Until Element Is Visible    css:[data-testid="nav-dashboards-btn"]    timeout=${TIMEOUT}
     Execute Javascript    document.querySelector('[data-testid="nav-dashboards-btn"]').closest('.nav-dropdown').classList.add('open')
     Wait Until Element Is Visible    css:.nav-dropdown.open .dropdown-menu    timeout=${SHORT_WAIT}
 

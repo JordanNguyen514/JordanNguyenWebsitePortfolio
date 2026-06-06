@@ -17,15 +17,12 @@ describe('Portfolio Website Smoke Test', () => {
   });
 
   it('should verify navigation links in the Career Portfolio section', () => {
-    // Check if portfolio buttons are visible and have correct text
-    cy.get('[data-event-action="Click_Jobs_Button"]').should('be.visible').and('contain', 'Jobs');
-    cy.get('[data-event-action="Click_Internships_Button"]').should('be.visible').and('contain', 'Internships');
+    cy.get('[data-event-action="Click_Experience_Button"]').should('be.visible').and('contain', 'Experience');
     cy.get('[data-event-action="Click_Certifications_Button"]').should('be.visible').and('contain', 'Certifications');
 
-    // Optional: Click a link and verify URL change
-    cy.get('[data-event-action="Click_Jobs_Button"]').click();
-    cy.url().should('include', '/assets/html/jobs.html');
-    cy.go('back'); // Go back to index page for next potential tests
+    cy.get('[data-event-action="Click_Experience_Button"]').click();
+    cy.url().should('include', '/assets/html/work-experience.html');
+    cy.go('back');
   });
 
   it('should verify social media and email links', () => {
@@ -57,7 +54,7 @@ describe('Portfolio Website Smoke Test', () => {
       .invoke('addClass', 'open');
 
     cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
-    cy.get('[data-event-action="Click_Jobs"]').should('be.visible').and('contain', 'Jobs');
+    cy.get('[data-event-action="Click_Experience"]').should('be.visible').and('contain', 'Experience');
     cy.get('[data-event-action="Click_Academics"]').should('be.visible').and('contain', 'Academics');
 
     // Cleanup: remove .open class
@@ -77,14 +74,13 @@ describe('Portfolio Website Smoke Test', () => {
     cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });
 
-  it('should open the "Dashboards" dropdown and show its links', () => {
+  it('should open the "Dashboards" dropdown and show its link', () => {
     cy.get('[data-testid="nav-dashboards-btn"]')
       .closest('.nav-dropdown')
       .invoke('addClass', 'open');
 
     cy.get('.nav-dropdown.open .dropdown-menu').should('be.visible');
-    cy.get('[data-event-action="Click_QA_Metrics_Dashboard"]').should('be.visible').and('contain', 'QA Metrics Dashboard');
-    cy.get('[data-event-action="Click_Live_Pipeline_Status"]').should('be.visible').and('contain', 'Live Pipeline Status');
+    cy.get('[data-event-action="Click_Quality_Dashboard"]').should('be.visible').and('contain', 'Quality Dashboard');
 
     cy.get('.nav-dropdown').invoke('removeClass', 'open');
   });

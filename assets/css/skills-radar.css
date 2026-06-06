@@ -129,3 +129,72 @@
 .sl-bar-wrap { height: 4px; background: #222; border-radius: 99px; overflow: hidden; }
 .sl-bar   { height: 100%; border-radius: 99px; }
 .sl-score { font-size: 0.78rem; color: #555; text-align: right; }
+
+.radar-chart-wrap { overflow: visible; }
+#radar-svg { overflow: visible; }
+
+.radar-section {
+  padding: 60px 24px 80px;
+  background: #0d0d0d;
+}
+
+.radar-section-title {
+  color: #f0f0f0;
+  font-size: 2rem;
+  margin: 0 0 10px;
+}
+
+.radar-section-description {
+  color: #aaa;
+  font-size: 1rem;
+  margin: 0 0 24px;
+  max-width: 700px;
+}
+
+.dashboard-link-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.dashboard-link-card {
+  display: block;
+  padding: 26px;
+  border-radius: 18px;
+  border: 1px solid #222;
+  background: #111;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-link-card:hover {
+  transform: translateY(-2px);
+  border-color: #86bc25;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+.dashboard-link-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c4d600;
+}
+
+.dashboard-link-card h3 {
+  margin: 0 0 14px;
+  font-size: 1.2rem;
+}
+
+.dashboard-link-card p {
+  margin: 0 0 18px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+.dashboard-link-cta {
+  color: #c4d600;
+  font-weight: 700;
+}

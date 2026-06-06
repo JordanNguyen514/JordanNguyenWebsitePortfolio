@@ -21,7 +21,7 @@
  *
  *  Usage in your specs:
  *    cy.getHealed('hero-title')          // tries #hero-title, [data-testid="hero-title"], etc.
- *    cy.getHealed('Click_Jobs_Button')   // matches your data-event-action attrs
+ *    cy.getHealed('Click_Experience_Button')   // matches your data-event-action attrs
  *
  * ============================================================
  */

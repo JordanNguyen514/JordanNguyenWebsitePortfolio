@@ -1,17 +1,18 @@
 ---
 layout: default
-title: "Live Pipeline Status"
-description: "Jordan Nguyen's live CI/CD workflow dashboard for deployment, browser automation, API testing, performance, and security checks."
+title: "Quality Dashboard"
+description: "Jordan Nguyen's unified quality dashboard for CI/CD workflow health and QA metrics in one view."
 css_file: "/assets/css/sdet.css"
 ci_dashboard: true
 ---
 
 <section class="sdet-hero">
-  <h1>Live Pipeline Status</h1>
+  <h1>Quality Dashboard</h1>
   <p>
-    A real-time operational view of the portfolio CI/CD workflows, spanning deployment,
-    browser automation, API verification, performance auditing, and security scanning.
+    Live CI/CD workflow health and QA metrics together in a single operational view.
   </p>
 </section>
+
+{% include sdet/qa-metrics-dashboard-section.html title_tag="METRICS" %}
 
 {% include sdet/live-pipeline-status-section.html title_tag="LIVE" %}

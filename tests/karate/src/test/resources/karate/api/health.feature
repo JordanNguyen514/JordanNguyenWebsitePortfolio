@@ -27,16 +27,11 @@ Feature: CloudFront Health Checks
     Then  status 200
     And   match responseHeaders['Content-Type'][0] contains 'text/html'
 
-  Scenario: Jobs page returns HTTP 200
-    Given path '/assets/html/jobs.html'
+  Scenario: Work Experience page returns HTTP 200
+    Given path '/assets/html/work-experience.html'
     When  method GET
     Then  status 200
     And   match responseHeaders['Content-Type'][0] contains 'text/html'
-
-  Scenario: Internships page returns HTTP 200
-    Given path '/assets/html/internships.html'
-    When  method GET
-    Then  status 200
 
   Scenario: Certifications page returns HTTP 200
     Given path '/assets/html/certifications.html'
@@ -82,6 +77,6 @@ Feature: CloudFront Health Checks
     Examples:
       | path                             |
       | /                                |
-      | /assets/html/jobs.html           |
+      | /assets/html/work-experience.html           |
       | /assets/html/sdet.html           |
       | /assets/html/certifications.html |

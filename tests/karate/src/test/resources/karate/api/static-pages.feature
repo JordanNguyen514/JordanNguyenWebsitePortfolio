@@ -15,24 +15,17 @@ Feature: Static page contracts
     Examples:
       | path                                    | marker                          |
       | /                                       | Quality Engineering Consultant  |
-      | /assets/html/jobs.html                  | My Work Experiences             |
-      | /assets/html/internships.html           | Internship Experiences          |
+      | /assets/html/work-experience.html       | Work Experience                 |
       | /assets/html/academic.html              | Biomedical Engineering          |
       | /assets/html/certifications.html        | My Certifications               |
       | /assets/html/sdet.html                  | SDET Showcase                   |
-      | /assets/html/qa-metrics.html            | QA Metrics Dashboard            |
-      | /assets/html/live-pipeline-status.html  | Live Pipeline Status            |
-      | /assets/html/skills-radar.html          | radar-svg                       |
+      | /assets/html/live-pipeline-status.html  | Quality Dashboard               |
       | /assets/html/blog.html                  | QA Case Studies                 |
       | /assets/html/testimonials.html          | Endorsements                    |
       | /assets/html/recruiter.html             | Core Stack                      |
       | /assets/html/emailing.html              | emailForm                       |
       | /404.html                               | Page Not Found                  |
-      | /OtherSection/index.html                | My Other Interests and Passions |
-      | /OtherSection/Random/index.html         | Weather API                     |
-      | /OtherSection/Sports/index.html         | Sports                          |
-      | /OtherSection/Social/index.html         | Soci.css                        |
-      | /OtherSection/Travel/index.html         | Trav.css                        |
+
 
   Scenario Outline: Important static assets are served
     Given path '<path>'

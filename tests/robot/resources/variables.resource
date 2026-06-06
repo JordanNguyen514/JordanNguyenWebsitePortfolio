@@ -15,12 +15,13 @@
 # ── URLs ──────────────────────────────────────────────────────
 ${BASE_URL}             https://d2kmkdebgfkxyh.cloudfront.net
 ${HOME_URL}             ${BASE_URL}/
-${JOBS_URL}             ${BASE_URL}/assets/html/jobs.html
-${INTERNSHIPS_URL}      ${BASE_URL}/assets/html/internships.html
+${EXPERIENCE_URL}       ${BASE_URL}/assets/html/work-experience.html
+${JOBS_URL}             ${EXPERIENCE_URL}
+${INTERNSHIPS_URL}      ${EXPERIENCE_URL}
 ${CERTIFICATIONS_URL}   ${BASE_URL}/assets/html/certifications.html
 ${ACADEMIC_URL}         ${BASE_URL}/assets/html/academic.html
 ${SDET_URL}             ${BASE_URL}/assets/html/sdet.html
-${QA_METRICS_URL}       ${BASE_URL}/assets/html/qa-metrics.html
+${QA_METRICS_URL}       ${BASE_URL}/assets/html/live-pipeline-status.html
 ${LIVE_PIPELINE_URL}    ${BASE_URL}/assets/html/live-pipeline-status.html
 ${EMAIL_URL}            ${BASE_URL}/assets/html/emailing.html
 

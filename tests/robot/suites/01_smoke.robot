@@ -69,19 +69,14 @@ Skills Section Displays All SDET Skills
     Page Should Contain    Playwright
     Page Should Contain    Java
 
-Jobs Page Loads
-    [Documentation]    Navigating to the jobs page should display the work timeline.
+Work Experience Page Loads
+    [Documentation]    The merged work experience page should display both jobs and internship sections.
     [Tags]    smoke    navigation    critical
-    Navigate To Page    ${JOBS_URL}
-    Page Should Contain Heading    My Work Experiences
-    Page Should Contain Element    css:.timeline-container
+    Navigate To Page    ${EXPERIENCE_URL}
+    Page Should Contain Heading    Work Experience
+    Page Should Contain Element    css:#jobs-portfolio
+    Page Should Contain Element    css:#internship-portfolio
     Page Should Contain Element    css:#nationalbank-card
-
-Internships Page Loads
-    [Documentation]    The internships page should show the tabbed interface.
-    [Tags]    smoke    navigation
-    Navigate To Page    ${INTERNSHIPS_URL}
-    Page Should Contain Heading    Internship Experiences
     Page Should Contain Element    xpath://button[contains(text(),'Zimmer')]
     Page Should Contain Element    xpath://button[contains(text(),'Dassault')]
     Page Should Contain Element    xpath://button[contains(text(),'V2R')]
@@ -95,29 +90,21 @@ Certifications Page Loads
     Page Should Contain    ISTQB Certified Tester
 
 SDET Showcase Page Loads
-    [Documentation]    The SDET showcase should display the core sections and dashboard links.
+    [Documentation]    The SDET showcase should display the skills radar and dashboard link.
     [Tags]    smoke    navigation    critical
     Navigate To Page    ${SDET_URL}
-    Element Should Be Visible    css:.sdet-hero h1
+    Element Should Be Visible    css:.radar-hero h1
     Page Should Contain          SDET Showcase
-    Page Should Contain          Skills Matrix
-    Page Should Contain          Test Automation Showcase
-    Page Should Contain          Quality Dashboards
+    Page Should Contain          Skills Proficiency
+    Page Should Contain          Quality Dashboard
 
-QA Metrics Dashboard Page Loads
-    [Documentation]    The dedicated QA metrics page should render the stat cards and charts.
-    [Tags]    smoke    navigation
-    Navigate To Page    ${QA_METRICS_URL}
-    Page Should Contain Heading    QA Metrics Dashboard
-    Page Should Contain Element    css:.metrics-grid
-    Page Should Contain Element    css:.donut-row
-
-Live Pipeline Status Page Loads
-    [Documentation]    The dedicated live pipeline page should render the dashboard container.
+Quality Dashboard Page Loads
+    [Documentation]    The unified dashboard page should render both QA metrics and live pipeline cards.
     [Tags]    smoke    navigation
     Navigate To Page    ${LIVE_PIPELINE_URL}
-    Page Should Contain Heading    Live Pipeline Status
+    Page Should Contain Heading    Quality Dashboard
     Page Should Contain Element    css:#ci-dashboard-grid
+    Page Should Contain Element    css:.metric-card
 
 Email Page Loads And Form Is Present
     [Documentation]    The email form should be visible and contain input fields.

@@ -1,0 +1,265 @@
+/* Experience.css — unified Jobs and Internship page styling */
+
+#work-experience-page {
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: var(--bg-dark, #050a1a);
+  color: var(--text-light, #f0f0f0);
+  font-family: var(--font-stack, 'Inter', system-ui, -apple-system, sans-serif);
+}
+
+#work-experience-page h1 {
+  margin-bottom: 30px;
+  font-size: 2.75rem;
+  border-bottom: 2px solid #555;
+  padding-bottom: 10px;
+}
+
+.experience-section {
+  margin-top: 50px;
+}
+
+.experience-section h2 {
+  margin-bottom: 30px;
+  color: #00aaff;
+  font-size: 2rem;
+}
+
+#jobs-portfolio {
+  position: relative;
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.timeline-container::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #00aaff;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+.timeline-item {
+  padding: 10px 0;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #060c21;
+  border: 4px solid #00aaff;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  left: 50%;
+}
+
+.left .job-card {
+  margin-right: 30px;
+}
+
+.right .job-card {
+  margin-left: 30px;
+}
+
+.left::after {
+  right: -14px;
+}
+
+.right::after {
+  left: -12px;
+}
+
+.job-card {
+  padding: 20px;
+  background-color: #060c21;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.job-card h3 {
+  margin-bottom: 10px;
+  color: #00aaff;
+}
+
+.duration {
+  font-size: 0.9rem;
+  color: #9ab9ff;
+  margin-bottom: 15px;
+}
+
+.company-logo {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.project-summary h4,
+.tab-content h5 {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.project-summary ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  padding: 0;
+  font-size: 0.95rem;
+}
+
+.project-summary li {
+  margin-bottom: 8px;
+  color: #e0e0e0;
+}
+
+.project-summary {
+  display: none;
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.3s ease-out, max-height 0.3s ease-out;
+}
+
+.project-summary.visible {
+  display: block;
+  opacity: 1;
+  max-height: 500px;
+  margin-top: 15px;
+}
+
+.toggle-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #0088cc;
+}
+
+#internship-portfolio {
+  max-width: 900px;
+  margin: 0 auto;\n}
+
+.tab-container {
+  background-color: #060c21;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: center;
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #00aaff;
+}
+
+.tab-button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  transition: 0.3s;
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+.tab-button:hover {
+  background-color: #333;
+}
+
+.tab-button.active {
+  background-color: #00aaff;
+  color: white;
+}
+
+.tab-content {
+  padding: 30px 40px;
+  text-align: left;
+}
+
+.tab-content h3 {
+  font-size: 1.5rem;
+  color: #00aaff;
+  margin-bottom: 5px;
+}
+
+.tab-content h4 {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.tab-content .company-logo {
+  max-height: 220px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline-container::after {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 40px;
+  }
+
+  .left .job-card,
+  .right .job-card {
+    margin: 0 10px;
+  }
+
+  .timeline-item.right {
+    left: 0;
+  }
+
+  .left::after,
+  .right::after {
+    left: 14px;
+    right: auto;
+  }
+
+  .tab-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tab-button {
+    width: 100%;
+  }
+
+  .tab-content {
+    padding: 20px;
+  }
+}

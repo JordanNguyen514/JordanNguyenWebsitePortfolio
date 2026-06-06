@@ -22,6 +22,7 @@
 
   const DASHBOARD_URL = '/ci-status/dashboard.json';
   const FALLBACK_URL  = '/assets/data/ci-dashboard-local.json';
+  const PROD_HOST_PATTERN = /cloudfront\.net$/;
   const LOCAL_HOSTS   = new Set(['localhost', '127.0.0.1', '::1']);
   const REFRESH_MS    = 30000;
 
@@ -46,7 +47,10 @@
   };
 
   function getStatus(c) { return STATUS_MAP[c] || STATUS_MAP.unknown; }
-  function isLocal() { return LOCAL_HOSTS.has(window.location.hostname); }
+  function isLocal() {
+    var hostname = window.location.hostname;
+    return LOCAL_HOSTS.has(hostname) || !PROD_HOST_PATTERN.test(hostname);
+  }
   function bust(url) { return url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(); }
 
   function timeAgo(iso) {
@@ -247,7 +251,7 @@
   async function loadData() {
     if (isLocal()) {
       try {
-        var localData = await loadFallbackData('Local snapshot - live CI data is loaded from S3/CloudFront in production.');
+        var localData = await loadFallbackData('Local snapshot — live CI data is loaded from S3/CloudFront in production.');
         if (localData) return localData;
       } catch (_) {}
     }

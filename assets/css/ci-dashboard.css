@@ -27,11 +27,18 @@
 }
 
 .ci-section-header h2 span.title-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.75rem;
-  color: #86bc25;
-  font-weight: 600;
+  color: #ffffff;
+  background: #86bc25;
+  font-weight: 700;
   letter-spacing: 1px;
   margin-left: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
   vertical-align: middle;
 }
 

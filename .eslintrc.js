@@ -11,7 +11,7 @@ module.exports = {
     'plugin:cypress/recommended',
   ],
 
-  plugins: ['cypress'],
+  plugins: ['cypress', '@typescript-eslint'],
 
   parserOptions: {
     ecmaVersion: 'latest',
@@ -47,6 +47,20 @@ module.exports = {
     {
       files: ['__tests__/**/*.js', '**/*.test.js'],
       env: { jest: true },
+    },
+    {
+      files: ['tests/playwright/**/*.ts'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+      plugins: ['@typescript-eslint'],
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        'no-unused-vars': 'off',
+      },
     },
   ],
 

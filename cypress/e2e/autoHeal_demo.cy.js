@@ -28,14 +28,14 @@ describe('🩹 Auto-Healing Selector Demo', () => {
   //  and still finds the element successfully.
   // ─────────────────────────────────────────────────────────
   it('heals to data-event-action when data-testid is missing', () => {
-    // Token matches your existing [data-event-action="Click_Jobs_Button"]
-    cy.getHealed('Click_Jobs_Button')
+    // Token matches your existing [data-event-action="Click_Experience_Button"]
+    cy.getHealed('Click_Experience_Button')
       .should('be.visible')
-      .and('contain', 'Jobs');
+      .and('contain', 'Experience');
 
     // The heal log in the Cypress command panel will show:
-    // 🩹 AutoHeal: Found via [data-event-action]: [data-event-action="Click_Jobs_Button"]
-    // ⚠️ Heal Needed: Add data-testid="Click_Jobs_Button" to make this selector resilient
+    // 🩹 AutoHeal: Found via [data-event-action]: [data-event-action="Click_Experience_Button"]
+    // ⚠️ Heal Needed: Add data-testid="Click_Experience_Button" to make this selector resilient
   });
 
   // ─────────────────────────────────────────────────────────
@@ -80,14 +80,9 @@ describe('🩹 Auto-Healing Selector Demo', () => {
     // Land on homepage — verify hero
     cy.getHealed('hero-title').should('contain', 'Jordan Nguyen');
 
-    // Navigate to Jobs via healed selector
-    cy.getHealed('Click_Jobs_Button').click();
-    cy.url().should('include', 'jobs.html');
-    cy.go('back');
-
-    // Navigate to Internships
-    cy.getHealed('Click_Internships_Button').click();
-    cy.url().should('include', 'internships.html');
+    // Navigate to Experience via healed selector
+    cy.getHealed('Click_Experience_Button').click();
+    cy.url().should('include', 'work-experience.html');
     cy.go('back');
 
     // Verify social section

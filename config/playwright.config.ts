@@ -15,7 +15,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: 'https://d2kmkdebgfkxyh.cloudfront.net',
+    baseURL: process.env.BASE_URL || (process.env.CI ? 'https://d2kmkdebgfkxyh.cloudfront.net' : 'http://localhost:8080'),
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',

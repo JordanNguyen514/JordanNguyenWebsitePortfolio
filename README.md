@@ -124,8 +124,7 @@ JordanNguyenWebsitePortfolio/
 +-- assets/
 |   +-- css/                            # Per-page stylesheets
 |   +-- html/                           # Sub-pages
-|   |   +-- jobs.html
-|   |   +-- internships.html
+|   |   +-- work-experience.html
 |   |   +-- certifications.html
 |   |   +-- academic.html
 |   |   +-- sdet.html                   # SDET Showcase page
@@ -365,8 +364,7 @@ git push -> master
 | Page | URL | Description |
 |---|---|---|
 | Home | / | Hero, Career Portfolio, Skills bars, Social |
-| Jobs | /assets/html/jobs.html | Work timeline with expandable cards |
-| Internships | /assets/html/internships.html | Tabbed internship history |
+| Work Experience | /assets/html/work-experience.html | Combined work timeline and internship history |
 | Certifications | /assets/html/certifications.html | AWS and ISTQB badges |
 | Academics | /assets/html/academic.html | Academic background |
 | SDET Showcase | /assets/html/sdet.html | Skills matrix, automation showcase, CI/CD diagram, QA metrics |

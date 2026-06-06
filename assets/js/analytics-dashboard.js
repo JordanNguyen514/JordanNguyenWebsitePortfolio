@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Define a mapping of database keys to human-readable names
     const metricNameMap = {
-        'Click_Jobs_Button': 'Jobs Page Button',
-        'Click_Internships_Button': 'Internships Page Button',
+        'Click_Experience_Button': 'Experience Page Button',
         'Click_Academics_Button': 'Academics Page Button',
-        'Click_OtherInterests_Button': 'Other Interests Button',
         'Click_Home': 'Home (Top Nav)',
-        'Click_Jobs': 'Jobs (Top Nav)',
+        'Click_Experience': 'Experience (Top Nav)',
+        'Click_Quality_Dashboard': 'Quality Dashboard',
         'Click_QA_Metrics_Dashboard': 'QA Metrics Dashboard',
         'Click_Live_Pipeline_Status': 'Live Pipeline Status',
         'Click_View_Analytics_Dashboard': 'View Dashboard Button',

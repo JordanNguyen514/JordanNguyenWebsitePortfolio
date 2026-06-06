@@ -38,7 +38,7 @@ module.exports = {
       numberOfRuns: 3,
       url: [
         'https://d2kmkdebgfkxyh.cloudfront.net/',
-        'https://d2kmkdebgfkxyh.cloudfront.net/assets/html/jobs.html',
+        'https://d2kmkdebgfkxyh.cloudfront.net/assets/html/work-experience.html',
         'https://d2kmkdebgfkxyh.cloudfront.net/assets/html/certifications.html',
         'https://d2kmkdebgfkxyh.cloudfront.net/assets/html/sdet.html',
       ],

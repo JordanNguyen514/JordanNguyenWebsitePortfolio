@@ -25,21 +25,25 @@ describe('Visual Regression — Applitools Eyes', () => {
   // Without this flag, if eyesOpen throws, afterEach will call eyesClose
   // on a non-open instance and cause a cascading "Eyes not opened" error.
   let eyesOpened = false;
+  let skipVisual = false;
 
   before(function () {
     // Applitools reads APPLITOOLS_API_KEY from process.env via dotenv.
     // Your cypress.config.js bridges it to Cypress.env too.
-    // We check both so the skip works regardless of how the key was loaded.
+    // We check both so the skip logic works regardless of how the key was loaded.
     const apiKey = Cypress.env('APPLITOOLS_API_KEY') || process.env.APPLITOOLS_API_KEY;
 
     if (!apiKey) {
-      cy.log('⚠️ APPLITOOLS_API_KEY not set — skipping visual tests.');
+      skipVisual = true;
+      cy.log('⚠️ APPLITOOLS_API_KEY not set — visual regression tests will be skipped.');
       cy.log('Create a .env file at project root with: APPLITOOLS_API_KEY=your_key_here');
-      this.skip();
     }
   });
 
   beforeEach(() => {
+    if (skipVisual) {
+      return;
+    }
     eyesOpened = false; // Reset flag before each test
 
     cy.eyesOpen({
@@ -64,10 +68,12 @@ describe('Visual Regression — Applitools Eyes', () => {
     // Only call eyesClose if eyesOpen actually succeeded.
     // If eyesOpen threw, calling eyesClose on a non-open instance causes a
     // cascading "Eyes not opened" error that hides the real failure.
-    if (eyesOpened) {
-      cy.eyesClose();
+    if (skipVisual || !eyesOpened) {
       eyesOpened = false;
+      return;
     }
+    cy.eyesClose();
+    eyesOpened = false;
   });
 
   // FIX: afterAll batch finalisation.
@@ -87,25 +93,41 @@ describe('Visual Regression — Applitools Eyes', () => {
   // ── Full page snapshots ─────────────────────────────────────────────
 
   it('Homepage — full page visual check', () => {
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
     cy.visit('/');
     cy.get('#hero-title').should('be.visible');
     cy.get('.career-port-title').should('be.visible');
     cy.eyesCheckWindow({ tag: 'Homepage', fully: true });
   });
 
-  it('Jobs page — full page visual check', () => {
-    cy.visit('/assets/html/jobs.html');
-    cy.get('.timeline-container').should('be.visible');
-    cy.eyesCheckWindow({ tag: 'Jobs Page', fully: true });
+  it('Work Experience page — full page visual check', () => {
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
+    cy.visit('/assets/html/work-experience.html');
+    cy.get('#jobs-portfolio').should('be.visible');
+    cy.eyesCheckWindow({ tag: 'Work Experience Page', fully: true });
   });
 
   it('SDET Showcase — full page visual check', () => {
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
     cy.visit('/assets/html/sdet.html');
     cy.get('.skills-matrix-grid').should('be.visible');
     cy.eyesCheckWindow({ tag: 'SDET Showcase', fully: true });
   });
 
   it('Certifications — full page visual check', () => {
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
     cy.visit('/assets/html/certifications.html');
     cy.get('.badge-container').should('be.visible');
     cy.eyesCheckWindow({ tag: 'Certifications', fully: true });
@@ -114,6 +136,10 @@ describe('Visual Regression — Applitools Eyes', () => {
   // ── Component snapshots ─────────────────────────────────────────────
 
   it('Navigation bar — component visual check', () => {
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
     cy.visit('/');
     cy.get('.topnav').should('be.visible');
     cy.eyesCheckWindow({
@@ -124,7 +150,11 @@ describe('Visual Regression — Applitools Eyes', () => {
   });
 
   it('Job card — expanded details state', () => {
-    cy.visit('/assets/html/jobs.html');
+    if (skipVisual) {
+      cy.log('Skipping Applitools test: APPLITOOLS_API_KEY not configured.');
+      return;
+    }
+    cy.visit('/assets/html/work-experience.html');
     cy.get('#nationalbank-card .toggle-button').click();
     cy.get('#nationalbank-card .project-summary').should('be.visible');
     cy.eyesCheckWindow({

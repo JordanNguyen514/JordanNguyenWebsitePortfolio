@@ -1,0 +1,198 @@
+---
+layout: default
+title: "Work Experience"
+description: "Jordan Nguyen's professional and internship experience in quality engineering, SDET, and technical roles."
+css_file: "/assets/css/Experience.css"
+---
+
+<section id="work-experience-page" data-testid="experience-page">
+  <h1>Work Experience</h1>
+
+  <section id="jobs-portfolio" class="experience-section" data-testid="jobs-section">
+    <h2>Professional Work Experience</h2>
+
+    <div class="timeline-container">
+
+      <!-- Deloitte -->
+      <div class="timeline-item left" id="deloitte-card">
+        <div class="job-card">
+          <h3>Deloitte | Quality Engineering Consultant</h3>
+          <p class="duration">May 2026 - Present</p>
+          <img src="{{ site.cdn }}/assets/img/jobpics/deloitte.png"
+               alt="Deloitte Logo" class="company-logo" width="120" height="60" />
+          <div class="project-summary">
+            <h4>Key Responsibilities:</h4>
+            <ul>
+              <li>Provide strategic and technical guidance on implementing robust Quality Engineering practices across client engagements.</li>
+              <li>Design, develop, and execute comprehensive test automation strategies (UI and API) to ensure high software quality.</li>
+              <li>Leverage AI and modern DevOps practices to optimize the software development lifecycle and accelerate delivery.</li>
+              <li>Collaborate closely with cross-functional Agile teams to embed quality at every stage of development (shift-left).</li>
+            </ul>
+          </div>
+          <button class="toggle-button" data-testid="deloitte-toggle" onclick="toggleDetails('deloitte-card', this)">More Details</button>
+        </div>
+      </div>
+
+      <!-- National Bank -->
+      <div class="timeline-item right" id="nationalbank-card">
+        <div class="job-card">
+          <h3>National Bank | SDET</h3>
+          <p class="duration">Apr 2021 - May 2026</p>
+          <img src="{{ site.cdn }}/assets/img/jobpics/nationalBank.jpg"
+               alt="National Bank Logo" class="company-logo" width="120" height="60" />
+          <div class="project-summary">
+            <h4>Key Achievements:</h4>
+            <ul>
+              <li>Developed automated <strong>Java</strong> E2E and functional tests using <strong>IntelliJ IDE</strong>.</li>
+              <li>Executed CI/CD tests via <strong>Docker</strong> and <strong>OpenShift</strong>, utilizing automated <strong>Cucumber</strong> tests.</li>
+              <li>Assisted in peer programming, code reviews, and managed defect reports on <strong>Jira</strong>.</li>
+            </ul>
+          </div>
+          <button class="toggle-button" data-testid="nationalbank-toggle" onclick="toggleDetails('nationalbank-card', this)">More Details</button>
+        </div>
+      </div>
+
+      <!-- Logibec -->
+      <div class="timeline-item left" id="logibec-card">
+        <div class="job-card">
+          <h3>Logibec | Quality Assurance Analyst</h3>
+          <p class="duration">Jun 2020 - Apr 2021</p>
+          <img src="{{ site.cdn }}/assets/img/jobpics/Logibec.jpg"
+               alt="Logibec Logo" class="company-logo" width="120" height="60" />
+          <div class="project-summary">
+            <h4>Key Responsibilities:</h4>
+            <ul>
+              <li>Designed, wrote, reviewed, and validated test cases and test plans.</li>
+              <li>Established and tracked QA metrics relating to test execution and defect findings.</li>
+              <li>Ensured product development adhered to established SDLC processes.</li>
+            </ul>
+          </div>
+          <button class="toggle-button" data-testid="logibec-toggle" onclick="toggleDetails('logibec-card', this)">More Details</button>
+        </div>
+      </div>
+
+      <!-- Novo -->
+      <div class="timeline-item right" id="novo-card">
+        <div class="job-card">
+          <h3>Novo | Quality Specialist</h3>
+          <p class="duration">Apr 2019 - Apr 2020</p>
+          <img src="{{ site.cdn }}/assets/img/jobpics/Novo.jpg"
+               alt="Novo Logo" class="company-logo" width="120" height="60" />
+          <div class="project-summary">
+            <h4>Key Responsibilities:</h4>
+            <ul>
+              <li>Assisted clients with product certification planning (<strong>EMI/EMC, FCC, WiFi, Bluetooth</strong>).</li>
+              <li>Implemented conformity matrix for standards (<strong>ISO-10993, IEC62366, IEC60601-1, UL1069/UL2900</strong>).</li>
+              <li>Managed risk management with respect to <strong>ISO14971</strong>.</li>
+              <li>Assisted in putting in place an <strong>ISO 13485</strong> certified Quality Management System (QMS).</li>
+            </ul>
+          </div>
+          <button class="toggle-button" data-testid="novo-toggle" onclick="toggleDetails('novo-card', this)">More Details</button>
+        </div>
+      </div>
+
+      <!-- Kinova -->
+      <div class="timeline-item left" id="kinova-card">
+        <div class="job-card">
+          <h3>Kinova | Quality Engineer</h3>
+          <p class="duration">May 2018 - Mar 2019</p>
+          <img src="{{ site.cdn }}/assets/img/jobpics/Kinova.jpg"
+               alt="Kinova Logo" class="company-logo" width="120" height="60" />
+          <div class="project-summary">
+            <h4>Key Responsibilities:</h4>
+            <ul>
+              <li>Managed non-conforming parts and processes within production for all Kinova robot arms.</li>
+              <li>Head Quality resource in new affordable arm project (PQE: Project Quality Engineer).</li>
+              <li>Worked with SWE, Firmware, EE, and Mech teams on Design risk analysis and inspection criteria.</li>
+              <li>Participated in QA activities: audits, documentation, certifications (<strong>ISO and IEC</strong>), and risk analysis.</li>
+            </ul>
+          </div>
+          <button class="toggle-button" data-testid="kinova-toggle" onclick="toggleDetails('kinova-card', this)">More Details</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="internship-portfolio" class="experience-section" data-testid="internship-section">
+    <h2>Internship Experiences</h2>
+
+    <div class="tab-container">
+      <div class="tab-menu">
+        <button class="tab-button active" onclick="openInternship(event, 'zimmer')">Zimmer</button>
+        <button class="tab-button" onclick="openInternship(event, 'dassault')">Dassault</button>
+        <button class="tab-button" onclick="openInternship(event, 'v2r')">V2R</button>
+      </div>
+
+      <div id="zimmer" class="tab-content">
+        <h3>Zimmer Biomet | System Design Intern</h3>
+        <h4>Winter 2017</h4>
+        <img src="https://d2kmkdebgfkxyh.cloudfront.net/assets/img/internships/zimmer.jpg" alt="Zimmer Logo" class="company-logo" />
+        <div class="project-summary">
+          <h5>Key Responsibilities:</h5>
+          <ul>
+            <li>Design and fill quality documentation for PSI product development and device master record updates.</li>
+            <li>Ensure quality standards are followed during development to guarantee safety and efficacy of products.</li>
+            <li>Write testing protocols for new software and proceed with verification and validation.</li>
+          </ul>
+        </div>
+        <button class="toggle-button" onclick="toggleDetails('zimmer', this)">More Details</button>
+      </div>
+
+      <div id="dassault" class="tab-content" style="display:none;">
+        <h3>Dassault | Technical Support Intern</h3>
+        <h4>Winter - Summer 2016</h4>
+        <img src="https://d2kmkdebgfkxyh.cloudfront.net/assets/img/internships/dassault.jpg" alt="Dassault Logo" class="company-logo" />
+        <div class="project-summary">
+          <h5>Key Responsibilities:</h5>
+          <ul>
+            <li>Analyze and sort technical issues reported by clients and maintain effective communication until solved.</li>
+            <li>Support usage of products such as Catia, Enovia, and Delmia by external customers.</li>
+            <li>Ensure proper protocols are respected regarding product lifecycle management (PLM).</li>
+          </ul>
+        </div>
+        <button class="toggle-button" onclick="toggleDetails('dassault', this)">More Details</button>
+      </div>
+
+      <div id="v2r" class="tab-content" style="display:none;">
+        <h3>V2R Biomedical | Production Coordinator</h3>
+        <h4>Fall 2015</h4>
+        <img src="https://d2kmkdebgfkxyh.cloudfront.net/assets/img/internships/v2r.png" alt="V2R Biomedical Logo" class="company-logo" />
+        <div class="project-summary">
+          <h5>Key Responsibilities:</h5>
+          <ul>
+            <li>Assist dental professionals in the selection of the appropriate patient treatment plan (prosthetic implant positioning).</li>
+            <li>Develop automation system to accelerate planification documentation and 3D model generation of jigs.</li>
+            <li>Coordinate exchanges with surgical dentists and provide virtual planification of treatment and CAD modelling.</li>
+          </ul>
+        </div>
+        <button class="toggle-button" onclick="toggleDetails('v2r', this)">More Details</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<script>
+function openInternship(evt, internshipName) {
+  const tabcontent = document.getElementsByClassName('tab-content');
+  const tablinks = document.getElementsByClassName('tab-button');
+
+  for (let i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = 'none';
+  }
+
+  for (let i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(' active', '');
+  }
+
+  document.getElementById(internshipName).style.display = 'block';
+  evt.currentTarget.className += ' active';
+}
+
+function toggleDetails(elementId, buttonElement) {
+  const element = document.getElementById(elementId);
+  const summary = element.querySelector('.project-summary');
+  summary.classList.toggle('visible');
+  buttonElement.textContent = summary.classList.contains('visible') ? 'Hide Details' : 'More Details';
+}
+</script>

@@ -1,31 +1,17 @@
 # ============================================================
-#  tests/robot/resources/jobs_page.resource
-#
-#  Page Object pattern — all Jobs page interactions live here.
-#
-#  CONCEPT — Page Object Model in Robot Framework
-#  ------------------------------------------------
-#  Instead of writing raw selectors in test suites, we wrap
-#  them in keywords named after business actions:
-#    "Expand Job Card"  not  "Click Element  css:#kinova-card .toggle-button"
-#
-#  This means if the selector changes, you fix ONE keyword,
-#  not every test that uses it. This is exactly the same
-#  principle as Java Page Object Model (Selenium) — just
-#  expressed in Robot Framework keyword syntax.
+#  tests/robot/resources/experience_page.resource
 # ============================================================
 
 *** Settings ***
 Resource    common.resource
 Resource    variables.resource
 
-
 *** Keywords ***
 
-Open Jobs Page
-    Navigate To Page    ${JOBS_URL}
-    Wait Until Element Is Visible    css:#jobs-portfolio    timeout=${TIMEOUT}
-    Page Should Contain Heading    My Work Experiences
+Open Experience Page
+    Navigate To Page    ${EXPERIENCE_URL}
+    Wait Until Element Is Visible    css:#work-experience-page    timeout=${TIMEOUT}
+    Page Should Contain Heading    Work Experience
 
 Expand Job Card
     [Documentation]    Clicks "More Details" on a specific job card by its testid.
@@ -41,12 +27,10 @@ Collapse Job Card
     Element Should Contain    css:[data-testid="${card_testid}"]    More Details
 
 Job Card Details Should Be Visible
-    [Documentation]    Verifies the project-summary panel is expanded.
     [Arguments]    ${card_id}
     Element Should Be Visible    css:#${card_id} .project-summary
 
 Job Card Details Should Be Hidden
-    [Documentation]    Verifies the project-summary panel is collapsed.
     [Arguments]    ${card_id}
     Element Should Not Be Visible    css:#${card_id} .project-summary
 
@@ -55,3 +39,29 @@ All Job Cards Should Be Present
     Page Should Contain Element    css:#novo-card
     Page Should Contain Element    css:#logibec-card
     Page Should Contain Element    css:#nationalbank-card
+    Page Should Contain Element    css:#deloitte-card
+
+Switch To Internship Tab
+    [Arguments]    ${tab_label}
+    ${tab_locator}=    Set Variable    xpath://button[contains(@class,'tab-button') and contains(text(),'${tab_label}')]
+    Wait For Element And Click    ${tab_locator}
+    ${content_id}=    Evaluate    '${tab_label}'.lower()
+    Wait Until Element Is Visible    css:#${content_id}    timeout=${SHORT_WAIT}
+
+Tab Content Should Be Active
+    [Arguments]    ${tab_id}
+    Element Should Be Visible    css:#${tab_id}
+
+Tab Content Should Be Hidden
+    [Arguments]    ${tab_id}
+    Element Should Not Be Visible    css:#${tab_id}
+
+Expand Internship Details
+    [Arguments]    ${tab_id}
+    Wait For Element And Click    css:#${tab_id} .toggle-button
+    Element Should Contain    css:#${tab_id} .toggle-button    Hide Details
+
+Collapse Internship Details
+    [Arguments]    ${tab_id}
+    Wait For Element And Click    css:#${tab_id} .toggle-button
+    Element Should Contain    css:#${tab_id} .toggle-button    More Details

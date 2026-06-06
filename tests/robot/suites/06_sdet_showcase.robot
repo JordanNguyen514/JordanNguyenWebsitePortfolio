@@ -22,92 +22,44 @@ Test Teardown     Run Keyword If Test Failed    Capture Page Screenshot
 SDET Page Displays Core Section Headings
     [Tags]    sdet    smoke
     Navigate To Page    ${SDET_URL}
-    Element Should Be Visible    css:.sdet-hero h1
-    Element Should Contain       css:.sdet-hero h1    SDET Showcase
-    Page Should Contain    Skills Matrix
-    Page Should Contain    Test Automation Showcase
-    Page Should Contain    CI/CD Pipeline
-    Page Should Contain    Quality Dashboards
+    Element Should Be Visible    css:.radar-hero h1
+    Element Should Contain       css:.radar-hero h1    SDET Showcase
+    Page Should Contain    Skills Proficiency
+    Page Should Contain    All Skills
+    Page Should Contain    Quality Dashboard
 
-Skills Matrix Displays All Six Skill Categories
-    [Tags]    sdet    skills-matrix
+Skills Radar Displays Category Filters
+    [Tags]    sdet    skills-radar
     Navigate To Page    ${SDET_URL}
-    Scroll To Element    css:.skills-matrix-grid
+    Element Should Be Visible    css:.radar-tabs
     Page Should Contain    Test Automation
+    Page Should Contain    CI / CD & Cloud
     Page Should Contain    Languages
-    Page Should Contain    CI/CD
-    Page Should Contain    Tools
-    Page Should Contain    QA Methodologies
-    Page Should Contain    Standards
+    Page Should Contain    QA Practices
 
-Skills Matrix Contains Key SDET Technologies
-    [Documentation]    Verifies the tools most relevant to SDET roles are listed.
-    [Tags]    sdet    skills-matrix    content
+Quality Dashboard Card Is Available
+    [Tags]    sdet    dashboard
     Navigate To Page    ${SDET_URL}
-    Page Should Contain    Cypress
-    Page Should Contain    Selenium
-    Page Should Contain    Playwright
-    Page Should Contain    Cucumber / BDD
-    Page Should Contain    GitHub Actions
-    Page Should Contain    Docker
-    Page Should Contain    ISTQB
+    Element Should Be Visible    css:[data-testid="nav-quality-dashboard"]
+    Page Should Contain    Live QA Operations
 
-Automation Showcase Tabs Are All Present And Clickable
-    [Documentation]    The code viewer tabs (smoke, contact, jobs, Selenium, Playwright)
-    ...                should all be present and switch the active panel.
-    [Tags]    sdet    tabs    interaction
-    Navigate To Page    ${SDET_URL}
-    Scroll To Element    css:.showcase-tabs
-    # Default tab (smoke) should be active
-    Element Should Be Visible    css:#tab-smoke.active
-
-    # Switch to Selenium tab
-    Wait For Element And Click    xpath://button[contains(text(),'Selenium')]
-    Element Should Be Visible    css:#tab-selenium.active
-    Element Should Not Be Visible    css:#tab-smoke.active
-
-    # Switch to Playwright tab
-    Wait For Element And Click    xpath://button[contains(text(),'Playwright')]
-    Element Should Be Visible    css:#tab-playwright.active
-
-CI/CD Pipeline Diagram Renders All Eight Stages
-    [Documentation]    All pipeline stages from Git Push to Artifacts should be visible.
+CI/CD Pipeline Summary Is Visible
+    [Documentation]    The SDET showcase should provide a live pipeline link and the current pipeline section summary.
     [Tags]    sdet    cicd-diagram
     Navigate To Page    ${SDET_URL}
-    Scroll To Element    css:.pipeline-wrapper
-    Page Should Contain    Git Push
-    Page Should Contain    GH Actions
-    Page Should Contain    Jekyll Build
-    Page Should Contain    Deploy
-    Page Should Contain    CloudFront
-    Page Should Contain    Cypress E2E
-    Page Should Contain    Artifacts
-
-QA Metrics Dashboard Shows All Four Stat Cards
-    [Documentation]    The four metric stat cards should be visible.
-    ...                "Defects Reported" was removed — it held inaccurate data.
-    ...                Remaining cards: Total Tests, Pass Rate, Runtime, Pipeline Runs.
-    [Tags]    sdet    metrics
-    Navigate To Page    ${QA_METRICS_URL}
-    Wait Until Page Contains Element    css:.metrics-grid    timeout=${TIMEOUT}
-    Page Should Contain    Total Automated Tests
-    Page Should Contain    Overall Pass Rate
-    Page Should Contain    Avg. Suite Runtime
-    Page Should Contain    CI/CD Pipeline Runs
-    # Verify stat card elements are present (values populated by ci-dashboard.js)
-    Page Should Contain Element    css:#m-total
-    Page Should Contain Element    css:#m-pass
-
-Live Pipeline Status Page Loads Dashboard Grid
-    [Documentation]    The dedicated live pipeline page should render the CI card grid.
-    ...                Cards may show "loading..." or live data depending on S3 status.
-    [Tags]    sdet    ci-dashboard
-    Navigate To Page    ${LIVE_PIPELINE_URL}
-    # Wait for the grid to be present — JS populates it asynchronously
-    Wait Until Page Contains Element    css:#ci-dashboard-grid    timeout=${TIMEOUT}
+    Element Should Be Visible    css:[data-testid="sdet-live-pipeline-link"]
     Page Should Contain    Live Pipeline Status
-    Page Should Contain Element    css:#ci-dashboard-grid
-    # Grid should contain at least one card (either loading skeletons or live data)
+    Page Should Contain    View Full Live Pipeline Status
+
+Quality Dashboard Page Shows Metrics And Pipeline Cards
+    [Documentation]    The unified dashboard page should render QA metrics and live pipeline status together.
+    [Tags]    sdet    metrics    ci-dashboard
+    Navigate To Page    ${LIVE_PIPELINE_URL}
+    Wait Until Page Contains Element    css:.metric-card    timeout=${TIMEOUT}
+    Wait Until Page Contains Element    css:#ci-dashboard-grid    timeout=${TIMEOUT}
+    Page Should Contain    Quality Dashboard
+    Page Should Contain    Total Automated Tests
+    Page Should Contain    Deploy to S3
     Page Should Contain Element    css:.ci-card
 
 Certifications Page Shows Three Badges

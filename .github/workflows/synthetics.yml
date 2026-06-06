@@ -60,7 +60,7 @@ jobs:
       - name: 📄 Check — Key pages return 200
         run: |
           PAGES=(
-            "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/jobs.html"
+            "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/work-experience.html"
             "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/certifications.html"
             "https://d2kmkdebgfkxyh.cloudfront.net/assets/html/sdet.html"
           )

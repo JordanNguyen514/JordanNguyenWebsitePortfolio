@@ -2,20 +2,14 @@ const publicPages = [
   {
     name: 'Home',
     path: '/',
-    visibleText: ['Jordan Nguyen', 'Career Portfolio', 'Core Skills', 'Quality & Pipeline Status', 'Get in Touch'],
+    visibleText: ['Jordan Nguyen', 'Career Portfolio', 'Core Skills', 'Quality & Pipeline Dashboard', 'Get in Touch'],
     selectors: ['#hero-title', '[data-event-action="Click_EmailForm_Icon"]'],
   },
   {
-    name: 'Jobs',
-    path: '/assets/html/jobs.html',
-    visibleText: ['My Work Experiences', 'Kinova', 'National Bank'],
-    selectors: ['.timeline-item', '.toggle-button'],
-  },
-  {
-    name: 'Internships',
-    path: '/assets/html/internships.html',
-    visibleText: ['Internship Experiences', 'Zimmer Biomet', 'Dassault'],
-    selectors: ['.tab-button'],
+    name: 'Work Experience',
+    path: '/assets/html/work-experience.html',
+    visibleText: ['Work Experience', 'My Work Experiences', 'Internship Experiences'],
+    selectors: ['#jobs-portfolio', '#internship-portfolio'],
   },
   {
     name: 'Academic',
@@ -32,26 +26,14 @@ const publicPages = [
   {
     name: 'SDET Showcase',
     path: '/assets/html/sdet.html',
-    visibleText: ['SDET Showcase', 'Skills Matrix', 'Automation Showcase', 'Quality Dashboards'],
-    selectors: ['.skill-category-card', '.showcase-tab', '.dashboard-link-card'],
-  },
-  {
-    name: 'QA Metrics Dashboard',
-    path: '/assets/html/qa-metrics.html',
-    visibleText: ['QA Metrics Dashboard', 'Total Automated Tests', 'Overall Pass Rate'],
-    selectors: ['.metric-card', '#m-total', '#m-pass'],
-  },
-  {
-    name: 'Live Pipeline Status',
-    path: '/assets/html/live-pipeline-status.html',
-    visibleText: ['Live Pipeline Status', 'Deploy to S3', 'Cypress E2E'],
-    selectors: ['#ci-dashboard-grid', '.ci-card'],
-  },
-  {
-    name: 'Skills Radar',
-    path: '/assets/html/skills-radar.html',
-    visibleText: ['Skills Proficiency', 'All Skills', 'Test Automation'],
+    visibleText: ['SDET Showcase', 'Skills Proficiency', 'All Skills', 'Quality Dashboard'],
     selectors: ['#radar-svg', '.rtab', '.radar-point'],
+  },
+  {
+    name: 'Quality Dashboard',
+    path: '/assets/html/live-pipeline-status.html',
+    visibleText: ['Quality Dashboard', 'Deploy to S3', 'Total Automated Tests'],
+    selectors: ['#ci-dashboard-grid', '.metric-card'],
   },
   {
     name: 'Case Studies',
@@ -77,24 +59,6 @@ const publicPages = [
     visibleText: ['Send an Email Message', 'Your Name', 'Subject'],
     selectors: ['#emailForm', '#senderEmail', '#message'],
   },
-  {
-    name: 'Other Interests',
-    path: '/OtherSection/index.html',
-    visibleText: ['My Other Interests and Passions', 'Sports', 'Other Random Things'],
-    selectors: ['.card'],
-  },
-  {
-    name: 'Random APIs',
-    path: '/OtherSection/Random/index.html',
-    visibleText: ['Weather API', 'Covid API', 'Yahoo Finance API'],
-    selectors: ['.CityinputValue', '.CovidSubmit', '.StockSubmit'],
-  },
-];
-
-const legacyShellPages = [
-  { name: 'Sports gallery', path: '/OtherSection/Sports/index.html', expected: 'Sports' },
-  { name: 'Social shell', path: '/OtherSection/Social/index.html', expected: 'Soci.css' },
-  { name: 'Travel shell', path: '/OtherSection/Travel/index.html', expected: 'Trav.css' },
 ];
 
 const staticUtilityPages = [
@@ -127,16 +91,6 @@ describe('Public page render coverage', () => {
     });
   });
 
-  legacyShellPages.forEach((page) => {
-    it(`${page.name} legacy page is reachable`, () => {
-      cy.request(page.path).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body).to.contain(page.expected);
-        expect(response.body).not.to.contain('Not Found');
-      });
-    });
-  });
-
   staticUtilityPages.forEach((page) => {
     it(`${page.name} utility page is reachable`, () => {
       cy.request(page.path).then((response) => {
@@ -149,12 +103,21 @@ describe('Public page render coverage', () => {
 
 describe('Page-specific interaction coverage', () => {
   it('Skills radar renders points and filters by category', () => {
-    cy.visit('/assets/html/skills-radar.html');
+    cy.visit('/assets/html/sdet.html');
     cy.get('.radar-point').should('have.length', 24);
     cy.contains('.rtab', 'CI / CD & Cloud').click();
     cy.get('.rtab.active').should('contain', 'CI / CD & Cloud');
     cy.get('.radar-point').should('have.length', 6);
     cy.contains('.sl-name', 'GitHub Actions').should('be.visible');
+  });
+
+  it('Live quality dashboard exposes both QA metrics and pipeline cards', () => {
+    cy.visit('/assets/html/live-pipeline-status.html');
+    cy.get('#ci-dashboard-grid .ci-card').its('length').should('be.gte', 7);
+    cy.get('#ci-pipeline-health').should('not.be.empty');
+    cy.get('.metric-card').should('have.length.at.least', 4);
+    cy.get('#m-total').should('be.visible');
+    cy.get('#m-pass').should('be.visible');
   });
 
   it('Blog case studies expand inline details', () => {
@@ -164,17 +127,6 @@ describe('Page-specific interaction coverage', () => {
     cy.get('@firstCaseStudy').find('summary').click();
     cy.get('@firstCaseStudy').should('have.attr', 'open');
     cy.contains('The problem').should('be.visible');
-  });
-
-  it('Live pipeline and QA metrics pages expose dashboard data containers', () => {
-    cy.visit('/assets/html/live-pipeline-status.html');
-    cy.get('#ci-dashboard-grid .ci-card').its('length').should('be.gte', 7);
-    cy.get('#ci-pipeline-health').should('not.be.empty');
-
-    cy.visit('/assets/html/qa-metrics.html');
-    cy.get('.metric-card').should('have.length.at.least', 4);
-    cy.get('#m-total').should('be.visible');
-    cy.get('#m-pass').should('be.visible');
   });
 
   it('Contact dropdown preserves all contact entry points', () => {

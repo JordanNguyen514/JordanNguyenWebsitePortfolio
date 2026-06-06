@@ -194,17 +194,17 @@ describe('sanitizeInput() — XSS prevention', () => {
 describe('buildPageUrl() — URL construction', () => {
 
   test('combines base path and page correctly', () => {
-    expect(buildPageUrl('/portfolio/', 'jobs.html'))
-      .toBe('/portfolio/jobs.html');
+    expect(buildPageUrl('/portfolio/', 'work-experience.html'))
+      .toBe('/portfolio/work-experience.html');
   });
 
   test('handles missing trailing slash on base', () => {
-    expect(buildPageUrl('/portfolio', 'jobs.html'))
-      .toBe('/portfolio/jobs.html');
+    expect(buildPageUrl('/portfolio', 'work-experience.html'))
+      .toBe('/portfolio/work-experience.html');
   });
 
   test('handles leading slash on page', () => {
-    expect(buildPageUrl('/portfolio/', '/jobs.html'))
-      .toBe('/portfolio/jobs.html');
+    expect(buildPageUrl('/portfolio/', '/work-experience.html'))
+      .toBe('/portfolio/work-experience.html');
   });
 });
