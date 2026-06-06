@@ -1,9 +1,11 @@
 ---
 layout: default
 title: "Endorsements | Jordan Nguyen"
-description: "What colleagues and managers say about working with Jordan Nguyen."
+description: "LinkedIn recommendations from colleagues and managers who worked with Jordan Nguyen."
 css_file: "/assets/css/testimonials.css"
 ---
+
+{% assign linkedin_recommendations_url = "https://www.linkedin.com/in/jordan-nguyen-910365a7/details/recommendations/?detailScreenTabIndex=0" %}
 
 <section class="testi-hero">
   <div class="testi-inner">
@@ -15,65 +17,29 @@ css_file: "/assets/css/testimonials.css"
 
 <section class="testi-main">
   <div class="testi-inner">
-    <div class="testi-grid">
+    <div class="testi-source">
+      <span id="testi-source-status">Loading recommendations from LinkedIn snapshot...</span>
+      <a href="{{ linkedin_recommendations_url }}" target="_blank" rel="noopener">View source on LinkedIn</a>
+    </div>
 
-      <article class="testi-card featured">
+    <div
+      class="testi-grid"
+      id="linkedin-recommendations"
+      data-source="{{ '/assets/data/linkedin-recommendations.json' | relative_url }}"
+      aria-live="polite"
+    >
+      <article class="testi-card testi-loading">
         <div class="tc-quote-mark">"</div>
-        <blockquote class="tc-quote">
-          Jordan approaches quality engineering the way a good architect approaches a building — he thinks about the structure before laying any bricks. His test automation isn't just code that runs; it's a system that communicates clearly when something breaks and why.
-        </blockquote>
-        <div class="tc-author">
-          <div class="tc-avatar" aria-hidden="true">SR</div>
-          <div class="tc-author-info">
-            <span class="tc-name">Senior Manager, QA Practice</span>
-            <span class="tc-role">Financial Services · Montréal</span>
-          </div>
-          <a href="https://www.linkedin.com/in/jordan-nguyen514"
-             class="tc-li-btn" target="_blank" rel="noopener"
-             aria-label="View on LinkedIn">in</a>
-        </div>
+        <blockquote class="tc-quote">Loading LinkedIn recommendations...</blockquote>
       </article>
-
-      <article class="testi-card">
-        <div class="tc-quote-mark">"</div>
-        <blockquote class="tc-quote">
-          What sets Jordan apart is that he doesn't just find bugs — he finds the gaps in the process that let bugs through. He rebuilt our CI pipeline's quality gates from scratch and immediately caught three regression-class defects that had been slipping into production for months.
-        </blockquote>
-        <div class="tc-author">
-          <div class="tc-avatar" aria-hidden="true">TL</div>
-          <div class="tc-author-info">
-            <span class="tc-name">Tech Lead, Software Delivery</span>
-            <span class="tc-role">Healthcare Technology</span>
-          </div>
-          <a href="https://www.linkedin.com/in/jordan-nguyen514"
-             class="tc-li-btn" target="_blank" rel="noopener"
-             aria-label="View on LinkedIn">in</a>
-        </div>
-      </article>
-
-      <article class="testi-card">
-        <div class="tc-quote-mark">"</div>
-        <blockquote class="tc-quote">
-          Jordan is the kind of QA engineer who makes the whole team better. He explained BDD to our business analysts in a way that had them writing test scenarios in Gherkin by the end of the week. Rare communication skill for someone so technically deep.
-        </blockquote>
-        <div class="tc-author">
-          <div class="tc-avatar" aria-hidden="true">MP</div>
-          <div class="tc-author-info">
-            <span class="tc-name">Product Manager</span>
-            <span class="tc-role">Retail Technology · Agile Team</span>
-          </div>
-          <a href="https://www.linkedin.com/in/jordan-nguyen514"
-             class="tc-li-btn" target="_blank" rel="noopener"
-             aria-label="View on LinkedIn">in</a>
-        </div>
-      </article>
-
     </div>
 
     <div class="testi-cta">
       <p>Want to add yours?</p>
-      <a href="https://www.linkedin.com/in/jordan-nguyen514" target="_blank" rel="noopener"
-         class="testi-cta-btn">Endorse on LinkedIn →</a>
+      <a href="{{ linkedin_recommendations_url }}" target="_blank" rel="noopener"
+         class="testi-cta-btn">Endorse on LinkedIn</a>
     </div>
   </div>
 </section>
+
+<script src="{{ '/assets/js/testimonials.js' | relative_url }}" defer></script>

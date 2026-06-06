@@ -16,6 +16,62 @@
   font-family: var(--font-stack);
 }
 
+.hero-image-container {
+  margin-bottom: 24px;
+}
+
+.hero-headshot {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #86bc25;
+  box-shadow: 0 4px 30px rgba(134,188,37,0.35);
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.hero-cta-primary {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(135deg,#86bc25,#c4d600);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 20px rgba(134,188,37,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(134,188,37,0.5);
+}
+
+.hero-cta-secondary {
+  display: inline-block;
+  padding: 12px 28px;
+  background: rgba(255,255,255,0.07);
+  color: #f0f0f0;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.hero-cta-secondary:hover {
+  background: rgba(255,255,255,0.12);
+}
+
 /* --- WelcomeTab & Name/Welcome Fields --- */
 .welcome-tab {
   margin-bottom: 40px; /* Increased space below main header block */
@@ -107,6 +163,17 @@
   box-shadow: 0 6px 20px rgba(134, 188, 37, 0.5); /* Enhanced shadow on hover */
 }
 
+.portfolio-btn-featured {
+  background: linear-gradient(135deg,#86bc25,#c4d600);
+  box-shadow: 0 4px 20px rgba(196,214,0,0.35);
+}
+
+.portfolio-btn-compact {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 0.88rem;
+}
+
 
 .academics-section {
   padding: 80px 20px;
@@ -182,6 +249,18 @@
   text-align: center;
 }
 
+.skills-subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: -8px 0 24px;
+}
+
+.skills-action {
+  text-align: center;
+  margin-top: 24px;
+}
+
 /* --- Individual Skill Item --- */
 .skill-item {
   display: flex;
@@ -232,6 +311,13 @@
   font-size: 0.8rem;
   font-weight: bold;
 }
+
+.skill-progress-80 { width: 80%; }
+.skill-progress-82 { width: 82%; }
+.skill-progress-88 { width: 88%; }
+.skill-progress-90 { width: 90%; }
+.skill-progress-92 { width: 92%; }
+.skill-progress-95 { width: 95%; }
 
 /* --- Main Section Container --- */
 .other-interests-section {

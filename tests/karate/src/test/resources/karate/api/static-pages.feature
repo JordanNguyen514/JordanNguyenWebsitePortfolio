@@ -41,4 +41,7 @@ Feature: Static page contracts
       | /assets/css/ci-dashboard.css   | text/css    |
       | /assets/js/main.js             | javascript  |
       | /assets/js/ci-dashboard.js     | javascript  |
+      | /assets/js/skills-radar.js     | javascript  |
+      | /assets/js/testimonials.js     | javascript  |
       | /assets/data/ci-dashboard-local.json | json  |
+      | /assets/data/linkedin-recommendations.json | json  |

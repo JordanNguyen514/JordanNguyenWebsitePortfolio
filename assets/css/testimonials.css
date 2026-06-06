@@ -28,12 +28,24 @@
 
 .testi-main { background: var(--bg); padding: 50px 24px 80px; }
 
+.testi-source {
+  display: flex; justify-content: space-between; align-items: center; gap: 18px;
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 14px; margin-bottom: 22px;
+  color: var(--muted); font-size: 0.85rem;
+  background: rgba(255,255,255,0.02);
+}
+.testi-source a {
+  color: var(--blue); text-decoration: none; font-weight: 600; white-space: nowrap;
+}
+.testi-source a:hover { color: var(--cyan); }
+
 .testi-grid { display: flex; flex-direction: column; gap: 20px; }
 
 /* ── Card ────────────────────────────────────────── */
 .testi-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 32px 34px;
+  border-radius: 8px; padding: 32px 34px;
   position: relative; transition: border-color 0.2s;
 }
 .testi-card:hover { border-color: rgba(134,188,37,0.3); }
@@ -70,6 +82,7 @@
 .tc-author-info { display: flex; flex-direction: column; gap: 3px; flex: 1; }
 .tc-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
 .tc-role { font-size: 0.8rem; color: var(--muted); }
+.tc-meta { font-size: 0.76rem; color: #747474; }
 
 .tc-li-btn {
   width: 32px; height: 32px; border-radius: 6px;
@@ -80,6 +93,8 @@
   transition: opacity 0.2s;
 }
 .tc-li-btn:hover { opacity: 0.8; }
+.testi-loading .tc-quote,
+.testi-error .tc-quote { color: var(--muted); }
 
 /* ── CTA ─────────────────────────────────────────── */
 .testi-cta {
@@ -93,3 +108,12 @@
   transition: all 0.2s;
 }
 .testi-cta-btn:hover { background: rgba(134,188,37,0.08); }
+
+@media (max-width: 640px) {
+  .testi-hero { padding: 56px 18px 34px; }
+  .testi-main { padding: 34px 18px 60px; }
+  .testi-source { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .testi-card { padding: 28px 22px; }
+  .tc-quote { font-size: 0.98rem; line-height: 1.65; }
+  .tc-author { align-items: flex-start; }
+}

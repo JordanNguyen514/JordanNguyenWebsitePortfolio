@@ -8,7 +8,7 @@ const publicPages = [
   {
     name: 'Work Experience',
     path: '/assets/html/work-experience.html',
-    visibleText: ['Work Experience', 'My Work Experiences', 'Internship Experiences'],
+    visibleText: ['Work Experience', 'Professional Work Experience', 'Internship Experiences'],
     selectors: ['#jobs-portfolio', '#internship-portfolio'],
   },
   {
@@ -26,7 +26,7 @@ const publicPages = [
   {
     name: 'SDET Showcase',
     path: '/assets/html/sdet.html',
-    visibleText: ['SDET Showcase', 'Skills Proficiency', 'All Skills', 'Quality Dashboard'],
+    visibleText: ['SDET Showcase', 'Proficiency levels', 'All Skills', 'Quality Dashboard'],
     selectors: ['#radar-svg', '.rtab', '.radar-point'],
   },
   {
