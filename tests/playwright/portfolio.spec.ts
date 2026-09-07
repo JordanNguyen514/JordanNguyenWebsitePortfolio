@@ -5,6 +5,7 @@ import { test, expect, Page } from '@playwright/test';
 
 const PATHS = {
   home: '/',
+  recruiter: '/assets/html/recruiter.html',
   workExperience: '/assets/html/work-experience.html',
   sdet: '/assets/html/sdet.html',
   livePipelineStatus: '/assets/html/live-pipeline-status.html',
@@ -42,6 +43,29 @@ test.describe('Cross-Browser Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText('Work Experience');
     await expect(page.locator('#nationalbank-card')).toBeVisible();
     await expect(page.locator('#nationalbank-card')).toContainText('SDET');
+  });
+
+  test('recruiter page actions resolve to valid destinations', async ({ page, request }) => {
+    await page.goto(PATHS.recruiter);
+    await expect(page.locator('.recruiter-name')).toContainText('Jordan Nguyen');
+
+    const internalLinks = await page.locator('a[href^="/"]').evaluateAll(links =>
+      [...new Set(links.map(link => (link as HTMLAnchorElement).getAttribute('href')))]
+        .filter((href): href is string => Boolean(href))
+    );
+
+    for (const href of internalLinks) {
+      const response = await request.get(href);
+      expect(response.status(), `${href} should resolve`).toBe(200);
+    }
+  });
+
+  test('404 Back to Home action returns to the homepage', async ({ page }) => {
+    await page.goto('/route-that-does-not-exist');
+    await expect(page.locator('h1')).toContainText('Page Not Found');
+    await page.locator('[data-testid="back-home"]').click();
+    expect(new URL(page.url()).pathname).toBe('/');
+    await expect(page.locator('#hero-title')).toBeVisible();
   });
 
   test('SDET Showcase page renders the core sections and dashboard links', async ({ page }) => {

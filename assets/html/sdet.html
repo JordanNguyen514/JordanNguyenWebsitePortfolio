@@ -5,7 +5,7 @@ description: "SDET skills radar and quality dashboard entry point for Jordan Ngu
 css_file: "/assets/css/skills-radar.css"
 ---
 
-<section class="radar-hero">
+<section class="radar-hero sdet-hero">
   <div class="radar-inner">
     <h1 class="radar-title">SDET Showcase</h1>
     <p class="radar-subtitle">A visual skills radar presenting test automation, CI/CD, languages, and QA practices.</p>
@@ -23,7 +23,7 @@ css_file: "/assets/css/skills-radar.css"
         <button class="rtab" data-cat="practices" role="tab" aria-selected="false">QA Practices</button>
       </div>
 
-      <div class="radar-body">
+      <div class="radar-body skills-matrix-grid">
         <div class="radar-chart-wrap">
           <svg id="radar-svg" viewBox="0 0 560 560" aria-label="Skills radar chart" role="img"></svg>
           <div id="radar-tooltip" class="radar-tooltip" aria-live="polite"></div>
@@ -50,7 +50,7 @@ css_file: "/assets/css/skills-radar.css"
 
 <section class="radar-section">
   <div class="radar-inner">
-    <h2 class="radar-section-title">Quality Dashboard</h2>
+    <h2 class="radar-section-title">Skills Matrix</h2>
     <p class="radar-section-description">A single operational page for live CI/CD status plus key QA metrics and delivery throughput.</p>
 
     <div class="dashboard-link-grid">
@@ -66,7 +66,42 @@ css_file: "/assets/css/skills-radar.css"
         <p>See current pipeline and quality metrics in one view for the portfolio delivery flow.</p>
         <span class="dashboard-link-cta">Open dashboard</span>
       </a>
+
+      <a
+        class="dashboard-link-card"
+        href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+        data-testid="sdet-qa-metrics-link"
+        data-event-category="SDET"
+        data-event-action="Click_QA_Metrics"
+      >
+        <span class="dashboard-link-kicker">QA metrics</span>
+        <h3>Quality Metrics</h3>
+        <p>Review release confidence, defect trends, and automation coverage across the test estate.</p>
+        <span class="dashboard-link-cta">Open QA metrics</span>
+      </a>
+
+      <a
+        class="dashboard-link-card"
+        href="{{ '/assets/html/live-pipeline-status.html' | relative_url }}"
+        data-testid="sdet-live-pipeline-link"
+        data-event-category="SDET"
+        data-event-action="Click_Live_Pipeline"
+      >
+        <span class="dashboard-link-kicker">Pipeline</span>
+        <h3>Live CI/CD Status</h3>
+        <p>Follow the pipeline health, execution confidence, and release decisions in one view.</p>
+        <span class="dashboard-link-cta">Open pipeline view</span>
+      </a>
     </div>
+
+    <h2 class="radar-section-title" style="margin-top: 48px;">Test Automation Showcase</h2>
+    <p class="radar-section-description">Execution patterns, CI reliability, and quality automation designed for enterprise delivery.</p>
+
+    <h2 class="radar-section-title" style="margin-top: 48px;">CI/CD Pipeline</h2>
+    <p class="radar-section-description">A multi-stage pipeline that brings automated validation, performance, reporting, and release confidence together.</p>
+
+    <h2 class="radar-section-title" style="margin-top: 48px;">Quality Dashboards</h2>
+    <p class="radar-section-description">Real-time signal coverage across the test estate, pipeline health, and deployment readiness.</p>
   </div>
 </section>
 
